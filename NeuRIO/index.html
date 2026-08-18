@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>NeuRIO | Zhehan Li</title>
+  <meta name="description" content="NeuRIO learns a physics-guided graph estimator that streams the 6-DoF relative poses of every neighbouring robot from bearing, distance and inertial measurements, trained in simulation and deployed zero-shot.">
+  <meta name="keywords" content="multi-robot relative localization, relative inertial odometry, graph neural network, transformer, zero-shot sim-to-real, LoRA, robot swarm">
+  <meta name="author" content="Zhehan Li">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zhehan Li">
+  <meta property="og:title" content="NeuRIO: Physics-Guided Edge-State Graph Learning for Zero-Shot Multi-Robot Relative Inertial Odometry">
+  <meta property="og:description" content="NeuRIO learns a physics-guided graph estimator that streams the 6-DoF relative poses of every neighbouring robot from bearing, distance and inertial measurements, trained in simulation and deployed zero-shot.">
+  <meta property="og:url" content="https://zhehanli66.github.io/NeuRIO/">
+  <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/neurio.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NeuRIO: Physics-Guided Edge-State Graph Learning for Zero-Shot Multi-Robot Relative Inertial Odometry">
+  <meta name="twitter:description" content="NeuRIO learns a physics-guided graph estimator that streams the 6-DoF relative poses of every neighbouring robot from bearing, distance and inertial measurements, trained in simulation and deployed zero-shot.">
+  <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/neurio.png">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
+
+  <link rel="stylesheet" href="/assets/project-page/css/bulma.min.css">
+  <link rel="stylesheet" href="/assets/project-page/css/index.css">
+  <link rel="stylesheet" href="/assets/project-page/css/page.css">
+
+  <script>
+    // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
+    (function () {
+      var d = document.documentElement;
+      d.className = d.className.replace(/\bno-js\b/, "js");
+      var lang = null;
+      try {
+        var m = /[?&]lang=(zh|en)/.exec(window.location.search);
+        lang = m ? m[1] : window.localStorage.getItem("zl-project-lang");
+      } catch (e) {}
+      if (lang === "zh") d.classList.add("lang-mode-zh");
+    })();
+  </script>
+
+  <script defer src="/assets/project-page/js/page.js"></script>
+</head>
+
+<body>
+
+  <nav class="page-topbar">
+    <a class="topbar-link" href="/">&larr; Zhehan Li</a>
+    <div class="topbar-group">
+      <a class="topbar-link" href="/projects/"><span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a>
+      <button class="topbar-link lang-switch" id="lang-switch" type="button" aria-label="Switch to Chinese">中文</button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==================== title ==================== -->
+    <section class="hero publication-header">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+
+              <h1 class="title is-2 publication-title">
+                <span class="lang-en">NeuRIO: Physics-Guided Edge-State Graph Learning for Zero-Shot Multi-Robot Relative Inertial Odometry</span>
+                <span class="lang-zh">NeuRIO：面向多机器人零样本相对惯性里程计的物理引导边状态图学习</span>
+              </h1>
+
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><strong>Zhehan Li</strong></span>
+              </div>
+
+              <div class="is-size-6 publication-authors publication-venue-line">
+                <span class="author-block lang-en">Zhejiang University &middot; Under review at IEEE ICRA</span>
+                <span class="author-block lang-zh">浙江大学 &middot; IEEE ICRA 在投</span>
+              </div>
+
+              <div>
+                <span class="project-role lang-en">First author</span>
+                <span class="project-role lang-zh">第一作者</span>
+              </div>
+
+              <div class="is-size-6 publication-authors">
+                <span class="eql-cntrb lang-en"><small>Full author list will be released with the preprint.</small></span>
+                <span class="eql-cntrb lang-zh"><small>完整作者列表将随预印本一同公开。</small></span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM6.4 4.4 11.6 8l-5.2 3.6V4.4z"/></svg></span>
+                      <span><span class="lang-en">Video</span><span class="lang-zh">视频</span></span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== video ==================== -->
+    <section class="hero teaser" id="video">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+
+          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
+               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+
+          A) a local file  (put the mp4 in /assets/project-page/videos/neurio.mp4)
+          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
+                 poster="/assets/img/projects/neurio.png">
+            <source src="/assets/project-page/videos/neurio.mp4" type="video/mp4">
+          </video>
+
+          B) Bilibili
+          <div class="publication-video">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
+                    frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          C) YouTube
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          -->
+
+          <div class="video-placeholder">
+            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
+            <div class="placeholder-title">
+              <span class="lang-en">Video coming soon</span>
+              <span class="lang-zh">视频即将上线</span>
+            </div>
+            <div class="placeholder-hint">
+              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
+              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+            </div>
+          </div>
+
+          <h2 class="subtitle has-text-centered">
+            <span class="lang-en">Streaming 6-DoF relative poses for every neighbour, learned in simulation and deployed zero-shot.</span>
+            <span class="lang-zh">端到端流式输出全部邻居的 6-DoF 相对位姿，仿真训练、零样本部署。</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== abstract ==================== -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">
+              <span class="lang-en">Abstract</span>
+              <span class="lang-zh">摘要</span>
+            </h2>
+            <div class="content has-text-justified">
+              <p class="lang-en">A robot team can only cooperate if every robot knows where its teammates are. Classical relative state estimators solve that problem with a hand-crafted optimization problem that has to be re-derived and re-tuned whenever the sensor suite changes. NeuRIO learns the estimator instead. Every robot state becomes a token of a graph and every mutual bearing / distance observation becomes an edge; a gravity alignment step removes most of the sensitivity to how the sensors are mounted, the edge information modulates the attention, and token states and edge states are refreshed alternately so that the network streams the 6-DoF relative poses of all neighbours end to end. The model is trained on roughly 2,000 minutes of simulated trajectories and is deployed on real robots zero-shot with frozen weights, with an optional label-free LoRA adaptation that keeps improving it online. On real swarm sequences it reaches 0.12&nbsp;m / 2.5&deg; on average, gains another 5% after adaptation, and keeps up real-time streaming inference at the scale of 200 robots.</p>
+              <p class="lang-zh">多机器人系统只有知道队友在哪里才能真正协同。传统相对状态估计把这一问题建模为手工设计的优化问题，每当传感器配置变化就需要重新推导和调参。NeuRIO 选择直接学习这个估计器：把每个机器人的状态作为图中的 token、把机间的方位/距离观测作为边，先通过重力对齐降低对传感器安装差异的敏感性，再将边信息加入 Attention 进行调制，并交替更新 token 与边状态，端到端流式输出全部邻居的 6-DoF 相对位姿。模型使用约 2,000 分钟仿真轨迹训练，冻结权重即可零样本部署，并支持无标签 LoRA 在线自适应微调。真机集群序列平均达到 0.12 m / 2.5&deg;，微调后平均误差进一步降低 5%，并实现了 200 台机器人规模下的实时流式推理。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== highlights ==================== -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3 has-text-centered">
+              <span class="lang-en">Highlights</span>
+              <span class="lang-zh">技术亮点</span>
+            </h2>
+            <div class="content">
+              <ul class="highlights lang-en">
+                <li><strong>Physics-guided graph representation.</strong> Robot states are tokens, mutual bearing and distance observations are edges, and a gravity alignment step makes the estimator far less sensitive to how the sensors are mounted on each platform.</li>
+                <li><strong>Edge-state attention.</strong> Edge information modulates the attention while token and edge states are updated alternately, which lets the network output the 6-DoF relative poses of every neighbour end to end and in a streaming fashion.</li>
+                <li><strong>Zero-shot sim-to-real.</strong> About 2,000 minutes of simulated trajectories are enough to deploy with frozen weights; a label-free LoRA adaptation refines the model online without any ground truth.</li>
+                <li><strong>Accuracy and scale on real robots.</strong> 0.12&nbsp;m / 2.5&deg; on average over real swarm sequences, a further 5% error reduction after adaptation, and real-time streaming inference with 200 robots.</li>
+              </ul>
+              <ul class="highlights lang-zh">
+                <li><strong>物理引导的图表示。</strong>以每个机器人状态为 token、机间方位/距离观测为边，并通过重力对齐降低估计器对传感器安装差异的敏感性。</li>
+                <li><strong>边状态调制的注意力。</strong>把边信息加入 Attention 进行调制，交替更新 token 与边状态，端到端流式输出全部邻居的 6-DoF 相对位姿。</li>
+                <li><strong>零样本 Sim-to-Real。</strong>约 2,000 分钟仿真轨迹训练后，冻结权重即可直接部署；并支持无需真值的无标签 LoRA 在线自适应微调。</li>
+                <li><strong>真机精度与规模。</strong>真机集群序列平均 0.12 m / 2.5&deg;，微调后误差再降低 5%，可在 200 台机器人规模下实时流式推理。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              <a class="home-link" href="/">Zhehan Li</a> &middot;
+              <a href="/projects/"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a> &middot;
+              <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>
+            </p>
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>,
+              which was adopted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+              It is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top">&uarr;</button>
+
+</body>
+</html>

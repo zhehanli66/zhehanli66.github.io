@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ColAG | Zhehan Li</title>
+  <meta name="description" content="ColAG lets a UAV scout ahead for ground vehicles that carry no environment-perception sensors: the UGVs predict where their own uncertainty may cause a collision and the UAV schedules flights to support them.">
+  <meta name="keywords" content="air-ground collaboration, heterogeneous robots, UAV, UGV, navigation, perception-limited, relative localization">
+  <meta name="author" content="Zhehan Li">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zhehan Li">
+  <meta property="og:title" content="ColAG: A Collaborative Air-Ground Framework for Perception-Limited UGVs' Navigation">
+  <meta property="og:description" content="ColAG lets a UAV scout ahead for ground vehicles that carry no environment-perception sensors: the UGVs predict where their own uncertainty may cause a collision and the UAV schedules flights to support them.">
+  <meta property="og:url" content="https://zhehanli66.github.io/ColAG/">
+  <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/colag.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColAG: A Collaborative Air-Ground Framework for Perception-Limited UGVs' Navigation">
+  <meta name="twitter:description" content="ColAG lets a UAV scout ahead for ground vehicles that carry no environment-perception sensors: the UGVs predict where their own uncertainty may cause a collision and the UAV schedules flights to support them.">
+  <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/colag.png">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
+
+  <link rel="stylesheet" href="/assets/project-page/css/bulma.min.css">
+  <link rel="stylesheet" href="/assets/project-page/css/index.css">
+  <link rel="stylesheet" href="/assets/project-page/css/page.css">
+
+  <script>
+    // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
+    (function () {
+      var d = document.documentElement;
+      d.className = d.className.replace(/\bno-js\b/, "js");
+      var lang = null;
+      try {
+        var m = /[?&]lang=(zh|en)/.exec(window.location.search);
+        lang = m ? m[1] : window.localStorage.getItem("zl-project-lang");
+      } catch (e) {}
+      if (lang === "zh") d.classList.add("lang-mode-zh");
+    })();
+  </script>
+
+  <script defer src="/assets/project-page/js/page.js"></script>
+</head>
+
+<body>
+
+  <nav class="page-topbar">
+    <a class="topbar-link" href="/">&larr; Zhehan Li</a>
+    <div class="topbar-group">
+      <a class="topbar-link" href="/projects/"><span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a>
+      <button class="topbar-link lang-switch" id="lang-switch" type="button" aria-label="Switch to Chinese">中文</button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==================== title ==================== -->
+    <section class="hero publication-header">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+
+              <h1 class="title is-2 publication-title">
+                <span class="lang-en">ColAG: A Collaborative Air-Ground Framework for Perception-Limited UGVs' Navigation</span>
+                <span class="lang-zh">ColAG：面向感知受限无人车的空地协同导航框架</span>
+              </h1>
+
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><strong>Zhehan Li</strong><sup>*</sup>,</span>
+                <span class="author-block">Rui Mao<sup>*</sup>,</span>
+                <span class="author-block">Nanhe Chen,</span>
+                <span class="author-block">Chao Xu,</span>
+                <span class="author-block">Fei Gao,</span>
+                <span class="author-block">Yanjun Cao</span>
+              </div>
+
+              <div class="is-size-6 publication-authors publication-venue-line">
+                <span class="author-block lang-en">Zhejiang University &middot; IEEE ICRA 2024 (Oral Presentation)</span>
+                <span class="author-block lang-zh">浙江大学 &middot; IEEE ICRA 2024（口头报告）</span>
+              </div>
+
+              <div>
+                <span class="project-role lang-en">First author</span>
+                <span class="project-role lang-zh">第一作者</span>
+              </div>
+
+              <div class="is-size-6 publication-authors">
+                <span class="eql-cntrb lang-en"><small><sup>*</sup>Indicates equal contribution.</small></span>
+                <span class="eql-cntrb lang-zh"><small><sup>*</sup>表示共同第一作者。</small></span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2310.13324" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1h5.5L14 5.5V15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm5 1.2V5.5h3.3L9 2.2zM5 8h6v1.1H5V8zm0 2.6h6v1.1H5v-1.1z"/></svg></span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="https://github.com/FAST-FIRE/ColAG" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM6.4 4.4 11.6 8l-5.2 3.6V4.4z"/></svg></span>
+                      <span><span class="lang-en">Video</span><span class="lang-zh">视频</span></span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== video ==================== -->
+    <section class="hero teaser" id="video">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+
+          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
+               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+
+          A) a local file  (put the mp4 in /assets/project-page/videos/colag.mp4)
+          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
+                 poster="/assets/img/projects/colag.png">
+            <source src="/assets/project-page/videos/colag.mp4" type="video/mp4">
+          </video>
+
+          B) Bilibili
+          <div class="publication-video">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
+                    frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          C) YouTube
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          -->
+
+          <div class="video-placeholder">
+            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
+            <div class="placeholder-title">
+              <span class="lang-en">Video coming soon</span>
+              <span class="lang-zh">视频即将上线</span>
+            </div>
+            <div class="placeholder-hint">
+              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
+              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+            </div>
+          </div>
+
+          <h2 class="subtitle has-text-centered">
+            <span class="lang-en">One UAV, three ground vehicles without any environment-perception sensors, zero collisions.</span>
+            <span class="lang-zh">1 架无人机、3 台没有环境感知传感器的无人车，零碰撞到达目标。</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== abstract ==================== -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">
+              <span class="lang-en">Abstract</span>
+              <span class="lang-zh">摘要</span>
+            </h2>
+            <div class="content has-text-justified">
+              <p class="lang-en">Ground vehicles are cheap, but the sensors that let them see obstacles are not. ColAG asks what happens if the ground vehicles carry no environment-perception sensors at all and borrow the eyes of a UAV instead. Each UGV predicts the potential collisions implied by its own state uncertainty, and the UAV automatically schedules and plans flights to cover the UGVs that need support most. In real-world experiments a single UAV guided three UGVs without any environment-perception sensors to their goals with zero collisions. The same line of work also produced a cost-effective swarm navigation system that raises the success rate in concave-obstacle scenes from 30% to 90% with FOV-limited cameras, the CREPES relative localization system (0.10&nbsp;m / 0.73&deg; median error between two robots), CoNi-MPC cooperative control in the non-inertial relative frame, and a PPO-based end-to-end policy that tracks a reference robot from relative observations alone, without any communication.</p>
+              <p class="lang-zh">无人车本身很便宜，但让它“看见”障碍物的传感器并不便宜。ColAG 的问题是：如果无人车完全不搭载环境感知传感器，转而借用无人机的眼睛，会发生什么。每台无人车预测自身状态不确定性可能导致的潜在碰撞，无人机则自动调度与规划航线，去支援最需要帮助的无人车。真机实验中，1 架无人机引导 3 台未搭载环境感知传感器的无人车零碰撞到达目标。同一研究线还包括：低成本集群导航系统，在使用 FOV 受限相机的条件下把凹形障碍场景的导航成功率从 30% 提升到 90%；CREPES 相对定位系统，双机定位中位误差 0.10 m / 0.73&deg;；CoNi-MPC 在非惯性相对坐标系下的协同控制；以及基于 PPO 的端到端策略，仅凭相对观测预测参考机 IMU 状态，无需通信即可自主跟踪。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== highlights ==================== -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3 has-text-centered">
+              <span class="lang-en">Highlights</span>
+              <span class="lang-zh">技术亮点</span>
+            </h2>
+            <div class="content">
+              <ul class="highlights lang-en">
+                <li><strong>Uncertainty-driven cooperation.</strong> The UGVs predict the collisions their own state uncertainty may cause, and the UAV is scheduled and planned automatically to support them.</li>
+                <li><strong>Zero-collision hardware demonstration.</strong> One UAV guided three UGVs carrying no environment-perception sensors to their goals without a single collision.</li>
+                <li><strong>Cost-effective swarm navigation.</strong> A companion system raises the navigation success rate in concave-obstacle scenes from 30% to 90% while using FOV-limited cameras.</li>
+                <li><strong>The supporting stack.</strong> CREPES relative localization (0.10&nbsp;m / 0.73&deg; median error between two robots), CoNi-MPC cooperative control in the non-inertial relative frame, and a PPO policy that tracks a reference robot from relative observations only.</li>
+              </ul>
+              <ul class="highlights lang-zh">
+                <li><strong>不确定性驱动的协同。</strong>无人车预测自身不确定性导致的潜在碰撞，无人机自动调度与规划以支援无人车。</li>
+                <li><strong>真机零碰撞演示。</strong>1 架无人机引导 3 台未搭载环境感知传感器的无人车零碰撞到达目标。</li>
+                <li><strong>低成本集群导航。</strong>配套系统在使用 FOV 受限相机的同时，把凹形障碍场景导航成功率由 30% 提升至 90%。</li>
+                <li><strong>支撑技术栈。</strong>CREPES 相对定位（双机中位误差 0.10 m / 0.73&deg;）、CoNi-MPC 非惯性相对坐标系协同控制，以及仅凭相对观测跟踪参考机的 PPO 端到端策略。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== bibtex ==================== -->
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <div class="bibtex-header">
+          <h2 class="title">BibTeX</h2>
+          <button class="copy-bibtex-btn" type="button" title="Copy BibTeX to clipboard">
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <pre id="bibtex-code"><code>@inproceedings{li2024colag,
+  title        = {ColAG: A Collaborative Air-Ground Framework for Perception-Limited UGVs&#x27; Navigation},
+  author       = {Li, Zhehan and Mao, Rui and Chen, Nanhe and Xu, Chao and Gao, Fei and Cao, Yanjun},
+  booktitle    = {2024 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages        = {16781--16787},
+  year         = {2024},
+  organization = {IEEE}
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              <a class="home-link" href="/">Zhehan Li</a> &middot;
+              <a href="/projects/"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a> &middot;
+              <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>
+            </p>
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>,
+              which was adopted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+              It is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top">&uarr;</button>
+
+</body>
+</html>

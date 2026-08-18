@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>IROS 2025 EXPO | Zhehan Li</title>
+  <meta name="description" content="A live IROS 2025 EXPO demonstration in which a UAV follows and manoeuvres with a tracked ground vehicle using only inter-robot relative observations, with no GPS and no global map.">
+  <meta name="keywords" content="IROS 2025, EXPO, live demo, air-ground collaboration, relative localization, CREPES, CoNi-MPC, GPS-denied">
+  <meta name="author" content="Zhehan Li">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zhehan Li">
+  <meta property="og:title" content="Air-Ground Collaboration without Global Information">
+  <meta property="og:description" content="A live IROS 2025 EXPO demonstration in which a UAV follows and manoeuvres with a tracked ground vehicle using only inter-robot relative observations, with no GPS and no global map.">
+  <meta property="og:url" content="https://zhehanli66.github.io/IROS-2025-EXPO/">
+  <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/iros-2025-expo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Air-Ground Collaboration without Global Information">
+  <meta name="twitter:description" content="A live IROS 2025 EXPO demonstration in which a UAV follows and manoeuvres with a tracked ground vehicle using only inter-robot relative observations, with no GPS and no global map.">
+  <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/iros-2025-expo.png">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
+
+  <link rel="stylesheet" href="/assets/project-page/css/bulma.min.css">
+  <link rel="stylesheet" href="/assets/project-page/css/index.css">
+  <link rel="stylesheet" href="/assets/project-page/css/page.css">
+
+  <script>
+    // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
+    (function () {
+      var d = document.documentElement;
+      d.className = d.className.replace(/\bno-js\b/, "js");
+      var lang = null;
+      try {
+        var m = /[?&]lang=(zh|en)/.exec(window.location.search);
+        lang = m ? m[1] : window.localStorage.getItem("zl-project-lang");
+      } catch (e) {}
+      if (lang === "zh") d.classList.add("lang-mode-zh");
+    })();
+  </script>
+
+  <script defer src="/assets/project-page/js/page.js"></script>
+</head>
+
+<body>
+
+  <nav class="page-topbar">
+    <a class="topbar-link" href="/">&larr; Zhehan Li</a>
+    <div class="topbar-group">
+      <a class="topbar-link" href="/projects/"><span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a>
+      <button class="topbar-link lang-switch" id="lang-switch" type="button" aria-label="Switch to Chinese">中文</button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==================== title ==================== -->
+    <section class="hero publication-header">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+
+              <h1 class="title is-2 publication-title">
+                <span class="lang-en">Air-Ground Collaboration without Global Information</span>
+                <span class="lang-zh">无全局信息下的空地协同</span>
+              </h1>
+              <h2 class="subtitle is-5 publication-subtitle has-text-centered">
+                <span class="lang-en">IROS 2025 EXPO live demonstration</span>
+                <span class="lang-zh">IROS 2025 EXPO 现场演示</span>
+              </h2>
+
+
+
+              <div class="is-size-6 publication-authors publication-venue-line">
+                <span class="author-block lang-en">FAST Lab (Fire Group), Zhejiang University &middot; September &ndash; October 2025</span>
+                <span class="author-block lang-zh">浙江大学 FAST 实验室（Fire Group）&middot; 2025 年 9 月 &ndash; 10 月</span>
+              </div>
+
+              <div>
+                <span class="project-role lang-en">Project lead</span>
+                <span class="project-role lang-zh">项目负责人</span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM6.4 4.4 11.6 8l-5.2 3.6V4.4z"/></svg></span>
+                      <span><span class="lang-en">Video</span><span class="lang-zh">视频</span></span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== video ==================== -->
+    <section class="hero teaser" id="video">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+
+          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
+               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+
+          A) a local file  (put the mp4 in /assets/project-page/videos/iros-2025-expo.mp4)
+          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
+                 poster="/assets/img/projects/iros-2025-expo.png">
+            <source src="/assets/project-page/videos/iros-2025-expo.mp4" type="video/mp4">
+          </video>
+
+          B) Bilibili
+          <div class="publication-video">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
+                    frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          C) YouTube
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          -->
+
+          <div class="video-placeholder">
+            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
+            <div class="placeholder-title">
+              <span class="lang-en">Video coming soon</span>
+              <span class="lang-zh">视频即将上线</span>
+            </div>
+            <div class="placeholder-hint">
+              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
+              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+            </div>
+          </div>
+
+          <h2 class="subtitle has-text-centered">
+            <span class="lang-en">No GPS and no global map &mdash; the audience drove the ground vehicle, the UAV followed on its own.</span>
+            <span class="lang-zh">无 GPS、无全局地图——观众遥控地面车，无人机全程自主跟随。</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== abstract ==================== -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">
+              <span class="lang-en">Abstract</span>
+              <span class="lang-zh">摘要</span>
+            </h2>
+            <div class="content has-text-justified">
+              <p class="lang-en">This demonstration takes the lab's relative localization stack out of the lab. I was responsible for integrating the heterogeneous air-ground platform, for the real-robot bring-up and for the on-site deployment. Built on our own CREPES relative localization hardware and the CoNi-MPC control algorithm, the UAV tracks and manoeuvres with a tracked ground vehicle without GPS and without any global map, using only the relative observations between the two robots. At the IROS 2025 EXPO the system ran as a public live demo: visitors teleoperated the ground vehicle themselves while the UAV followed it fully autonomously.</p>
+              <p class="lang-zh">这次演示把实验室的相对定位技术栈带出了实验室。我负责异构空地平台集成、真机联调与现场部署。系统基于自研 CREPES 相对定位硬件与 CoNi-MPC 控制算法，在无 GPS、无全局地图的条件下，仅依靠两台机器人之间的相对观测，实现无人机对履带车的自主跟踪与协同机动。在 IROS 2025 EXPO 上，该系统作为公开现场演示运行：观众实时遥控地面车，无人机全程自主跟随。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== highlights ==================== -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3 has-text-centered">
+              <span class="lang-en">Highlights</span>
+              <span class="lang-zh">技术亮点</span>
+            </h2>
+            <div class="content">
+              <ul class="highlights lang-en">
+                <li><strong>No GPS, no global map.</strong> The UAV relies purely on inter-robot relative observations from the in-house CREPES hardware.</li>
+                <li><strong>Heterogeneous platform integration.</strong> Responsible for putting the air and ground platforms together, for real-robot bring-up and for the on-site deployment.</li>
+                <li><strong>Public live demonstration.</strong> At the IROS 2025 EXPO the audience teleoperated the ground vehicle while the UAV followed autonomously throughout.</li>
+              </ul>
+              <ul class="highlights lang-zh">
+                <li><strong>无 GPS、无全局地图。</strong>无人机完全依靠自研 CREPES 硬件提供的机间相对观测工作。</li>
+                <li><strong>异构平台集成。</strong>负责空地平台集成、真机联调与现场部署。</li>
+                <li><strong>公开现场演示。</strong>IROS 2025 EXPO 现场由观众实时遥控地面车，无人机全程自主跟随。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              <a class="home-link" href="/">Zhehan Li</a> &middot;
+              <a href="/projects/"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a> &middot;
+              <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>
+            </p>
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>,
+              which was adopted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+              It is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top">&uarr;</button>
+
+</body>
+</html>

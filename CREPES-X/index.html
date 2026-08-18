@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>CREPES-X | Zhehan Li</title>
+  <meta name="description" content="CREPES-X is a compact infrared-fisheye / UWB / IMU system for direct cooperative relative pose estimation in GPS-denied, non-line-of-sight and high-speed scenarios, robust to a 90% outlier ratio.">
+  <meta name="keywords" content="relative pose estimation, multi-robot systems, UWB, infrared fisheye camera, IMU pre-integration, outlier rejection, GPS-denied">
+  <meta name="author" content="Zhehan Li">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zhehan Li">
+  <meta property="og:title" content="CREPES-X: Hierarchical Bearing-Distance-Inertial Direct Cooperative Relative Pose Estimation System">
+  <meta property="og:description" content="CREPES-X is a compact infrared-fisheye / UWB / IMU system for direct cooperative relative pose estimation in GPS-denied, non-line-of-sight and high-speed scenarios, robust to a 90% outlier ratio.">
+  <meta property="og:url" content="https://zhehanli66.github.io/CREPES-X/">
+  <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/crepes-x.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CREPES-X: Hierarchical Bearing-Distance-Inertial Direct Cooperative Relative Pose Estimation System">
+  <meta name="twitter:description" content="CREPES-X is a compact infrared-fisheye / UWB / IMU system for direct cooperative relative pose estimation in GPS-denied, non-line-of-sight and high-speed scenarios, robust to a 90% outlier ratio.">
+  <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/crepes-x.png">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
+
+  <link rel="stylesheet" href="/assets/project-page/css/bulma.min.css">
+  <link rel="stylesheet" href="/assets/project-page/css/index.css">
+  <link rel="stylesheet" href="/assets/project-page/css/page.css">
+
+  <script>
+    // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
+    (function () {
+      var d = document.documentElement;
+      d.className = d.className.replace(/\bno-js\b/, "js");
+      var lang = null;
+      try {
+        var m = /[?&]lang=(zh|en)/.exec(window.location.search);
+        lang = m ? m[1] : window.localStorage.getItem("zl-project-lang");
+      } catch (e) {}
+      if (lang === "zh") d.classList.add("lang-mode-zh");
+    })();
+  </script>
+
+  <script defer src="/assets/project-page/js/page.js"></script>
+</head>
+
+<body>
+
+  <nav class="page-topbar">
+    <a class="topbar-link" href="/">&larr; Zhehan Li</a>
+    <div class="topbar-group">
+      <a class="topbar-link" href="/projects/"><span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a>
+      <button class="topbar-link lang-switch" id="lang-switch" type="button" aria-label="Switch to Chinese">中文</button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==================== title ==================== -->
+    <section class="hero publication-header">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+
+              <h1 class="title is-2 publication-title">
+                <span class="lang-en">CREPES-X: Hierarchical Bearing-Distance-Inertial Direct Cooperative Relative Pose Estimation System</span>
+                <span class="lang-zh">CREPES-X：多层次直接式的协作多机器人相对位姿估计系统</span>
+              </h1>
+
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><strong>Zhehan Li</strong>,</span>
+                <span class="author-block">Zheng Wang,</span>
+                <span class="author-block">Jiadong Lu,</span>
+                <span class="author-block">Qi Liu,</span>
+                <span class="author-block">Zhiren Xun,</span>
+                <span class="author-block">Yue Wang,</span>
+                <span class="author-block">Fei Gao,</span>
+                <span class="author-block">Chao Xu,</span>
+                <span class="author-block">Yanjun Cao</span>
+              </div>
+
+              <div class="is-size-6 publication-authors publication-venue-line">
+                <span class="author-block lang-en">Zhejiang University &middot; Under review at IEEE Transactions on Robotics</span>
+                <span class="author-block lang-zh">浙江大学 &middot; IEEE Transactions on Robotics 在投（二审）</span>
+              </div>
+
+              <div>
+                <span class="project-role lang-en">First author</span>
+                <span class="project-role lang-zh">第一作者</span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2512.24688" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1h5.5L14 5.5V15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm5 1.2V5.5h3.3L9 2.2zM5 8h6v1.1H5V8zm0 2.6h6v1.1H5v-1.1z"/></svg></span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM6.4 4.4 11.6 8l-5.2 3.6V4.4z"/></svg></span>
+                      <span><span class="lang-en">Video</span><span class="lang-zh">视频</span></span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== video ==================== -->
+    <section class="hero teaser" id="video">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+
+          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
+               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+
+          A) a local file  (put the mp4 in /assets/project-page/videos/crepes-x.mp4)
+          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
+                 poster="/assets/img/projects/crepes-x.png">
+            <source src="/assets/project-page/videos/crepes-x.mp4" type="video/mp4">
+          </video>
+
+          B) Bilibili
+          <div class="publication-video">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
+                    frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          C) YouTube
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          -->
+
+          <div class="video-placeholder">
+            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
+            <div class="placeholder-title">
+              <span class="lang-en">Video coming soon</span>
+              <span class="lang-zh">视频即将上线</span>
+            </div>
+            <div class="placeholder-hint">
+              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
+              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+            </div>
+          </div>
+
+          <h2 class="subtitle has-text-centered">
+            <span class="lang-en">An integrated infrared-fisheye / UWB / IMU module and a direct estimator that survives a 90% outlier ratio.</span>
+            <span class="lang-zh">一体化红外鱼眼 / UWB / IMU 模块，配合可在 90% 外点率下工作的直接式估计器。</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== abstract ==================== -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">
+              <span class="lang-en">Abstract</span>
+              <span class="lang-zh">摘要</span>
+            </h2>
+            <div class="content has-text-justified">
+              <p class="lang-en">CREPES-X targets cooperative localization where it is hardest: GPS-denied environments, non-line-of-sight conditions and fast relative motion. The system couples custom hardware with a hierarchical estimator. On the hardware side, an infrared fisheye camera, UWB and an IMU are integrated into a single module, together with the infrared LED detection, tracking and coding / decoding algorithms that turn the camera into an identity-aware bearing sensor; the module is 77% smaller and 50% lighter than its predecessor. On the estimation side, a single-frame closed-form initialization is refined by a multi-frame optimization that tightly couples the IMU pre-integration of all robots, and neither a global pose nor a shared map is required. An efficient bearing outlier rejection based on angular consistency keeps 96.8% precision even when 90% of the observations are outliers. Real-world experiments reach 0.073&nbsp;m / 1.8&deg; RMSE and run in real time with 20 robots.</p>
+              <p class="lang-zh">CREPES-X 面向协同定位中最困难的场景：GPS 拒止、非视距以及高速相对运动。系统由自研硬件与多层次估计器共同构成。硬件方面，将红外鱼眼相机、UWB 与 IMU 集成为一体化模块，并配套红外 LED 的识别、跟踪与编解码算法，使相机成为带身份信息的方位传感器；相较前代硬件体积缩小 77%、重量降低 50%。估计方面，先用单帧闭式初始化给出初值，再由多帧优化紧耦合融合多机 IMU 预积分，全过程不依赖全局位姿或共享地图。同时提出基于角度一致性的高效方位外点剔除算法，在 90% 外点率下仍保持 96.8% 的精确率。真机实验达到 0.073 m / 1.8&deg; RMSE，并支持 20 台机器人实时运行。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== highlights ==================== -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3 has-text-centered">
+              <span class="lang-en">Highlights</span>
+              <span class="lang-zh">技术亮点</span>
+            </h2>
+            <div class="content">
+              <ul class="highlights lang-en">
+                <li><strong>An integrated relative localization module.</strong> Infrared fisheye camera, UWB and IMU in one device, with the LED detection / tracking and coding / decoding stack that makes bearings identity-aware &mdash; 77% smaller and 50% lighter than the previous generation.</li>
+                <li><strong>Direct estimation, no global frame.</strong> A single-frame closed-form initialization followed by a multi-frame optimization that tightly fuses the IMU pre-integration of every robot, without relying on global poses or a shared map.</li>
+                <li><strong>Robust to extreme outlier ratios.</strong> An efficient angular-consistency test rejects bearing outliers and holds 96.8% precision at a 90% outlier ratio.</li>
+                <li><strong>Validated on hardware.</strong> 0.073&nbsp;m / 1.8&deg; RMSE in real-world experiments, running in real time with 20 robots.</li>
+              </ul>
+              <ul class="highlights lang-zh">
+                <li><strong>一体化相对定位硬件。</strong>红外鱼眼相机 / UWB / IMU 一体化设计，配套红外 LED 识别跟踪与编解码算法使方位观测自带身份信息，较前代体积缩小 77%、重量降低 50%。</li>
+                <li><strong>直接式估计，无需全局坐标系。</strong>单帧闭式初始化配合多帧优化，紧耦合融合多机 IMU 预积分，不依赖全局位姿或共享地图。</li>
+                <li><strong>极端外点率下依然稳健。</strong>基于角度一致性的高效方位外点剔除算法，在 90% 外点率下保持 96.8% 精确率。</li>
+                <li><strong>真机验证。</strong>真机实验 0.073 m / 1.8&deg; RMSE，支持 20 台机器人实时运行。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== bibtex ==================== -->
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <div class="bibtex-header">
+          <h2 class="title">BibTeX</h2>
+          <button class="copy-bibtex-btn" type="button" title="Copy BibTeX to clipboard">
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <pre id="bibtex-code"><code>@article{li2025crepesx,
+  title   = {CREPES-X: Hierarchical Bearing-Distance-Inertial Direct Cooperative Relative Pose Estimation System},
+  author  = {Li, Zhehan and Wang, Zheng and Lu, Jiadong and Liu, Qi and Xun, Zhiren and Wang, Yue and Gao, Fei and Xu, Chao and Cao, Yanjun},
+  journal = {arXiv preprint arXiv:2512.24688},
+  year    = {2025}
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              <a class="home-link" href="/">Zhehan Li</a> &middot;
+              <a href="/projects/"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a> &middot;
+              <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>
+            </p>
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>,
+              which was adopted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+              It is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top">&uarr;</button>
+
+</body>
+</html>
