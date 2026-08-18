@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>CT-RIO | Zhehan Li</title>
+  <meta name="description" content="A continuous-time factor graph on augmented clamped non-uniform B-splines that fuses asynchronous bearing, distance and inertial measurements at their raw timestamps, solved by a parallel asynchronous block coordinate descent.">
+  <meta name="keywords" content="continuous-time estimation, B-spline, relative localization, multi-robot, asynchronous measurements, clock offset, parallel optimization">
+  <meta name="author" content="Zhehan Li">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zhehan Li">
+  <meta property="og:title" content="Parallel Continuous-Time Relative Localization with Augmented Clamped Non-Uniform B-Splines">
+  <meta property="og:description" content="A continuous-time factor graph on augmented clamped non-uniform B-splines that fuses asynchronous bearing, distance and inertial measurements at their raw timestamps, solved by a parallel asynchronous block coordinate descent.">
+  <meta property="og:url" content="https://zhehanli66.github.io/CT-RIO/">
+  <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/ct-rio.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Parallel Continuous-Time Relative Localization with Augmented Clamped Non-Uniform B-Splines">
+  <meta name="twitter:description" content="A continuous-time factor graph on augmented clamped non-uniform B-splines that fuses asynchronous bearing, distance and inertial measurements at their raw timestamps, solved by a parallel asynchronous block coordinate descent.">
+  <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/ct-rio.png">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
+
+  <link rel="stylesheet" href="/assets/project-page/css/bulma.min.css">
+  <link rel="stylesheet" href="/assets/project-page/css/index.css">
+  <link rel="stylesheet" href="/assets/project-page/css/page.css">
+
+  <script>
+    // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
+    (function () {
+      var d = document.documentElement;
+      d.className = d.className.replace(/\bno-js\b/, "js");
+      var lang = null;
+      try {
+        var m = /[?&]lang=(zh|en)/.exec(window.location.search);
+        lang = m ? m[1] : window.localStorage.getItem("zl-project-lang");
+      } catch (e) {}
+      if (lang === "zh") d.classList.add("lang-mode-zh");
+    })();
+  </script>
+
+  <script defer src="/assets/project-page/js/page.js"></script>
+</head>
+
+<body>
+
+  <nav class="page-topbar">
+    <a class="topbar-link" href="/">&larr; Zhehan Li</a>
+    <div class="topbar-group">
+      <a class="topbar-link" href="/projects/"><span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a>
+      <button class="topbar-link lang-switch" id="lang-switch" type="button" aria-label="Switch to Chinese">中文</button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==================== title ==================== -->
+    <section class="hero publication-header">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+
+              <h1 class="title is-2 publication-title">
+                <span class="lang-en">Parallel Continuous-Time Relative Localization with Augmented Clamped Non-Uniform B-Splines</span>
+                <span class="lang-zh">基于增广钳制非均匀 B 样条的并行连续时间相对定位</span>
+              </h1>
+
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">Jiadong Lu<sup>*</sup>,</span>
+                <span class="author-block"><strong>Zhehan Li</strong><sup>*</sup>,</span>
+                <span class="author-block">Tao Han,</span>
+                <span class="author-block">Miao Xu,</span>
+                <span class="author-block">Chao Xu,</span>
+                <span class="author-block">Yanjun Cao</span>
+              </div>
+
+              <div class="is-size-6 publication-authors publication-venue-line">
+                <span class="author-block lang-en">Zhejiang University &middot; Under review at IEEE Transactions on Robotics</span>
+                <span class="author-block lang-zh">浙江大学 &middot; IEEE Transactions on Robotics 在投（二审）</span>
+              </div>
+
+              <div>
+                <span class="project-role lang-en">Co-first author</span>
+                <span class="project-role lang-zh">共同第一作者</span>
+              </div>
+
+              <div class="is-size-6 publication-authors">
+                <span class="eql-cntrb lang-en"><small><sup>*</sup>Indicates equal contribution.</small></span>
+                <span class="eql-cntrb lang-zh"><small><sup>*</sup>表示共同第一作者。</small></span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2602.22006" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1h5.5L14 5.5V15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm5 1.2V5.5h3.3L9 2.2zM5 8h6v1.1H5V8zm0 2.6h6v1.1H5v-1.1z"/></svg></span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM6.4 4.4 11.6 8l-5.2 3.6V4.4z"/></svg></span>
+                      <span><span class="lang-en">Video</span><span class="lang-zh">视频</span></span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== video ==================== -->
+    <section class="hero teaser" id="video">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+
+          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
+               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+
+          A) a local file  (put the mp4 in /assets/project-page/videos/ct-rio.mp4)
+          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
+                 poster="/assets/img/projects/ct-rio.png">
+            <source src="/assets/project-page/videos/ct-rio.mp4" type="video/mp4">
+          </video>
+
+          B) Bilibili
+          <div class="publication-video">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
+                    frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          C) YouTube
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          -->
+
+          <div class="video-placeholder">
+            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
+            <div class="placeholder-title">
+              <span class="lang-en">Video coming soon</span>
+              <span class="lang-zh">视频即将上线</span>
+            </div>
+            <div class="placeholder-hint">
+              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
+              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+            </div>
+          </div>
+
+          <h2 class="subtitle has-text-centered">
+            <span class="lang-en">Asynchronous bearing, distance and inertial measurements, fused at their raw timestamps on a continuous-time spline.</span>
+            <span class="lang-zh">在连续时间样条上，按原始时间戳融合异步的方位、距离与惯性测量。</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== abstract ==================== -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">
+              <span class="lang-en">Abstract</span>
+              <span class="lang-zh">摘要</span>
+            </h2>
+            <div class="content has-text-justified">
+              <p class="lang-en">Relative localization data arrives asynchronously and at very different rates: bearing, distance and inertial measurements never share a common clock, and forcing them onto discretized states throws away accuracy and adds latency. This work builds a continuous-time factor graph on clamped non-uniform B-splines, so every measurement is fused at its own raw timestamp, the knot distribution adapts to how aggressive the motion is, and the inter-robot clock offset is estimated online &mdash; an initial offset of hundreds of milliseconds converges to the sub-millisecond level within 3&nbsp;s. Closed-form extension and deletion rules for clamped B-splines let the trajectory grow and shrink without deforming the curve, and an incremental asynchronous block coordinate descent, for which convergence is proven, solves the problem in parallel and fast enough to sit inside a UAV control loop. Real-world experiments reach 0.046&nbsp;m / 1.8&deg; RMSE, up to 60% better than discrete-time optimization on high-speed sequences.</p>
+              <p class="lang-zh">相对定位的观测天然是异步、异频的：方位、距离与惯性测量并不共享同一时钟，强行离散化会牺牲精度并引入延迟。本工作基于钳制非均匀 B 样条构建连续时间因子图，使各类测量都能按原始时间戳融合，节点分布自适应运动剧烈程度，并在线估计机间时钟偏移——数百毫秒的初始时偏可在 3 s 内收敛至亚毫秒级。同时提出钳制 B 样条的闭式扩展与删除算法，使控制点增删不改变已有曲线形状；并提出可证明收敛的增量异步块坐标下降并行求解策略，实时性足以直接用于无人机控制回路。真机实验达到 0.046 m / 1.8&deg; RMSE，在高速序列上较离散时间优化最高降低 60% 误差。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== highlights ==================== -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3 has-text-centered">
+              <span class="lang-en">Highlights</span>
+              <span class="lang-zh">技术亮点</span>
+            </h2>
+            <div class="content">
+              <ul class="highlights lang-en">
+                <li><strong>Continuous-time factor graph.</strong> Clamped non-uniform B-splines fuse asynchronous, multi-rate bearing / distance / IMU measurements at their raw timestamps, adapt to the aggressiveness of the motion and remove the latency inherent to discrete-time formulations.</li>
+                <li><strong>Online clock alignment.</strong> The inter-robot clock offset is estimated jointly; an initial offset of hundreds of milliseconds converges to sub-millisecond accuracy within 3 seconds.</li>
+                <li><strong>Shape-preserving spline surgery.</strong> Closed-form extension and deletion of clamped B-splines lets control points be added or removed without deforming the curve, which improves both efficiency and consistency.</li>
+                <li><strong>Parallel solver with a convergence proof.</strong> An incremental asynchronous block coordinate descent scheme keeps the estimator real-time enough to be used directly for UAV control.</li>
+                <li><strong>Real-robot accuracy.</strong> 0.046&nbsp;m / 1.8&deg; RMSE, and up to 60% lower error than discrete-time optimization on high-speed sequences.</li>
+              </ul>
+              <ul class="highlights lang-zh">
+                <li><strong>连续时间因子图。</strong>基于钳制非均匀 B 样条，使异步、异频的方位/距离/IMU 测量按原始时间戳融合，自适应运动剧烈程度并消除离散时间建模固有的延迟。</li>
+                <li><strong>在线时钟对齐。</strong>联合在线估计机间时钟偏移，数百毫秒初始时偏可在 3 s 内收敛至亚毫秒级。</li>
+                <li><strong>保形的样条增删。</strong>提出钳制 B 样条的闭式扩展与删除算法，控制点增删不改变曲线形状，同时提升优化效率与一致性。</li>
+                <li><strong>可证明收敛的并行求解。</strong>增量异步块坐标下降策略提升实时性，可直接用于无人机控制等场景。</li>
+                <li><strong>真机精度。</strong>真机实验 0.046 m / 1.8&deg; RMSE，高速序列较离散时间优化最高降低 60%。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== bibtex ==================== -->
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <div class="bibtex-header">
+          <h2 class="title">BibTeX</h2>
+          <button class="copy-bibtex-btn" type="button" title="Copy BibTeX to clipboard">
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <pre id="bibtex-code"><code>@article{lu2026parallel,
+  title   = {Parallel Continuous-Time Relative Localization with Augmented Clamped Non-Uniform B-Splines},
+  author  = {Lu, Jiadong and Li, Zhehan and Han, Tao and Xu, Miao and Xu, Chao and Cao, Yanjun},
+  journal = {arXiv preprint arXiv:2602.22006},
+  year    = {2026}
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              <a class="home-link" href="/">Zhehan Li</a> &middot;
+              <a href="/projects/"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a> &middot;
+              <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>
+            </p>
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>,
+              which was adopted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+              It is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top">&uarr;</button>
+
+</body>
+</html>

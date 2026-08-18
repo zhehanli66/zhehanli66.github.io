@@ -1,185 +1,121 @@
-# The Minimal Light Theme
+# zhehanli66.github.io
 
-[![LICENSE](https://img.shields.io/github/license/yaoyao-liu/minimal-light?style=flat-square&logo=creative-commons&color=EF9421)](https://github.com/yaoyao-liu/minimal-light/blob/main/LICENSE)
+个人主页。主页使用 [al-folio](https://github.com/alshedivat/al-folio) 主题，
+每个项目有自己的独立页面（`/NeuRIO/`、`/CREPES-X/` …），使用
+[Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template)（nerfies 风格）。
 
-\[[Demo the theme](https://minimal-light-theme.yliu.me/)\]  \[[简体中文](https://github.com/yaoyao-liu/minimal-light/blob/master/README_zh_Hans.md) | [繁體中文](https://github.com/yaoyao-liu/minimal-light/blob/master/README_zh_Hant.md) | [Deutsche](https://github.com/yaoyao-liu/minimal-light/blob/master/README_de.md)\]
- 
-*This is the source code of my homepage. I build this website based on [minimal](https://github.com/orderedlist/minimal).*
-<br>
-*Feel free to use and share the source code anywhere you like.*
+---
 
-The latest version of my homepage is available here: [[link](https://github.com/yaoyao-liu/yaoyao-liu.github.io)]
-
-## Features
-
-- Simple and elegant personal homepage theme
-- Jekyll theme, automatically deployed by GitHub Pages
-- Basic search engine optimization
-- Mobile friendly
-- Supporting Markdown 
-- Supporting dark mode
-
-## Project Architecture
+## 1. 目录结构
 
 ```
-.
-├── _data                    
-|   └── publications.yml                      # the YAML file for publications
-├── _includes                    
-|   ├── publications.md                       # the Markdown file for publications
-|   └── services.md                           # the Markdown file for services
-├── _layouts                  
-|   └── homepage.html                         #  the html template for the homepage 
-├── _sass
-|   ├── minimal-light.scss                    #  this file will be compiled into a CSS file to control the style of the page              
-|   └── minimal-light-no-dark-mode.scss       #  this file is similar to minimal-light.scss with the dark mode disabled
-├── assets                                    #  some files
-├── html_source_file                          #  compiled HTML files
-├── .gitignore                                #  this file specifies intentionally untracked files that Git should ignore
-├── CNAME                                     #  the custom domain, will be used by GitHub page sevice
-├── Gemfile                                   #  a RubyGems related file
-├── LICENSE                                   #  the license file
-├── README.md                                 #  the readme file (English)
-├── README_de.md                              #  the readme file (German)
-├── README_zh_Hans.md                         #  the readme file (Simplified Chinese)
-├── README_zh_Hant.md                         #  the readme file (Traditional Chinese)
-├── _config.yml                               #  the Jekyll configuration file, including some options of the page  
-└── index.md                                  #  the content of the index page, using Markdown
+_config.yml              al-folio 全站配置（姓名、URL、开关等）
+_pages/about.md          主页正文（About / Research Interests）
+_pages/projects.md       /projects/ 项目墙，按 research / engineering 分类
+_projects/*.md           项目卡片（标题、一句话描述、配图、跳转链接）
+_news/*.md               主页 News 列表，一条一个文件
+_data/socials.yml        邮箱、Google Scholar、GitHub 等社交链接
+_bibliography/papers.bib 论文库（目前是空的，见第 5 节）
+assets/img/prof_pic.png  头像
+assets/img/projects/     项目卡片配图（现在是自动生成的占位图）
+
+NeuRIO/index.html            ┐
+CREPES-X/index.html          │
+CT-RIO/index.html            │  7 个独立项目页，纯静态 HTML，
+AIOG/index.html              ├─ Jekyll 原样拷贝，不走模板系统，
+ColAG/index.html             │  想怎么改就怎么改
+IROS-2025-EXPO/index.html    │
+Xunjian/index.html           ┘
+assets/project-page/     项目页共用的 CSS / JS（bulma + 模板样式 + 双语切换）
 ```
 
-## Getting Started
+项目页链接与简历里的 URL 一一对应，注意 **大小写敏感**：`/ColAG/` 不等于 `/colag/`。
 
-This template can be used in the following two ways: 
-- **Using with the GitHub Pages Service.** GitHub will provide you with a server to generate and host web pages.
-- **Using locally with Jekyll.** You may install Jekyll on your own computer and generate static web pages (i.e., HTML files) with this template. After that, you may upload the HTML files to your server.
+---
 
-The detailed instructions are available below.
+## 2. 部署（第一次上线要做的事）
 
+al-folio 用到了 GitHub Pages 原生构建不支持的插件（jekyll-scholar 等），
+因此**必须用 GitHub Actions 构建**，不能再用「Deploy from a branch: main」的老方式。
 
-### Using with the GitHub Pages Service
+1. 把这个分支合并/推送到 `main`。
+2. 等待 Actions 里的 **Deploy site** 跑完（它会把构建结果推到 `gh-pages` 分支）。
+3. 打开仓库 **Settings → Pages**，把 **Source** 改成 **Deploy from a branch**，
+   分支选 **`gh-pages`**，目录 `/ (root)`，保存。
+4. 之后每次 push 到 `main`，Actions 会自动重新构建并更新 `gh-pages`。
 
-There are two ways to use this template on GitHub:
+> 顺序很重要：**先让 Actions 成功跑一次，再把 Pages 的 Source 切到 `gh-pages`**。
+> 如果 Source 还停在 `main`，GitHub 会用原生 Jekyll 构建这个仓库并失败。
+>
+> 想在合并前先验证构建，可以先开一个 PR —— `deploy.yml` 对 PR 只构建、不部署。
 
-#### Fork this repository
-- Fork this repository (or [use this repository as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)) and change the name to `your-username.github.io`.
+---
 
-- Enable the GitHub pages for that repository following the steps [here](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site).
-
-#### Using this repository as a remote theme
-To use this theme, add the following to your repository's `_config.yml`:
-
-```yaml
-remote_theme: yaoyao-liu/minimal-light
-```
-
-Please note that adding the above line will directly apply all the default settings in this repository to yours.
-
-If you hope to edit any files (e.g., `index.md`), you still need to copy them to your repository.
-
-### Using Locally with Jekyll
-
-First, install [Ruby](https://www.ruby-lang.org/en/) and [Jekyll](https://jekyllrb.com/). The install instructions can be found here: <https://jekyllrb.com/docs/installation/#guides>
-
-Then, clone this repository:
-
-```bash
-git clone https://github.com/yaoyao-liu/minimal-light.git
-cd minimal-light
-```
-Install and run:
+## 3. 本地预览（可选）
 
 ```bash
 bundle install
-bundle add webrick
-bundle exec jekyll server
+bundle exec jekyll serve
 ```
-View the live page using `localhost`:
-<http://localhost:4000>. You can get the HTML files in `_site` folder.
 
-### Using the HTML version
+需要 Ruby 开发环境（`sudo apt install ruby-dev build-essential imagemagick`），
+或者直接用 al-folio 官方的 Docker 镜像。
 
-The compiled HTML files are available in the `html_source_file` folder. If you don't like Jekyll, you may directly edit and use the HTML version.
+单独看某个项目页不需要 Jekyll，起个静态服务器就行（注意页面里用的是根路径 `/assets/...`）：
 
-## Customizing
+```bash
+python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
+```
 
-### Configuration variables
+---
 
-The Minimal Light theme will respect the following variables, if set in your site's `_config.yml`:
+## 4. 日常维护
 
-  ```yaml
-# Basic Information 
-title: Your Name
-position: Ph.D. Student
-affiliation: Your Affiliation
-email: yourname (at) example.edu
+**改主页简介** → `_pages/about.md` 正文。
+**加一条 News** → 在 `_news/` 里新建一个 md 文件，照抄已有文件的 front matter，改日期和正文。
+**改项目卡片** → `_projects/*.md`（`title` / `description` / `img` / `importance` 排序 / `category`）。
+**改项目页内容** → 直接编辑 `NeuRIO/index.html` 等，中英文分别写在
+`<span class="lang-en">` 和 `<span class="lang-zh">` 里。
 
-# Search Engine Optimization (SEO)
-# The following information is used to improve the website traffic from search engines, e.g., Google.
-keywords: minimal light
-description: The Minimal Light is a simple and elegant jekyll theme for academic personal homepage.
-canonical: https://minimal-light-theme.yliu.me/
+**换视频**：每个项目页的 `<!-- ==================== video ==================== -->` 段落里
+已经写好了三种方式（本地 mp4 / Bilibili / YouTube）的注释代码，
+取消其中一段的注释、删掉下面的 `<div class="video-placeholder">…</div>` 占位块即可。
+本地视频放在 `assets/project-page/videos/` 下。
 
-# Links 
-# If you don't need one of them, you may delete the corresponding line.
-google_scholar: https://scholar.google.com/
-cv_link: assets/files/curriculum_vitae.pdf
-github_link: https://github.com/
-linkedin: https://www.linkedin.com/
-twitter: https://twitter.com/
+**换配图**：`assets/img/projects/*.png` 现在是自动生成的占位图，
+换成真实的 teaser 图（建议 1200×800 左右）即可，文件名保持不变。
 
-# Images (e.g., your profile picture and your website's favicon) 
-# "favicon" and "favicon_dark" are used for the light and dark modes, respectively. 
-avatar: ./assets/img/avatar.png
-favicon: ./assets/img/favicon.png
-favicon_dark: ./assets/img/favicon-dark.png
+**语言切换**：项目页右上角按钮，选择会记在 localStorage 里；
+也可以直接用 `?lang=zh` / `?lang=en` 分享指定语言的链接。
 
-# Footnote
-# You may use the option to disable the footnote, "Powered by Jekyll and Minimal Light theme."
-enable_footnote: true
+---
 
-# Auto Dark Mode
-# You may use the option to disable the automatic dark theme
-auto_dark_mode: true
+## 5. 还没打开的两个开关
 
-# Font
-# You can use this option to choose between Serif or Sans Serif fonts.
-font: "Serif" # or "Sans Serif"
+仓库里**没有 CV 文件，也没有任何论文文件**（PDF 和 bib 条目都没有）。
 
-# Google Analytics ID
-# Please remove this if you don't use Google Analytics
-google_analytics: UA-111540567-4
-  ```
-### Edit `index.md`
+**CV**：把 PDF 放到 `assets/pdf/` 下，再取消 `_data/socials.yml` 里 `cv_pdf` 那行的注释，
+头像下面就会出现 CV 图标。
 
-Create `index.md` and add your personal information. It supports **Markdown** and **HTML** syntax.
+**Publications 页**：先把论文条目写进 `_bibliography/papers.bib`（al-folio 的 bib 格式支持
+`abbr` / `arxiv` / `code` / `website` / `selected` 等字段），再从
+[al-folio 仓库](https://github.com/alshedivat/al-folio/blob/master/_pages/publications.md)
+拷一份 `publications.md` 到 `_pages/`，`nav_order` 设成 3；
+`_pages/about.md` 里的 `selected_papers` 改成 `true` 就能在主页显示标了 `selected={true}` 的论文。
 
-### Edit included files
+---
 
-There are two markdown files included in `index.md`. They are `_includes/publications.md` and `_includes/service.md`, respectively. These two files also support **Markdown** and **HTML** syntax. If you don't hope to include these two files, you may remove the following lines in `index.md`:
-https://github.com/yaoyao-liu/minimal-light/blob/b38070cd0b6bce45d8a885f3828549af8f82b7cb/index.md?plain=1#L21-L23
+## 6. 许可与署名
 
-If you hope to edit the publication list without changing the format, you may edit `_data/publications.yml`:
-https://github.com/yaoyao-liu/minimal-light/blob/77b1b3b31d4561091bcd739f37a2e1880e8b5ca5/_data/publications.yml#L3-L11
-
-
-### Stylesheet
-
-If you'd like to add your own custom styles, you may edit `_sass/minimal-light.scss`.
-
-### Layouts
-
-If you'd like to change the theme's HTML layout, you may edit `_layout/homepage.html`.
-
-## License
-
-This work is licensed under a [Creative Commons Zero v1.0 Universal](https://github.com/yaoyao-liu/minimal-light/blob/master/LICENSE) License.
-
-## Acknowledgements
-
-Our project uses the source code from the following repositories:
-
-* [pages-themes/minimal](https://github.com/pages-themes/minimal)
-
-* [orderedlist/minimal](https://github.com/orderedlist/minimal)
-
-* [al-folio](https://github.com/alshedivat/al-folio)
+- **主页主题**：[al-folio](https://github.com/alshedivat/al-folio)，MIT License。
+  根目录的 `LICENSE` 是上游的 MIT 许可（© Maruan Al-Shedivat），MIT 要求保留，别删；
+  页脚的 “Powered by Jekyll with al-folio theme” 也是上游要求保留的署名。
+- **项目页**：[Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template)
+  （源自 [Nerfies](https://nerfies.github.io)），CC BY-SA 4.0，要求在页脚链接回模板 ——
+  7 个项目页的页脚都保留了这段署名和许可声明，改版式可以，别把这段删掉。
+  `assets/project-page/css/index.css` 就是模板自带的样式表。
+- **Bulma**：`assets/project-page/css/bulma.min.css`，MIT License，文件头自带声明。
+- 模板原本还打包了 FontAwesome（1.2 MB 的 JS）和 bulma-carousel / bulma-slider，
+  本站没有用到，已经全部删掉：图标改成了内联 SVG，页面不再请求任何第三方资源
+  （没有 Google Fonts、没有 CDN），在国内打开也不会卡。
+- 页面上的**文字、图片和视频内容**版权归本人所有，不在上面这些开源许可的范围内。

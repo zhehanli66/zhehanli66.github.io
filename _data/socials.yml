@@ -1,0 +1,11 @@
+# this file contains the social media links and usernames of the author
+# the socials will be displayed in the order they are defined here
+# for more information, please refer to the documentation of jekyll-socials plugin: https://github.com/george-gca/jekyll-socials
+email: zhehanli66@gmail.com # your email address
+scholar_userid: EvKoyq0AAAAJ # your Google Scholar ID
+github_username: zhehanli66 # your GitHub user name
+# --- add later, when you are ready ---
+# cv_pdf: /assets/pdf/curriculum_vitae.pdf # path to your CV PDF file (shows the CV icon on the about page)
+# linkedin_username: # your LinkedIn user name
+# orcid_id: # your ORCID ID
+# rss_icon: true # uncomment once the blog is enabled

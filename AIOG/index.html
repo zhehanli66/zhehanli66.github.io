@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>To See All | Zhehan Li</title>
+  <meta name="description" content="An active reconstruction system that keeps camera and LiDAR calibrated online, plans gimbal motion as a budgeted orienteering problem, and learns a reinforcement-learning colorization policy.">
+  <meta name="keywords" content="active reconstruction, online extrinsic calibration, camera-LiDAR calibration, gimbal planning, orienteering problem, MINCO, reinforcement learning, 3D Gaussian splatting">
+  <meta name="author" content="Zhehan Li">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zhehan Li">
+  <meta property="og:title" content="To See All: LiDAR-Guided Active Reconstruction via Online Calibration and Gimbal Planning">
+  <meta property="og:description" content="An active reconstruction system that keeps camera and LiDAR calibrated online, plans gimbal motion as a budgeted orienteering problem, and learns a reinforcement-learning colorization policy.">
+  <meta property="og:url" content="https://zhehanli66.github.io/AIOG/">
+  <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/aiog.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="To See All: LiDAR-Guided Active Reconstruction via Online Calibration and Gimbal Planning">
+  <meta name="twitter:description" content="An active reconstruction system that keeps camera and LiDAR calibrated online, plans gimbal motion as a budgeted orienteering problem, and learns a reinforcement-learning colorization policy.">
+  <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/aiog.png">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
+
+  <link rel="stylesheet" href="/assets/project-page/css/bulma.min.css">
+  <link rel="stylesheet" href="/assets/project-page/css/index.css">
+  <link rel="stylesheet" href="/assets/project-page/css/page.css">
+
+  <script>
+    // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
+    (function () {
+      var d = document.documentElement;
+      d.className = d.className.replace(/\bno-js\b/, "js");
+      var lang = null;
+      try {
+        var m = /[?&]lang=(zh|en)/.exec(window.location.search);
+        lang = m ? m[1] : window.localStorage.getItem("zl-project-lang");
+      } catch (e) {}
+      if (lang === "zh") d.classList.add("lang-mode-zh");
+    })();
+  </script>
+
+  <script defer src="/assets/project-page/js/page.js"></script>
+</head>
+
+<body>
+
+  <nav class="page-topbar">
+    <a class="topbar-link" href="/">&larr; Zhehan Li</a>
+    <div class="topbar-group">
+      <a class="topbar-link" href="/projects/"><span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a>
+      <button class="topbar-link lang-switch" id="lang-switch" type="button" aria-label="Switch to Chinese">中文</button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==================== title ==================== -->
+    <section class="hero publication-header">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+
+              <h1 class="title is-2 publication-title">
+                <span class="lang-en">To See All: LiDAR-Guided Active Reconstruction via Online Calibration and Gimbal Planning</span>
+                <span class="lang-zh">To See All：基于在线标定与云台规划的激光引导主动三维重建</span>
+              </h1>
+
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><strong>Zhehan Li</strong><sup>*</sup></span>
+              </div>
+
+              <div class="is-size-6 publication-authors publication-venue-line">
+                <span class="author-block lang-en">Zhejiang University &middot; Under review at IEEE Transactions on Robotics</span>
+                <span class="author-block lang-zh">浙江大学 &middot; IEEE Transactions on Robotics 在投</span>
+              </div>
+
+              <div>
+                <span class="project-role lang-en">Co-first author</span>
+                <span class="project-role lang-zh">共同第一作者</span>
+              </div>
+
+              <div class="is-size-6 publication-authors">
+                <span class="eql-cntrb lang-en"><small><sup>*</sup>Co-first author. Full author list will be released with the preprint.</small></span>
+                <span class="eql-cntrb lang-zh"><small><sup>*</sup>共同第一作者，完整作者列表将随预印本一同公开。</small></span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="#video" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM6.4 4.4 11.6 8l-5.2 3.6V4.4z"/></svg></span>
+                      <span><span class="lang-en">Video</span><span class="lang-zh">视频</span></span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== video ==================== -->
+    <section class="hero teaser" id="video">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+
+          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
+               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+
+          A) a local file  (put the mp4 in /assets/project-page/videos/aiog.mp4)
+          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
+                 poster="/assets/img/projects/aiog.png">
+            <source src="/assets/project-page/videos/aiog.mp4" type="video/mp4">
+          </video>
+
+          B) Bilibili
+          <div class="publication-video">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
+                    frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          C) YouTube
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          -->
+
+          <div class="video-placeholder">
+            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
+            <div class="placeholder-title">
+              <span class="lang-en">Video coming soon</span>
+              <span class="lang-zh">视频即将上线</span>
+            </div>
+            <div class="placeholder-hint">
+              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
+              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+            </div>
+          </div>
+
+          <h2 class="subtitle has-text-centered">
+            <span class="lang-en">Keep the camera calibrated online, then actively look where the map is still uncoloured.</span>
+            <span class="lang-zh">先让相机在线保持标定，再主动看向地图上尚未着色的地方。</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== abstract ==================== -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">
+              <span class="lang-en">Abstract</span>
+              <span class="lang-zh">摘要</span>
+            </h2>
+            <div class="content has-text-justified">
+              <p class="lang-en">Colouring a LiDAR map with a gimbal camera fails in two ways: the extrinsics drift, and the camera simply never looks at large parts of the scene. This project attacks both. An online self-calibration network extracts pitch, yaw and roll misalignment patterns separately, fuses RGB features with projected depth features through cross-modal self- and cross-attention, and jointly regresses the 6-DoF extrinsic residual; a multi-stage cascade of extrinsic update, depth re-projection and residual re-estimation drives it to convergence. The work also releases COOKIE, a calibration dataset of 32 scenes and more than 50,000 hardware-synchronized image&ndash;point-cloud pairs. On top of a visibility and colouring state map, active gimbal colouring is formulated as a budgeted orienteering problem with reward decay and solved together with MINCO trajectory optimization for smooth gimbal motion, and evaluated with a multi-level protocol that measures both point-domain colour and downstream 3DGS rendering quality. Finally, the same viewpoint control problem is cast as continuous control &mdash; visibility gain map as observation, dual-axis angular acceleration as action, coloured-voxel increment as reward &mdash; and solved end to end with SAC, which improves colouring coverage by 6.0% while using only 51% of the gimbal travel of the planning baseline.</p>
+              <p class="lang-zh">用云台相机为激光地图着色会在两个环节失败：外参会漂移，相机也根本看不到场景中的大片区域。本工作同时解决这两点。在线外参自标定网络分别提取俯仰、偏航与横滚的错位模式，经跨模态自注意力与交叉注意力融合 RGB 与投影深度特征，联合回归 6-DoF 外参残差，并通过多阶段“外参更新—深度重投影—残差再估计”级联逐步收敛；同时构建并开源外参标定数据集 COOKIE（32 个场景、5 万余对硬件同步图像—点云）。在可见性与着色状态地图之上，将云台主动着色建模为带奖励衰减的预算 Orienteering 问题，结合 MINCO 轨迹优化生成平滑云台运动，并提出覆盖点域颜色与下游 3DGS 渲染质量的多层级评估协议。进一步将云台视角控制建模为连续控制问题：以可见性增益图为观测、双轴角加速度为动作、着色体素增量为奖励，使用 SAC 训练端到端策略，相较规划方法仅用 51% 的云台行程即提升 6.0% 的着色覆盖率。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== highlights ==================== -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3 has-text-centered">
+              <span class="lang-en">Highlights</span>
+              <span class="lang-zh">技术亮点</span>
+            </h2>
+            <div class="content">
+              <ul class="highlights lang-en">
+                <li><strong>Online extrinsic self-calibration.</strong> Pitch, yaw and roll misalignment patterns are extracted separately and fused with cross-modal self- and cross-attention over RGB and projected depth features, then refined by a multi-stage update / re-projection / re-estimation cascade.</li>
+                <li><strong>The COOKIE dataset.</strong> 32 scenes and more than 50,000 hardware-synchronized image&ndash;point-cloud pairs, released for camera&ndash;LiDAR extrinsic calibration.</li>
+                <li><strong>Gimbal planning as budgeted orienteering.</strong> A visibility and colouring state map turns active colouring into an orienteering problem with reward decay, solved together with MINCO trajectory optimization for smooth gimbal motion.</li>
+                <li><strong>A learned colourization policy.</strong> Visibility gain map as observation, dual-axis angular acceleration as action and coloured-voxel increment as reward: a SAC policy improves coverage by 6.0% while using 51% of the gimbal travel.</li>
+                <li><strong>Multi-level evaluation.</strong> Both point-domain colour quality and downstream 3D Gaussian splatting rendering quality are measured.</li>
+              </ul>
+              <ul class="highlights lang-zh">
+                <li><strong>在线外参自标定。</strong>分别提取俯仰、偏航与横滚错位模式，经跨模态自/交叉注意力融合 RGB 与投影深度特征，并通过多阶段“外参更新—深度重投影—残差再估计”级联逐步收敛。</li>
+                <li><strong>COOKIE 数据集。</strong>构建并开源相机—激光外参标定数据集，包含 32 个场景、5 万余对硬件同步图像—点云。</li>
+                <li><strong>云台规划建模为预算 Orienteering。</strong>基于可见性与着色状态地图，把主动着色建模为带奖励衰减的 Orienteering 问题，并结合 MINCO 轨迹优化生成平滑云台运动。</li>
+                <li><strong>强化学习着色策略。</strong>以可见性增益图为观测、双轴角加速度为动作、着色体素增量为奖励，SAC 训练的端到端策略仅用 51% 云台行程提升 6.0% 着色覆盖率。</li>
+                <li><strong>多层级评估协议。</strong>同时评估点域颜色质量与下游 3DGS 渲染质量。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              <a class="home-link" href="/">Zhehan Li</a> &middot;
+              <a href="/projects/"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a> &middot;
+              <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>
+            </p>
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>,
+              which was adopted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+              It is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top">&uarr;</button>
+
+</body>
+</html>
