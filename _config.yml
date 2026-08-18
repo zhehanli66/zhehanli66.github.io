@@ -198,7 +198,9 @@ collections:
       layout: post
     output: true
   projects:
-    output: true
+    # every project card links to its own standalone page (/NeuRIO/ etc.),
+    # so the collection itself does not need to generate pages
+    output: false
   teachings:
     output: true
 

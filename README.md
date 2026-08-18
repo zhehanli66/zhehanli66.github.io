@@ -15,6 +15,7 @@ _pages/projects.md       /projects/ 项目墙，按 research / engineering 分�
 _projects/*.md           项目卡片（标题、一句话描述、配图、跳转链接）
 _news/*.md               主页 News 列表，一条一个文件
 _data/socials.yml        邮箱、Google Scholar、GitHub 等社交链接
+assets/lang/             主页侧的 EN / 中文 切换（lang.css + lang.js）
 _bibliography/papers.bib 论文库（目前是空的，见第 5 节）
 assets/img/prof_pic.png  头像
 assets/img/projects/     项目卡片配图（现在是自动生成的占位图）
@@ -86,8 +87,26 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 **换配图**：`assets/img/projects/*.png` 现在是自动生成的占位图，
 换成真实的 teaser 图（建议 1200×800 左右）即可，文件名保持不变。
 
-**语言切换**：项目页右上角按钮，选择会记在 localStorage 里；
+**语言切换**：全站中英双语，导航栏（主题切换按钮左边）和项目页右上角各有一个切换按钮，
+选择记在 localStorage 里、两边共用，所以在主页选了中文，点进项目页也还是中文；
 也可以直接用 `?lang=zh` / `?lang=en` 分享指定语言的链接。
+
+写双语内容的方式：把两种语言分别放进 `lang-en` / `lang-zh` 两个块，只有被隐藏的那个会被
+`display:none`，显示的那个保持原有排版：
+
+```html
+<div class="lang-en" markdown="1">English text, **markdown 照常可用**</div>
+<div class="lang-zh" markdown="1">中文内容，**markdown 照常可用**</div>
+```
+
+行内的用 `<span class="lang-en">…</span><span class="lang-zh">…</span>`（news 和项目卡片就是这么写的）。
+主题自己生成的字（about / projects / news / research / engineering）不在页面源码里，
+由 [assets/lang/lang.js](assets/lang/lang.js) 顶部的 `LABELS` 表翻译，想加词条直接往里加。
+
+> 主页和 `/projects/` 是通过在正文顶部引入 `assets/lang/lang.css` + `lang.js` 生效的（见两个页面开头几行），
+> 没有覆盖主题的任何模板文件，所以 al-folio 升级不会冲突。
+> `assets/lang/` 特意放在 `assets/css/` 外面：purgecss 只处理 `_site/assets/css/*.css`，
+> 而 `.lang-mode-zh` 这个类不出现在静态 HTML 里，放进去会被当成无用样式清掉。
 
 ---
 

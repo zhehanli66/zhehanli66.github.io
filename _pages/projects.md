@@ -2,12 +2,26 @@
 layout: page
 title: projects
 permalink: /projects/
-description: Selected research and engineering projects. Each card links to its own project page.
+description: Selected research and engineering projects · 研究与工程项目一览，每张卡片都有独立的项目页面。
 nav: true
 nav_order: 2
 display_categories: [research, engineering]
 horizontal: false
 ---
+
+<link rel="stylesheet" href="{{ '/assets/lang/lang.css' | relative_url }}">
+<script>
+  (function () {
+    var d = document.documentElement,
+      l = null;
+    try {
+      var m = /[?&]lang=(zh|en)/.exec(window.location.search);
+      l = m ? m[1] : window.localStorage.getItem("zl-project-lang");
+    } catch (e) {}
+    if (l === "zh") d.classList.add("lang-mode-zh");
+  })();
+</script>
+<script defer src="{{ '/assets/lang/lang.js' | relative_url }}"></script>
 
 <!-- pages/projects.md -->
 <div class="projects">

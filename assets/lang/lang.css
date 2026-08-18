@@ -1,0 +1,34 @@
+/* ---------------------------------------------------------------------------
+   EN / 中文 switch for the al-folio pages.
+   Lives outside assets/css/ on purpose: purgecss only rewrites _site/assets/css/*.css,
+   and the .lang-mode-zh class never appears in the static HTML, so it would be purged.
+   --------------------------------------------------------------------------- */
+
+/* Only the hidden language is touched, so the visible one keeps its own display value. */
+html:not(.lang-mode-zh) .lang-zh {
+  display: none !important;
+}
+html.lang-mode-zh .lang-en {
+  display: none !important;
+}
+
+.lang-zh {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC",
+    "Noto Sans CJK SC", sans-serif;
+}
+
+/* the button injected into the navbar, next to the theme toggle */
+#lang-toggle {
+  background: none;
+  border: none;
+  padding: 0 0.2rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--global-text-color, inherit);
+}
+
+#lang-toggle:hover {
+  color: var(--global-hover-color, var(--global-theme-color, inherit));
+}
