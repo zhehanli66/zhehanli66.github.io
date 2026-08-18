@@ -45,7 +45,8 @@ al-folio 用到了 GitHub Pages 原生构建不支持的插件（jekyll-scholar 
 4. 之后每次 push 到 `main`，Actions 会自动重新构建并更新 `gh-pages`。
 
 > 顺序很重要：**先让 Actions 成功跑一次，再把 Pages 的 Source 切到 `gh-pages`**。
-> 如果 Source 还停在 `main`，GitHub 会用原生 Jekyll 构建这个仓库并失败。
+> 如果 Source 还停在 `main`，GitHub 会用原生 Jekyll（`pages build and deployment`）构建这个仓库，
+> 报 `The al_folio_core theme could not be found`，站点也不会更新 —— 这时候不是缓存问题，是根本没发布。
 >
 > 想在合并前先验证构建，可以先开一个 PR —— `deploy.yml` 对 PR 只构建、不部署。
 
