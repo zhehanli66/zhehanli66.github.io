@@ -1,0 +1,4 @@
+# Python dependencies for the GitHub Actions build.
+# nbconvert is what jekyll-jupyter-notebook shells out to; the file also gives
+# actions/setup-python something to hash for its pip cache.
+nbconvert
