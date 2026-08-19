@@ -20,19 +20,39 @@ profile:
       <p>控制科学与工程学院</p>
       <p>中国杭州</p>
     </div>
+    <div class="profile-socials">
+      <a href="mailto:zhehanli66@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://scholar.google.com/citations?user=EvKoyq0AAAAJ" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      <a href="https://github.com/zhehanli66" title="GitHub"><i class="fa-brands fa-github"></i></a>
+    </div>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+social: false # the icons live in the profile column instead, see more_info above
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  enabled: false # news section turned off
 
 latest_posts:
   enabled: false
   scrollable: true
   limit: 3
+
+display_categories:
+  - id: research
+    label_en: Research
+    label_zh: 研究
+    note_en: Work I led as first or co-first author.
+    note_zh: 以第一作者 / 共同第一作者主导的工作。
+  - id: contributed
+    label_en: Contributed Research
+    label_zh: 参与研究
+    note_en: Work I contributed to as a co-author rather than led.
+    note_zh: 以合作作者身份参与、而非主导的工作。
+  - id: engineering
+    label_en: Engineering
+    label_zh: 工程实践
+    note_en: Systems I built and deployed on real robots.
+    note_zh: 由我搭建并在真机上部署的系统。
 ---
 
 <link rel="stylesheet" href="{{ '/assets/lang/lang.css' | relative_url }}">
@@ -63,7 +83,7 @@ I work on **making a team of robots know where they are with respect to each oth
 - **Cooperative perception and active sensing.** Air–ground collaboration, active 3D reconstruction, gimbal planning, online multi-sensor calibration.
 - **Full-stack multi-robot systems.** Custom localization hardware, VIO/LIO, trajectory planning, MPC, sim-to-real and reinforcement learning, real-robot swarm deployment.
 
-Take a look at the [projects]({{ '/projects/' | relative_url }}) page for a walk-through of what I have been building.
+Below is a walk-through of what I have been building.
 
 If you would like to discuss my work or a potential collaboration, feel free to reach me at <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>.
 
@@ -81,8 +101,92 @@ If you would like to discuss my work or a potential collaboration, feel free to 
 - **协同感知与主动感知。** 空地协同、主动三维重建、云台规划、在线多传感器标定。
 - **全栈多机器人系统。** 自研定位硬件、VIO/LIO、轨迹规划、MPC、Sim-to-Real 与强化学习、集群真机部署。
 
-想知道我具体做了些什么，可以看[项目]({{ '/projects/' | relative_url }})页面。
+下面是我具体做过的一些工作。
 
 如果你想聊聊我的工作或者潜在的合作，欢迎邮件联系 <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>。
 
+</div>
+
+<!-- one horizontal row per project: image left, details right -->
+<div class="projects-list" id="projects">
+{% for cat in page.display_categories %}
+  {% assign items = site.projects | where: "category", cat.id | sort: "importance" %}
+  {% if items.size == 0 %}{% continue %}{% endif %}
+  <section class="proj-section" id="{{ cat.id }}">
+    <h2 class="proj-section-title">
+      <span class="lang-en">{{ cat.label_en }}</span><span class="lang-zh">{{ cat.label_zh }}</span>
+    </h2>
+    <p class="proj-section-note">
+      <span class="lang-en">{{ cat.note_en }}</span><span class="lang-zh">{{ cat.note_zh }}</span>
+    </p>
+
+    {% for p in items %}
+      {%- assign href = "" -%}
+      {%- if p.redirect -%}
+        {%- assign href = p.redirect | relative_url -%}
+      {%- elsif p.links -%}
+        {%- assign first_link = p.links | first -%}
+        {%- assign href = first_link.url -%}
+      {%- endif -%}
+      {%- assign img_base = p.img | split: "." | first -%}
+    <article class="proj-row">
+      <div class="proj-media">
+        {% if href != "" %}<a href="{{ href }}">{% endif %}
+        <picture>
+          {% if site.imagemagick.enabled %}<source
+            class="responsive-img-srcset"
+            srcset="{{ img_base | append: '-480.webp' | relative_url }} 480w, {{ img_base | append: '-800.webp' | relative_url }} 800w, {{ img_base | append: '-1400.webp' | relative_url }} 1400w"
+            type="image/webp"
+            sizes="(min-width: 768px) 320px, 100vw">{% endif %}
+          <img
+            src="{{ p.img | relative_url }}"
+            alt="{{ p.title | strip_html }}"
+            width="1200" height="800" loading="lazy"
+            onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });">
+        </picture>
+        {% if href != "" %}</a>{% endif %}
+      </div>
+
+      <div class="proj-body">
+        <h3 class="proj-title">
+          {% if href != "" %}<a href="{{ href }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}
+        </h3>
+
+        {% if p.paper_en %}
+        <p class="proj-paper">
+          <span class="lang-en">{{ p.paper_en }}</span><span class="lang-zh">{{ p.paper_zh }}</span>
+        </p>
+        {% endif %}
+
+        {% if p.authors %}
+        <p class="proj-authors">{{ p.authors }}</p>
+        {% endif %}
+
+        {% if p.authors_note_en %}
+        <p class="proj-authors-note">
+          <span class="lang-en">{{ p.authors_note_en }}</span><span class="lang-zh">{{ p.authors_note_zh }}</span>
+        </p>
+        {% endif %}
+
+        <p class="proj-meta">
+          <span class="proj-venue"><span class="lang-en">{{ p.venue_en }}</span><span class="lang-zh">{{ p.venue_zh }}</span></span>
+          {% if p.status_en %}{% assign st = p.status_en | downcase %}<span class="proj-pill proj-status{% if st contains 'under review' %} proj-status-open{% endif %}"><span class="lang-en">{{ p.status_en }}</span><span class="lang-zh">{{ p.status_zh }}</span></span>{% endif %}
+          {% if p.role_en %}<span class="proj-pill proj-role"><span class="lang-en">{{ p.role_en }}</span><span class="lang-zh">{{ p.role_zh }}</span></span>{% endif %}
+        </p>
+
+        <p class="proj-desc">{{ p.description }}</p>
+
+        {% if p.links %}
+        <p class="proj-links">
+          {%- for l in p.links -%}
+            {%- if l.url contains "://" -%}{%- assign lurl = l.url -%}{%- else -%}{%- assign lurl = l.url | relative_url -%}{%- endif %}
+          <a class="proj-link" href="{{ lurl }}">{% if l.label_zh %}<span class="lang-en">{{ l.label_en }}</span><span class="lang-zh">{{ l.label_zh }}</span>{% else %}{{ l.label_en }}{% endif %}</a>
+          {%- endfor %}
+        </p>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+{% endfor %}
 </div>

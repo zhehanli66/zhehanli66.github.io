@@ -10,13 +10,12 @@
 
 ```
 _config.yml              al-folio 全站配置（姓名、URL、开关等）
-_pages/about.md          主页正文（About / Research Interests）
-_pages/projects.md       /projects/ 项目列表，按 research / contributed / engineering 三个分区
+_pages/about.md          唯一的一页：自我介绍 + 项目列表（分区配置也写在它的 front matter 里）
 _projects/*.md           项目条目（标题、论文名、作者、发表/状态、简介、配图、链接）
-_news/*.md               主页 News 列表，一条一个文件
-_data/socials.yml        邮箱、Google Scholar、GitHub 等社交链接
+_news/*.md               旧的 News 条目，已关掉不显示（见第 4 节）
+_data/socials.yml        邮箱、Google Scholar、GitHub —— 图标现在手写在 about.md 的 more_info 里
 assets/lang/             主页侧的 EN / 中文 切换（lang.css + lang.js）
-assets/site/site.css     项目列表的横栏样式（和主题自己生成的小改动）
+assets/site/site.css     项目列表的横栏样式、头像下的社交图标
 _bibliography/papers.bib 论文库（目前是空的，见第 5 节）
 assets/img/prof_pic.png  头像
 assets/img/projects/     项目配图（现在是自动生成的占位图）
@@ -75,8 +74,8 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 ## 4. 日常维护
 
 **改主页简介** → `_pages/about.md` 正文。
-**加一条 News** → 在 `_news/` 里新建一个 md 文件，照抄已有文件的 front matter，改日期和正文。
-**改项目条目** → `_projects/*.md`，一条一个文件，字段都是可选的（没写就不显示）：
+**News**（当前关闭）→ 想重新打开，把 `_pages/about.md` 的 `announcements.enabled` 和 `_config.yml` 的 `collections.news.output` 改回 `true`；加一条就在 `_news/` 里新建一个 md 文件，照抄已有文件的 front matter。
+**改主页项目列表** → `_projects/*.md`，一条一个文件，字段都是可选的（没写就不显示）：
 
 | 字段 | 作用 |
 | --- | --- |
@@ -94,7 +93,13 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 | `category` | `research`（一作 / 共一）、`contributed`（非一作）、`engineering`（工程项目） |
 | `importance` | 分区内的排序，小的在前 |
 
-分区标题和说明文字写在 [_pages/projects.md](_pages/projects.md) 的 `display_categories` 里。
+分区标题和说明文字写在 [_pages/about.md](_pages/about.md) front matter 的 `display_categories` 里，
+列表本身（Liquid 循环）在同一个文件的正文末尾。
+
+**几个已经关掉的主题功能**：`_config.yml` 里 `search_enabled: false`（去掉导航栏的 ctrl k 搜索）、
+`enable_masonry: false`（不再有卡片墙）、`collections.news.output: false`，以及 `_pages/about.md` 里
+`announcements.enabled: false`（不显示 News）和 `social: false`（社交图标改到头像下面，见 `more_info`）。
+`_news/*.md` 没有删，把这两个开关改回 `true` 就能恢复。
 **改项目页内容** → 直接编辑 `NeuRIO/index.html` 等，中英文分别写在
 `<span class="lang-en">` 和 `<span class="lang-zh">` 里。
 
@@ -124,7 +129,7 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 主题自己生成的字（about / projects / news 等）不在页面源码里，
 由 [assets/lang/lang.js](assets/lang/lang.js) 顶部的 `LABELS` 表翻译，想加词条直接往里加。
 
-> 主页和 `/projects/` 是通过在正文顶部引入 `assets/lang/lang.css` + `lang.js` 生效的（见两个页面开头几行），
+> 主页是通过在正文顶部引入 `assets/lang/lang.css` + `lang.js` 生效的（见页面开头几行），
 > 没有覆盖主题的任何模板文件，所以 al-folio 升级不会冲突。
 > `assets/lang/` 和 `assets/site/` 特意放在 `assets/css/` 外面：purgecss 只处理
 > `_site/assets/css/*.css`，而 `.lang-mode-zh` 这个类不出现在静态 HTML 里，放进去会被当成无用样式清掉。

@@ -11,9 +11,27 @@ h2 > a[href$="/blog/"] {
   text-transform: capitalize;
 }
 
-/* --- projects page: one horizontal row per project ------------------------ */
+/* --- social icons, moved out of the page footer into the profile column --- */
+.profile .more-info .profile-socials {
+  display: flex;
+  gap: 0.9rem;
+  margin-top: 0.7rem;
+  font-size: 1.4rem;
+}
+
+.profile .more-info .profile-socials a i::before {
+  color: var(--global-text-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.profile .more-info .profile-socials a:hover i::before {
+  color: var(--global-theme-color);
+}
+
+/* --- project list: one horizontal row per project ------------------------- */
 .projects-list {
-  margin-top: 1rem;
+  clear: both; /* the profile picture floats right, above this */
+  margin-top: 2rem;
 }
 
 .proj-section {
