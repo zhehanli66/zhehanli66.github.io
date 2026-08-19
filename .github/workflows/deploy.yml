@@ -93,16 +93,27 @@ jobs:
           valueFile: "_config.yml"
           propertyPath: "giscus.repo"
           value: ${{ github.repository }}
+      # ubuntu-24.04 runners no longer ship ImageMagick, and Ubuntu's Azure apt
+      # mirror goes unreachable often enough to hang the job for hours. Cap every
+      # apt call, and if the package still cannot be installed, fall back to a
+      # build without responsive webp variants instead of failing the deploy.
+      - name: Install ImageMagick 🖼️
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo timeout 180 apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=15 update || true
+            sudo timeout 240 apt-get install -y --no-install-recommends imagemagick || true
+          fi
+          if command -v convert >/dev/null 2>&1; then
+            echo "JEKYLL_CONFIG=_config.yml" >> "$GITHUB_ENV"
+          else
+            echo "::warning::ImageMagick unavailable (apt mirror down) — building without responsive images"
+            echo "JEKYLL_CONFIG=_config.yml,_config_no_imagemagick.yml" >> "$GITHUB_ENV"
+          fi
       - name: Install and Build 🔧
         run: |
-          # ubuntu-24.04 runners no longer ship ImageMagick, and the Azure apt
-          # mirror stalls on IPv6 often enough to hang the job — force IPv4 and
-          # cap the retries instead of waiting on it
-          sudo apt-get -o Acquire::ForceIPv4=true -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update
-          sudo apt-get install -y --no-install-recommends imagemagick
           pip3 install --upgrade -r requirements.txt
           export JEKYLL_ENV=production
-          bundle exec jekyll build
+          bundle exec jekyll build --config "$JEKYLL_CONFIG"
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss

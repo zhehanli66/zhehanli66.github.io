@@ -1,0 +1,6 @@
+# Overlay config used by CI only, when ImageMagick cannot be installed because
+# Ubuntu's apt mirror is unreachable (see .github/workflows/deploy.yml).
+# The site is then built without responsive webp variants — every <picture> falls
+# back to the original image — instead of failing the deploy.
+imagemagick:
+  enabled: false

@@ -65,11 +65,11 @@ display_categories:
       <div class="proj-media">
         {% if href != "" %}<a href="{{ href }}">{% endif %}
         <picture>
-          <source
+          {% if site.imagemagick.enabled %}<source
             class="responsive-img-srcset"
             srcset="{{ img_base | append: '-480.webp' | relative_url }} 480w, {{ img_base | append: '-800.webp' | relative_url }} 800w, {{ img_base | append: '-1400.webp' | relative_url }} 1400w"
             type="image/webp"
-            sizes="(min-width: 768px) 320px, 100vw">
+            sizes="(min-width: 768px) 320px, 100vw">{% endif %}
           <img
             src="{{ p.img | relative_url }}"
             alt="{{ p.title | strip_html }}"
