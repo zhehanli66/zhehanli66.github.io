@@ -127,29 +127,29 @@ h2 > a[href$="/blog/"] {
   gap: 0.4rem 0.6rem;
 }
 
-.proj-venue {
-  color: var(--global-text-color-light);
-  font-size: 0.85rem;
-}
-
 .proj-pill {
   border: 1px solid var(--global-divider-color);
   border-radius: 1rem;
   padding: 0.05rem 0.6rem;
   font-size: 0.75rem;
   line-height: 1.6;
+}
+
+/* every entry carries exactly one accented pill: where it was published, or
+   "under review" when the venue cannot be named yet */
+.proj-venue {
+  border-color: var(--global-theme-color);
+  color: var(--global-theme-color);
+}
+
+.proj-role {
+  color: var(--global-text-color-light);
   white-space: nowrap;
 }
 
-.proj-status,
-.proj-role {
+.proj-when {
   color: var(--global-text-color-light);
-}
-
-/* work still in flight gets the accent, published work stays quiet */
-.proj-status-open {
-  border-color: var(--global-theme-color);
-  color: var(--global-theme-color);
+  font-size: 0.85rem;
 }
 
 .proj-desc {
