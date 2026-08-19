@@ -64,6 +64,8 @@ jobs:
   deploy:
     # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
+    # the default is 360 min — a stalled apt mirror would hang for hours
+    timeout-minutes: 20
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -93,7 +95,11 @@ jobs:
           value: ${{ github.repository }}
       - name: Install and Build 🔧
         run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
+          # ubuntu-24.04 runners no longer ship ImageMagick, and the Azure apt
+          # mirror stalls on IPv6 often enough to hang the job — force IPv4 and
+          # cap the retries instead of waiting on it
+          sudo apt-get -o Acquire::ForceIPv4=true -o Acquire::Retries=3 -o Acquire::http::Timeout=20 update
+          sudo apt-get install -y --no-install-recommends imagemagick
           pip3 install --upgrade -r requirements.txt
           export JEKYLL_ENV=production
           bundle exec jekyll build
