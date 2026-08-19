@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: >
   <span class="lang-en">Ph.D. Student · <a href="http://zju-fast.com/">FAST Lab (Fire Group)</a>, <a href="https://www.zju.edu.cn/english/">Zhejiang University</a></span><span class="lang-zh">博士研究生 · 浙江大学 <a href="http://zju-fast.com/">FAST 实验室（Fire Group）</a></span>
@@ -36,6 +36,7 @@ latest_posts:
 ---
 
 <link rel="stylesheet" href="{{ '/assets/lang/lang.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/site/site.css' | relative_url }}">
 <script>
   // pick the language before the page paints: ?lang=zh / ?lang=en wins, otherwise the last choice
   (function () {

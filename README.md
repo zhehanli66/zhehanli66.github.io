@@ -11,14 +11,15 @@
 ```
 _config.yml              al-folio 全站配置（姓名、URL、开关等）
 _pages/about.md          主页正文（About / Research Interests）
-_pages/projects.md       /projects/ 项目墙，按 research / engineering 分类
-_projects/*.md           项目卡片（标题、一句话描述、配图、跳转链接）
+_pages/projects.md       /projects/ 项目列表，按 research / contributed / engineering 三个分区
+_projects/*.md           项目条目（标题、论文名、作者、发表/状态、简介、配图、链接）
 _news/*.md               主页 News 列表，一条一个文件
 _data/socials.yml        邮箱、Google Scholar、GitHub 等社交链接
 assets/lang/             主页侧的 EN / 中文 切换（lang.css + lang.js）
+assets/site/site.css     项目列表的横栏样式（和主题自己生成的小改动）
 _bibliography/papers.bib 论文库（目前是空的，见第 5 节）
 assets/img/prof_pic.png  头像
-assets/img/projects/     项目卡片配图（现在是自动生成的占位图）
+assets/img/projects/     项目配图（现在是自动生成的占位图）
 
 NeuRIO/index.html            ┐
 CREPES-X/index.html          │
@@ -75,7 +76,25 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 
 **改主页简介** → `_pages/about.md` 正文。
 **加一条 News** → 在 `_news/` 里新建一个 md 文件，照抄已有文件的 front matter，改日期和正文。
-**改项目卡片** → `_projects/*.md`（`title` / `description` / `img` / `importance` 排序 / `category`）。
+**改项目条目** → `_projects/*.md`，一条一个文件，字段都是可选的（没写就不显示）：
+
+| 字段 | 作用 |
+| --- | --- |
+| `title` | 列表里的短名（NeuRIO、CREPES-X …） |
+| `paper_en` / `paper_zh` | 论文全名，显示在短名下面 |
+| `authors` | 作者名单，自己的名字用 `<strong>` 加粗，共一用 `<sup>*</sup>` |
+| `authors_note_en` / `_zh` | 作者名单下的小字（共一说明、在投未公开等） |
+| `venue_en` / `_zh` | 期刊 / 会议 |
+| `status_en` / `_zh` | 状态标签；英文里含 `Under review` 会用主题色高亮，其余是灰色 |
+| `role_en` / `_zh` | 作者身份 / 项目角色标签 |
+| `description` | 一段研究简介，双语写在 `lang-en` / `lang-zh` 两个 span 里 |
+| `img` | 左边的配图，`assets/img/projects/*.png` |
+| `redirect` | 独立项目页地址，有的话标题和图片会链过去 |
+| `links` | 链接按钮列表，每项 `label_en` / `label_zh`（可选）/ `url` |
+| `category` | `research`（一作 / 共一）、`contributed`（非一作）、`engineering`（工程项目） |
+| `importance` | 分区内的排序，小的在前 |
+
+分区标题和说明文字写在 [_pages/projects.md](_pages/projects.md) 的 `display_categories` 里。
 **改项目页内容** → 直接编辑 `NeuRIO/index.html` 等，中英文分别写在
 `<span class="lang-en">` 和 `<span class="lang-zh">` 里。
 
@@ -86,6 +105,8 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 
 **换配图**：`assets/img/projects/*.png` 现在是自动生成的占位图，
 换成真实的 teaser 图（建议 1200×800 左右）即可，文件名保持不变。
+其中 `conippo` / `mr-virgil` / `cost-effective-swarm` / `coni-mpc` / `crepes` 五张是后补的，
+`aiog.png` 里写的还是论文名 To See All。
 
 **语言切换**：全站中英双语，导航栏（主题切换按钮左边）和项目页右上角各有一个切换按钮，
 选择记在 localStorage 里、两边共用，所以在主页选了中文，点进项目页也还是中文；
@@ -100,13 +121,13 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 ```
 
 行内的用 `<span class="lang-en">…</span><span class="lang-zh">…</span>`（news 和项目卡片就是这么写的）。
-主题自己生成的字（about / projects / news / research / engineering）不在页面源码里，
+主题自己生成的字（about / projects / news 等）不在页面源码里，
 由 [assets/lang/lang.js](assets/lang/lang.js) 顶部的 `LABELS` 表翻译，想加词条直接往里加。
 
 > 主页和 `/projects/` 是通过在正文顶部引入 `assets/lang/lang.css` + `lang.js` 生效的（见两个页面开头几行），
 > 没有覆盖主题的任何模板文件，所以 al-folio 升级不会冲突。
-> `assets/lang/` 特意放在 `assets/css/` 外面：purgecss 只处理 `_site/assets/css/*.css`，
-> 而 `.lang-mode-zh` 这个类不出现在静态 HTML 里，放进去会被当成无用样式清掉。
+> `assets/lang/` 和 `assets/site/` 特意放在 `assets/css/` 外面：purgecss 只处理
+> `_site/assets/css/*.css`，而 `.lang-mode-zh` 这个类不出现在静态 HTML 里，放进去会被当成无用样式清掉。
 
 ---
 

@@ -17,18 +17,20 @@ html.lang-mode-zh .lang-en {
     "Noto Sans CJK SC", sans-serif;
 }
 
-/* the button injected into the navbar, next to the theme toggle */
+/* The button injected into the navbar, before the theme toggle.
+   It mirrors the theme's own #search-toggle: a bare button wrapping a
+   .nav-link span, so the label inherits the navbar's font and the
+   .nav-link padding that keeps it on the same line as "about" / "projects". */
 #lang-toggle {
-  background: none;
-  border: none;
-  padding: 0 0.2rem;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1;
+  padding: 0;
+  border: 0;
+  background-color: inherit;
   color: var(--global-text-color, inherit);
+  cursor: pointer;
+  font: inherit;
 }
 
-#lang-toggle:hover {
+#lang-toggle:hover,
+#lang-toggle:hover .nav-link {
   color: var(--global-hover-color, var(--global-theme-color, inherit));
 }

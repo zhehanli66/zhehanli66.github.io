@@ -56,7 +56,8 @@
     translateLabels(lang);
     var btn = document.getElementById("lang-toggle");
     if (btn) {
-      btn.textContent = lang === "zh" ? "EN" : "中文";
+      var label = btn.querySelector(".nav-link") || btn;
+      label.textContent = lang === "zh" ? "EN" : "中文";
       btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
     }
   }
@@ -66,11 +67,14 @@
     var list = document.querySelector(".navbar-menu-list");
     if (!list) return;
     var li = document.createElement("li");
-    li.className = "toggle-container";
+    li.className = "nav-item";
     var btn = document.createElement("button");
     btn.id = "lang-toggle";
     btn.type = "button";
     btn.title = "Switch language / 切换语言";
+    // same shape as the theme's search button: the label lives in a .nav-link
+    // span so it lines up with the other navbar entries
+    btn.appendChild(document.createElement("span")).className = "nav-link";
     btn.addEventListener("click", function () {
       var next = currentLang() === "zh" ? "en" : "zh";
       apply(next);
