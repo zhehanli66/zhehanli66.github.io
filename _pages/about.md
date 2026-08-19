@@ -169,9 +169,9 @@ If you would like to discuss my work or a potential collaboration, feel free to 
         {% endif %}
 
         <p class="proj-meta">
-          <span class="proj-venue"><span class="lang-en">{{ p.venue_en }}</span><span class="lang-zh">{{ p.venue_zh }}</span></span>
-          {% if p.status_en %}{% assign st = p.status_en | downcase %}<span class="proj-pill proj-status{% if st contains 'under review' %} proj-status-open{% endif %}"><span class="lang-en">{{ p.status_en }}</span><span class="lang-zh">{{ p.status_zh }}</span></span>{% endif %}
+          <span class="proj-pill proj-venue"><span class="lang-en">{{ p.venue_en }}</span><span class="lang-zh">{{ p.venue_zh }}</span></span>
           {% if p.role_en %}<span class="proj-pill proj-role"><span class="lang-en">{{ p.role_en }}</span><span class="lang-zh">{{ p.role_zh }}</span></span>{% endif %}
+          {% if p.meta_en %}<span class="proj-when"><span class="lang-en">{{ p.meta_en }}</span><span class="lang-zh">{{ p.meta_zh }}</span></span>{% endif %}
         </p>
 
         <p class="proj-desc">{{ p.description }}</p>

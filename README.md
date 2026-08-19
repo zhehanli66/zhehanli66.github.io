@@ -83,9 +83,9 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 | `paper_en` / `paper_zh` | 论文全名，显示在短名下面 |
 | `authors` | 作者名单，自己的名字用 `<strong>` 加粗，共一用 `<sup>*</sup>` |
 | `authors_note_en` / `_zh` | 作者名单下的小字（共一说明、在投未公开等） |
-| `venue_en` / `_zh` | 期刊 / 会议 |
-| `status_en` / `_zh` | 状态标签；英文里含 `Under review` 会用主题色高亮，其余是灰色 |
-| `role_en` / `_zh` | 作者身份 / 项目角色标签 |
+| `venue_en` / `_zh` | 主题色高亮的那个框：会议 / 期刊，或者还不能写会议名时写「在投」；二审、口头报告这类补充写在括号里 |
+| `meta_en` / `_zh` | 框后面的灰色小字（单位、起止时间），工程项目才用 |
+| `role_en` / `_zh` | 灰色框：作者身份 / 项目角色 |
 | `description` | 一段研究简介，双语写在 `lang-en` / `lang-zh` 两个 span 里 |
 | `img` | 左边的配图，`assets/img/projects/*.png` |
 | `redirect` | 独立项目页地址，有的话标题和图片会链过去 |
