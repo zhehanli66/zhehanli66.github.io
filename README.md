@@ -26,6 +26,7 @@ CT-RIO/index.html            ├─ Jekyll 原样拷贝，不走模板系统，
 AIOG/index.html              │  想怎么改就怎么改
 ColAG/index.html             ┘
 assets/project-page/     项目页共用的 CSS / JS（bulma + 模板样式 + 双语切换）
+assets/project-page/demo/neurio/   NeuRIO 页里那个可交互回放（见第 4 节）
 ```
 
 项目页链接与简历里的 URL 一一对应，注意 **大小写敏感**：`/ColAG/` 不等于 `/colag/`。
@@ -108,6 +109,30 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 已经写好了三种方式（本地 mp4 / Bilibili / YouTube）的注释代码，
 取消其中一段的注释、删掉下面的 `<div class="video-placeholder">…</div>` 占位块即可。
 本地视频放在 `assets/project-page/videos/` 下。
+ColAG 用的是 B 站嵌入，NeuRIO 用的不是视频而是下面这个可交互回放。
+
+**NeuRIO 的可交互回放**：`NeuRIO/index.html` 的 video 段里放的是
+`assets/project-page/demo/neurio/`（`demo.css` + `demo.js` + `data/`，约 4.2 MB），
+从模型仓库里那个内部回放器移植而来，几何与坐标系约定原样保留，
+去掉了结果表、页头统计和主题切换，加上了双语与站内配色。
+
+- **公开页面上不出现任何内部命名**：数据用 `scripts/export_demo.py --out <dir>`
+  重新导出后，要过一遍精简再拷进来 —— 序列一律重命名成
+  `sequence1.bin` … `sequenceN.bin`（键名同理），`scenario`、`sequence` 这类字段删掉，
+  checkpoint 路径 / run 名 / epoch 和全部 bag 的误差表也不要，只留
+  `model`（参数量 / canonical_frame / reference_agent）和每段的
+  `stats` / `cam_rate` / `uwb_rate` / `layout`。页面上的标签就是「序列 1、序列 2…」，
+  加上机器人台数和时长。
+- 默认播 `sequence1`，改 `demo.js` 里的 `DEFAULT_BAG` 就能换；标签序号按
+  `index.json` 里的键顺序生成，想调展示顺序就调导出时的顺序。
+- **重新导出数据后，记得把 `NeuRIO/index.html` 里 `data-version` 的数字 +1**。
+  文件名会复用（`sequence3.bin` 还是那个名字，内容却换了），不改版本号的话
+  已经访问过的浏览器会拿着缓存里的旧 `index.json` 去读新的 `.bin`，
+  偏移对不上，那一段就点不开。加载失败时页面会在画面下方给出提示，不会一声不响。
+- 几 MB 的数据只在这一段滚进视口时才开始下载（IntersectionObserver），
+  切换序列时再按需拉对应的 `.bin`。
+- 页面右上角那个 EN / 中文 开关只改 `<html>` 上的 class，
+  canvas 里的文字靠 `MutationObserver` 监听重绘，改文案时两处都要给。
 
 **换配图**：`assets/img/projects/*.png` 现在是自动生成的占位图，
 换成真实的 teaser 图（建议 1200×800 左右）即可，文件名保持不变。

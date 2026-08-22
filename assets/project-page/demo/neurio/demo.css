@@ -1,0 +1,411 @@
+/* ---------------------------------------------------------------------------
+   NeuRIO interactive replay — the widget that sits where a teaser video would.
+   Scoped under .nd-demo so it cannot leak into the rest of the project page.
+   Colours come from the project-page variables in css/index.css.
+   --------------------------------------------------------------------------- */
+
+.nd-demo {
+  --nd-ink: #1e293b;
+  --nd-ink-dim: #64748b;
+  --nd-ink-faint: #94a3b8;
+  --nd-line: #e2e8f0;
+  --nd-line-soft: #eef2f7;
+  --nd-grid: #dbe3ec;
+  --nd-surface: #ffffff;
+  --nd-surface-2: #f8fafc;
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--nd-line);
+  border-radius: var(--border-radius-lg);
+  background: var(--nd-surface);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  font-size: 0.85rem;
+  color: var(--nd-ink);
+}
+
+/* --- scenario tabs -------------------------------------------------------- */
+
+.nd-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 0.6rem;
+  overflow-x: auto;
+  background: var(--nd-surface-2);
+  border-bottom: 1px solid var(--nd-line);
+  scrollbar-width: thin;
+}
+
+.nd-tab {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--nd-ink-dim);
+  font: inherit;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.nd-tab:hover {
+  background: var(--nd-surface);
+  border-color: var(--nd-line);
+}
+
+.nd-tab.on {
+  background: var(--nd-surface);
+  border-color: var(--primary-color);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.nd-tab .nd-tab-name {
+  font-weight: 650;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.nd-tab .nd-tab-meta {
+  font-size: 0.68rem;
+  color: var(--nd-ink-faint);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* --- body: stage + side panel --------------------------------------------- */
+
+.nd-body {
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.nd-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #f4f7fb 100%);
+}
+
+/* 16:9 is the natural size — where a teaser video would sit — but the canvas
+   also grows to absorb whatever extra height the side panel forces on the row,
+   so the stage never ends in a band of empty background. */
+.nd-canvas-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.nd-demo canvas#nd-scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.nd-demo canvas#nd-scene:active {
+  cursor: grabbing;
+}
+
+.nd-viewswitch {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.15rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--nd-line);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.nd-seg {
+  padding: 0.2rem 0.65rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--nd-ink-dim);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.nd-seg.on {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.nd-hint {
+  position: absolute;
+  right: 0.6rem;
+  top: 0.6rem;
+  font-size: 0.68rem;
+  color: var(--nd-ink-faint);
+  text-align: right;
+  pointer-events: none;
+}
+
+/* sits under the canvas, not over it: the canvas already paints its own
+   legend along the bottom edge */
+.nd-note {
+  padding: 0.4rem 0.75rem 0.5rem;
+  border-top: 1px solid var(--nd-line-soft);
+  font-size: 0.7rem;
+  line-height: 1.45;
+  color: var(--nd-ink-dim);
+}
+
+/* --- side panel ----------------------------------------------------------- */
+
+.nd-side {
+  flex: 0 0 258px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.7rem;
+  border-left: 1px solid var(--nd-line);
+  background: var(--nd-surface-2);
+  overflow-y: auto;
+}
+
+.nd-block h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--nd-ink-faint);
+}
+
+.nd-block h3 .nd-unit {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.nd-seqstat {
+  font-size: 0.72rem;
+  color: var(--nd-ink-dim);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.nd-seqstat b {
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+.nd-live {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.nd-live tr {
+  cursor: pointer;
+  border-bottom: 1px solid var(--nd-line-soft);
+}
+
+.nd-live tr:hover {
+  background: var(--nd-surface);
+}
+
+.nd-live tr.off {
+  opacity: 0.35;
+}
+
+.nd-live td {
+  padding: 0.22rem 0.1rem;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.nd-live td.nd-num {
+  text-align: right;
+  color: var(--nd-ink-dim);
+}
+
+.nd-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 0.35rem;
+  vertical-align: 1px;
+}
+
+.nd-tag {
+  display: inline-block;
+  margin-left: 0.22rem;
+  padding: 0 0.25rem;
+  border: 1px solid var(--nd-line);
+  border-radius: 3px;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--nd-ink-faint);
+  background: var(--nd-surface);
+}
+
+.nd-tag.on {
+  color: #fff;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.nd-demo canvas.nd-chart {
+  display: block;
+  width: 100%;
+  height: 52px;
+  cursor: crosshair;
+}
+
+/* --- transport ------------------------------------------------------------ */
+
+.nd-transport {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.7rem;
+  border-top: 1px solid var(--nd-line);
+  background: var(--nd-surface-2);
+  flex-wrap: wrap;
+}
+
+.nd-play {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--nd-line);
+  border-radius: 50%;
+  background: var(--nd-surface);
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.nd-play:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.nd-seek {
+  flex: 1 1 160px;
+  min-width: 120px;
+  accent-color: var(--primary-color);
+}
+
+.nd-time {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  color: var(--nd-ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.nd-transport select {
+  border: 1px solid var(--nd-line);
+  border-radius: 6px;
+  background: var(--nd-surface);
+  color: var(--nd-ink-dim);
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.3rem;
+}
+
+.nd-toggles {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  color: var(--nd-ink-dim);
+}
+
+.nd-toggles label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  cursor: pointer;
+}
+
+/* --- loading / failure ---------------------------------------------------- */
+
+.nd-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--nd-ink-dim);
+}
+
+.nd-demo:not(.is-ready) .nd-tabs,
+.nd-demo:not(.is-ready) .nd-body,
+.nd-demo:not(.is-ready) .nd-transport,
+.nd-demo.is-ready .nd-status {
+  display: none;
+}
+
+/* --- caption under the widget --------------------------------------------- */
+
+.nd-caption {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+.nd-caption b {
+  color: var(--text-primary);
+}
+
+.nd-caption .nd-key {
+  display: inline-block;
+  padding: 0 0.3rem;
+  border-radius: 3px;
+  background: var(--background-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+}
+
+/* --- narrow screens ------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .nd-body {
+    flex-direction: column;
+  }
+  .nd-side {
+    flex: 1 1 auto;
+    border-left: none;
+    border-top: 1px solid var(--nd-line);
+  }
+  .nd-canvas-wrap {
+    aspect-ratio: 4 / 3;
+  }
+  .nd-hint {
+    display: none;
+  }
+}
