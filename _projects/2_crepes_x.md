@@ -15,7 +15,4 @@ category: research
 links:
   - label_en: 'arXiv'
     url: 'https://arxiv.org/abs/2512.24688'
-  - label_en: 'Video'
-    label_zh: '视频'
-    url: '/CREPES-X/#video'
 ---

@@ -14,8 +14,4 @@ img: assets/img/projects/neurio.png
 redirect: /NeuRIO/
 importance: 1
 category: research
-links:
-  - label_en: 'Video'
-    label_zh: '视频'
-    url: '/NeuRIO/#video'
 ---

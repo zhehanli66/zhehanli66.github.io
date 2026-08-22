@@ -17,7 +17,4 @@ category: research
 links:
   - label_en: 'arXiv'
     url: 'https://arxiv.org/abs/2602.22006'
-  - label_en: 'Video'
-    label_zh: '视频'
-    url: '/CT-RIO/#video'
 ---

@@ -14,8 +14,4 @@ img: assets/img/projects/aiog.png
 redirect: /AIOG/
 importance: 2
 category: research
-links:
-  - label_en: 'Video'
-    label_zh: '视频'
-    url: '/AIOG/#video'
 ---
