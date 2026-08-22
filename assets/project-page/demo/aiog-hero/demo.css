@@ -1,0 +1,266 @@
+/* ---------------------------------------------------------------------------
+   AIOG hero replay — a recorded CARLA vehicle trajectory, gimbal planning next to a
+   fixed forward-facing camera, filling in the same LiDAR map.
+   Scoped under .hd-demo. Palette follows the project-page variables and the
+   Future Work replay: the baseline is muted, the proposed method carries the
+   accent.
+   --------------------------------------------------------------------------- */
+
+.hd-demo {
+  --hd-a: #2563eb;
+  --hd-a-soft: rgba(37, 99, 235, 0.10);
+  --hd-b: #94a3b8;
+  --hd-b-ink: #64748b;
+  --hd-line: #e2e8f0;
+  --hd-line-soft: #eef2f7;
+  --hd-ink: #1e293b;
+  --hd-ink-dim: #64748b;
+  --hd-ink-faint: #94a3b8;
+  --hd-surface: #ffffff;
+  --hd-surface-2: #f8fafc;
+
+  border: 1px solid var(--hd-line);
+  border-radius: var(--border-radius-lg, 12px);
+  background: var(--hd-surface);
+  box-shadow: var(--shadow-md, 0 4px 14px rgba(15, 23, 42, 0.08));
+  overflow: hidden;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--hd-ink);
+}
+
+/* --- transport ------------------------------------------------------------ */
+
+.hd-transport {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--hd-surface-2);
+  border-bottom: 1px solid var(--hd-line);
+}
+
+.hd-play {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--hd-line);
+  border-radius: 50%;
+  background: var(--hd-surface);
+  color: var(--hd-ink);
+  font-size: 0.72rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition, all 0.2s ease);
+}
+
+.hd-play:hover { border-color: var(--hd-a); color: var(--hd-a); }
+
+.hd-seek { flex: 1 1 auto; min-width: 90px; accent-color: var(--hd-a); }
+
+.hd-time {
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  color: var(--hd-ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.hd-transport select {
+  border: 1px solid var(--hd-line);
+  border-radius: 6px;
+  background: var(--hd-surface);
+  color: var(--hd-ink-dim);
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.3rem;
+}
+
+/* --- the two lanes -------------------------------------------------------- */
+
+.hd-lanes { display: grid; grid-template-columns: 1fr 1fr; }
+.hd-lane + .hd-lane { border-left: 1px solid var(--hd-line); }
+
+.hd-lane-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.6rem 0.75rem 0.45rem;
+  flex-wrap: wrap;
+}
+
+.hd-swatch {
+  width: 9px; height: 9px;
+  border-radius: 2px;
+  flex: none;
+  align-self: center;
+}
+
+.hd-lane-name { font-weight: 700; font-size: 0.86rem; }
+.hd-lane-sub { font-size: 0.7rem; color: var(--hd-ink-faint); }
+
+.hd-cam, .hd-map {
+  position: relative;
+  width: 100%;
+  border-top: 1px solid var(--hd-line-soft);
+}
+
+.hd-cam { aspect-ratio: 16 / 9; background: #0f172a; }
+.hd-map { aspect-ratio: 4 / 3; background: #f4f7fb; }
+
+.hd-demo canvas.hd-cv { display: block; width: 100%; height: 100%; }
+
+.hd-cam-tag {
+  position: absolute;
+  left: 0.5rem; bottom: 0.45rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.62);
+  color: #f8fafc;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hd-readout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem 0.7rem;
+}
+
+.hd-ro-lab {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--hd-ink-faint);
+  margin-bottom: 0.2rem;
+}
+
+.hd-ro-val {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hd-ro-val small { font-size: 0.72rem; font-weight: 700; margin-left: 0.08rem; }
+
+/* --- coverage chart ------------------------------------------------------- */
+
+.hd-chart {
+  padding: 0.6rem 0.75rem 0.7rem;
+  border-top: 1px solid var(--hd-line);
+  background: var(--hd-surface-2);
+}
+
+.hd-chart h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--hd-ink-faint);
+}
+
+.hd-basis { font-weight: 600; text-transform: none; letter-spacing: 0; }
+
+.hd-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 0.7rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.66rem;
+  color: var(--hd-ink-dim);
+}
+
+.hd-legend span { display: inline-flex; align-items: center; gap: 0.28rem; white-space: nowrap; }
+.hd-legend i { width: 13px; height: 0; border-top: 2px solid currentColor; flex: none; }
+.hd-legend .hd-k-a { color: var(--hd-a); }
+.hd-legend .hd-k-b { color: var(--hd-b); }
+.hd-legend .hd-k-ref { color: var(--hd-ink-faint); border-top-style: dashed; }
+
+.hd-demo canvas.hd-chart-cv { display: block; width: 100%; height: 116px; }
+
+/* --- novel-view strip ----------------------------------------------------- */
+
+.hd-nv { border-top: 1px solid var(--hd-line); padding: 0.7rem 0.75rem 0.8rem; }
+
+.hd-nv-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.45rem;
+}
+
+.hd-nv-head h4 {
+  margin: 0;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--hd-ink-faint);
+}
+
+.hd-nv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
+.hd-nv-cell { position: relative; }
+
+.hd-nv-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #0f172a;
+}
+
+.hd-nv-frame canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* the composite tracks feed the canvases; they are never shown directly */
+.hd-demo video.hd-src { display: none; }
+
+.hd-nv-cap {
+  display: block;
+  margin-top: 0.38rem;
+  line-height: 1.35;
+  font-size: 0.66rem;
+  color: var(--hd-ink-dim);
+}
+
+.hd-nv-cap b { color: var(--hd-ink); }
+
+/* --- footer / loading ----------------------------------------------------- */
+
+.hd-foot {
+  padding: 0.55rem 0.75rem 0.6rem;
+  border-top: 1px solid var(--hd-line);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--hd-ink-dim);
+  margin: 0;
+}
+
+.hd-status { padding: 2.5rem 1rem; text-align: center; color: var(--hd-ink-dim); }
+
+.hd-demo:not(.is-ready) .hd-transport,
+.hd-demo:not(.is-ready) .hd-lanes,
+.hd-demo:not(.is-ready) .hd-chart,
+.hd-demo:not(.is-ready) .hd-nv,
+.hd-demo:not(.is-ready) .hd-foot,
+.hd-demo.is-ready .hd-status { display: none; }
+
+@media (max-width: 720px) {
+  .hd-lanes { grid-template-columns: 1fr; }
+  .hd-lane + .hd-lane { border-left: none; border-top: 1px solid var(--hd-line); }
+  .hd-nv-grid { grid-template-columns: 1fr; }
+}
