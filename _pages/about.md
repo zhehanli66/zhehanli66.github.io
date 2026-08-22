@@ -3,7 +3,7 @@ layout: about
 title: About
 permalink: /
 subtitle: >
-  <span class="lang-en">Ph.D. Student · <a href="http://zju-fast.com/">FAST Lab (Fire Group)</a>, <a href="https://www.zju.edu.cn/english/">Zhejiang University</a></span><span class="lang-zh">博士研究生 · 浙江大学 <a href="http://zju-fast.com/">FAST 实验室（Fire Group）</a></span>
+  <span class="lang-en">Ph.D. Student · <a href="https://zju-fast-lab.github.io/">FAST Lab (Fire Group)</a>, <a href="https://www.zju.edu.cn/english/">Zhejiang University</a></span><span class="lang-zh">博士研究生 · 浙江大学 <a href="https://zju-fast-lab.github.io/">FAST 实验室（Fire Group）</a></span>
 
 profile:
   align: right
@@ -73,7 +73,7 @@ display_categories:
 
 <div class="lang-en" markdown="1">
 
-I am a Ph.D. student in Control Science and Engineering at the [FAST Lab](http://zju-fast.com/) (Fire Group), Zhejiang University, advised by [Yanjun Cao](http://zju-fast.com/research-group/yanjun-cao/). I received my B.Eng. in Mechatronics and Automation from the Chu Kochen Honors College, Zhejiang University, in 2022, and I expect to receive my Ph.D. in June 2027.
+I am a Ph.D. student in Control Science and Engineering at the [FAST Lab](https://zju-fast-lab.github.io/) (Fire Group), Zhejiang University, advised by [Yanjun Cao](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/). I received my B.Eng. in Mechatronics and Automation from the Chu Kochen Honors College, Zhejiang University, in 2022, and I expect to receive my Ph.D. in June 2027.
 
 I work on **making a team of robots know where they are with respect to each other**, and on turning that capability into cooperative behaviour in the real world. My work spans the full stack — custom sensing hardware, estimation, planning, control and decision making — and is consistently validated on real multi-robot systems rather than in simulation alone.
 
@@ -91,7 +91,7 @@ If you would like to discuss my work or a potential collaboration, feel free to 
 
 <div class="lang-zh" markdown="1">
 
-我是浙江大学控制科学与工程学院的博士研究生，在 [FAST 实验室](http://zju-fast.com/)（Fire Group）跟随 [Yanjun Cao](http://zju-fast.com/research-group/yanjun-cao/) 老师做研究。2022 年本科毕业于浙江大学竺可桢学院机械电子工程专业，预计 2027 年 6 月博士毕业。
+我是浙江大学控制科学与工程学院的博士研究生，在 [FAST 实验室](https://zju-fast-lab.github.io/)（Fire Group）跟随 [Yanjun Cao](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/) 老师做研究。2022 年本科毕业于浙江大学竺可桢学院机械电子工程专业，预计 2027 年 6 月博士毕业。
 
 我的研究关注**如何让一群机器人知道彼此之间的相对位置**，并把这种能力变成真实世界中的协同行为。工作覆盖从传感器硬件、状态估计、规划控制到决策的完整链路，并且坚持在真实多机器人系统上验证，而不只停留在仿真里。
 
