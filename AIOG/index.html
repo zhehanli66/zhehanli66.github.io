@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="/assets/project-page/css/index.css">
   <link rel="stylesheet" href="/assets/project-page/css/page.css">
   <link rel="stylesheet" href="/assets/project-page/demo/aiog/demo.css">
+  <link rel="stylesheet" href="/assets/project-page/demo/aiog-hero/demo.css">
 
   <script>
     // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
@@ -45,6 +46,7 @@
 
   <script defer src="/assets/project-page/js/page.js"></script>
   <script defer src="/assets/project-page/demo/aiog/demo.js"></script>
+  <script defer src="/assets/project-page/demo/aiog-hero/demo.js"></script>
 </head>
 
 <body>
@@ -104,43 +106,114 @@
       <div class="container is-max-desktop">
         <div class="hero-body">
 
-          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
-               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+          <div class="hd-demo" id="aiog-hero"
+               data-src="/assets/project-page/demo/aiog-hero/" data-version="1">
 
-          A) a local file  (put the mp4 in /assets/project-page/videos/aiog.mp4)
-          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
-                 poster="/assets/img/projects/aiog.png">
-            <source src="/assets/project-page/videos/aiog.mp4" type="video/mp4">
-          </video>
-
-          B) Bilibili
-          <div class="publication-video">
-            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
-                    frameborder="0" allowfullscreen></iframe>
-          </div>
-
-          C) YouTube
-          <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
-                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          -->
-
-          <div class="video-placeholder">
-            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
-            <div class="placeholder-title">
-              <span class="lang-en">Video coming soon</span>
-              <span class="lang-zh">视频即将上线</span>
+            <div class="hd-status">
+              <span class="lang-en">Loading the replay&hellip;</span>
+              <span class="lang-zh">正在加载回放&hellip;</span>
             </div>
-            <div class="placeholder-hint">
-              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
-              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+
+            <div class="hd-transport">
+              <button type="button" class="hd-play" id="hd-play" aria-label="Pause">&#10074;&#10074;</button>
+              <input type="range" class="hd-seek" id="hd-seek" min="0" max="1000" value="0" step="1"
+                     aria-label="Seek">
+              <span class="hd-time" id="hd-time">t = 0.0 s</span>
+              <select id="hd-speed" aria-label="Playback speed">
+                <option value="1">1&times;</option>
+                <option value="2">2&times;</option>
+                <option value="4">4&times;</option>
+              </select>
             </div>
+
+            <div class="hd-lanes">
+              <div class="hd-lane">
+                <div class="hd-lane-head">
+                  <span class="hd-swatch" style="background:#2563eb"></span>
+                  <span class="hd-lane-name"><span class="lang-en">MINCO planning</span><span class="lang-zh">MINCO 规划</span></span>
+                  <span class="hd-lane-sub"><span class="lang-en">actively observes uncolored surfaces</span><span class="lang-zh">主动观测未着色表面</span></span>
+                </div>
+                <div class="hd-cam">
+                  <canvas class="hd-cv" id="hd-cam-a"></canvas>
+                  <span class="hd-cam-tag"><span class="lang-en">camera view</span><span class="lang-zh">相机画面</span></span>
+                </div>
+                <div class="hd-map"><canvas class="hd-cv" id="hd-map-a"></canvas></div>
+                <div class="hd-readout">
+                  <div>
+                    <span class="hd-ro-lab"><span class="lang-en">Color coverage</span><span class="lang-zh">着色覆盖率</span></span>
+                    <span class="hd-ro-val" id="hd-cov-a" style="color:#2563eb">&mdash;</span>
+                  </div>
+                  <div>
+                    <span class="hd-ro-lab"><span class="lang-en">Gimbal yaw</span><span class="lang-zh">云台偏航</span></span>
+                    <span class="hd-ro-val" id="hd-yaw-a" style="color:#2563eb">&mdash;</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hd-lane">
+                <div class="hd-lane-head">
+                  <span class="hd-swatch" style="background:#94a3b8"></span>
+                  <span class="hd-lane-name"><span class="lang-en">Fixed forward camera</span><span class="lang-zh">固定前视相机</span></span>
+                  <span class="hd-lane-sub"><span class="lang-en">aligned with the vehicle heading</span><span class="lang-zh">相机始终朝向车辆前方</span></span>
+                </div>
+                <div class="hd-cam">
+                  <canvas class="hd-cv" id="hd-cam-b"></canvas>
+                  <span class="hd-cam-tag"><span class="lang-en">camera view</span><span class="lang-zh">相机画面</span></span>
+                </div>
+                <div class="hd-map"><canvas class="hd-cv" id="hd-map-b"></canvas></div>
+                <div class="hd-readout">
+                  <div>
+                    <span class="hd-ro-lab"><span class="lang-en">Color coverage</span><span class="lang-zh">着色覆盖率</span></span>
+                    <span class="hd-ro-val" id="hd-cov-b" style="color:#64748b">&mdash;</span>
+                  </div>
+                  <div>
+                    <span class="hd-ro-lab"><span class="lang-en">Gimbal yaw</span><span class="lang-zh">云台偏航</span></span>
+                    <span class="hd-ro-val" id="hd-yaw-b" style="color:#64748b">&mdash;</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hd-chart">
+              <h4><span class="lang-en">Color coverage over time</span><span class="lang-zh">着色覆盖率随时间</span>
+                  <span class="hd-basis" id="hd-basis"></span></h4>
+              <div class="hd-legend">
+                <span><i class="hd-k-a"></i><span class="lang-en">MINCO planning</span><span class="lang-zh">MINCO 规划</span></span>
+                <span><i class="hd-k-b"></i><span class="lang-en">fixed forward camera</span><span class="lang-zh">固定前视相机</span></span>
+                <span><i class="hd-k-ref"></i><span class="lang-en">omnidirectional ceiling</span><span class="lang-zh">全向相机上限</span></span>
+              </div>
+              <canvas class="hd-chart-cv" id="hd-chart-cov"></canvas>
+            </div>
+
+            <div class="hd-nv">
+              <div class="hd-nv-head">
+                <h4><span class="lang-en">3DGS rendering from the same held-out view</span><span class="lang-zh">同一留出视角下的 3DGS 渲染</span></h4>
+              </div>
+              <div class="hd-nv-grid">
+                <div class="hd-nv-cell">
+                  <div class="hd-nv-frame"><canvas class="hd-cv" id="hd-nv-gt"></canvas></div>
+                  <span class="hd-nv-cap"><b><span class="lang-en">Ground-truth image</span><span class="lang-zh">真实图像</span></b></span>
+                </div>
+                <div class="hd-nv-cell">
+                  <div class="hd-nv-frame"><canvas class="hd-cv" id="hd-nv-a"></canvas></div>
+                  <span class="hd-nv-cap"><b><span class="lang-en">MINCO planning</span><span class="lang-zh">MINCO 规划</span></b>&ensp;<span id="hd-final-a"></span></span>
+                </div>
+                <div class="hd-nv-cell">
+                  <div class="hd-nv-frame"><canvas class="hd-cv" id="hd-nv-b"></canvas></div>
+                  <span class="hd-nv-cap"><b><span class="lang-en">Fixed forward camera</span><span class="lang-zh">固定前视相机</span></b>&ensp;<span id="hd-final-b"></span></span>
+                </div>
+              </div>
+            </div>
+
+            <p class="hd-foot">
+              <span class="lang-en"><b>Grey voxels are surfaces mapped by LiDAR; blue voxels have also been observed and colored by the camera.</b> Both columns replay the same 120&nbsp;s vehicle trajectory in CARLA on the same LiDAR map. The only difference is camera control: MINCO planning turns the gimbal toward uncolored surfaces, while the fixed camera remains aligned with the vehicle&rsquo;s forward direction. The final colored voxels come directly from each reconstruction, and their update times are recovered by replaying the recorded camera poses. The amber curve traces the vehicle trajectory, the black arrow shows its heading, and the violet sector shows the camera field of view. The bottom row compares the two 3DGS models from the same held-out view.</span>
+              <span class="lang-zh"><b>灰色体素表示激光雷达已经建图的表面，蓝色体素表示同时被相机观测并完成着色的部分。</b>两栏使用 CARLA 中同一段 120 秒车辆行驶轨迹和同一份激光地图，唯一变量是相机控制方式：MINCO 规划主动转动云台补充未着色区域，固定前视相机则始终朝向车辆前方。最终着色结果直接读取自各自的重建输出，体素变蓝的时刻则根据记录的相机位姿回放得到。琥珀色曲线表示车辆轨迹，黑色箭头表示车辆朝向，紫色扇形表示相机视场。底部比较两种方案在同一留出视角下的 3DGS 渲染结果。</span>
+            </p>
           </div>
 
           <h2 class="subtitle has-text-centered">
-            <span class="lang-en">Use LiDAR geometry to find appearance gaps, then direct the camera to fill them.</span>
-            <span class="lang-zh">利用激光几何发现外观覆盖空缺，再主动引导相机补全观测。</span>
+            <span class="lang-en">Identify uncolored surfaces in the LiDAR map, then steer the gimbal camera to observe them.</span>
+            <span class="lang-zh">从激光地图中发现尚未着色的表面，并主动转动云台补充图像观测。</span>
           </h2>
         </div>
       </div>
