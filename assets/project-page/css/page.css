@@ -105,6 +105,79 @@
   color: var(--text-primary);
 }
 
+/* --- future work ---------------------------------------------------------- */
+.future-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin: 1.6rem 0 1.4rem;
+}
+
+.future-stat {
+  padding: 0.9rem 1rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background-secondary);
+  text-align: left;
+}
+
+.future-stat .fs-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.future-stat .fs-value {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--primary-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.future-stat .fs-value small {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-left: 0.1rem;
+}
+
+.future-stat .fs-vs {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.future-note {
+  margin-top: 1.4rem;
+  padding: 0.9rem 1.1rem;
+  border-left: 3px solid var(--border-color);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background: var(--background-secondary);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+.future-note strong {
+  color: var(--text-primary);
+}
+
+@media (max-width: 720px) {
+  .future-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* --- video placeholder ---------------------------------------------------- */
 .video-placeholder {
   display: flex;

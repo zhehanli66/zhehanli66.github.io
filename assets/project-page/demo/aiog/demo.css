@@ -1,0 +1,284 @@
+/* ---------------------------------------------------------------------------
+   Gimbal-policy replay for the AIOG page's Future Work section: the planner and
+   the learned policy flying the same recorded 60 s, side by side.
+   Scoped under .gp-demo. Colours follow the project-page variables: the
+   baseline is muted, the learned policy carries the accent.
+   --------------------------------------------------------------------------- */
+
+.gp-demo {
+  --gp-plan: #94a3b8;
+  --gp-plan-ink: #64748b;
+  --gp-sac: #2563eb;
+  --gp-line: #e2e8f0;
+  --gp-line-soft: #eef2f7;
+  --gp-grid: #dbe3ec;
+  --gp-ink: #1e293b;
+  --gp-ink-dim: #64748b;
+  --gp-ink-faint: #94a3b8;
+  --gp-surface: #ffffff;
+  --gp-surface-2: #f8fafc;
+
+  border: 1px solid var(--gp-line);
+  border-radius: var(--border-radius-lg);
+  background: var(--gp-surface);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--gp-ink);
+}
+
+/* --- transport ------------------------------------------------------------ */
+
+.gp-transport {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--gp-surface-2);
+  border-bottom: 1px solid var(--gp-line);
+}
+
+.gp-play {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--gp-line);
+  border-radius: 50%;
+  background: var(--gp-surface);
+  color: var(--gp-ink);
+  font-size: 0.72rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gp-play:hover {
+  border-color: var(--gp-sac);
+  color: var(--gp-sac);
+}
+
+.gp-seek {
+  flex: 1 1 auto;
+  min-width: 90px;
+  accent-color: var(--gp-sac);
+}
+
+.gp-time {
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  color: var(--gp-ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.gp-transport select {
+  border: 1px solid var(--gp-line);
+  border-radius: 6px;
+  background: var(--gp-surface);
+  color: var(--gp-ink-dim);
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.3rem;
+}
+
+/* --- the two lanes -------------------------------------------------------- */
+
+.gp-lanes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.gp-lane + .gp-lane {
+  border-left: 1px solid var(--gp-line);
+}
+
+.gp-lane-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.6rem 0.75rem 0.45rem;
+  flex-wrap: wrap;
+}
+
+.gp-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  flex: none;
+  align-self: center;
+}
+
+.gp-lane-name {
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
+.gp-lane-sub {
+  font-size: 0.7rem;
+  color: var(--gp-ink-faint);
+}
+
+.gp-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-top: 1px solid var(--gp-line-soft);
+  background: linear-gradient(180deg, #fbfcfe 0%, #f2f5f9 100%);
+}
+
+.gp-demo canvas.gp-scene-cv {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.gp-demo canvas.gp-scene-cv:active {
+  cursor: grabbing;
+}
+
+/* the band is a summary strip under the scene now, not the main event */
+.gp-band {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-top: 1px solid var(--gp-line-soft);
+  border-bottom: 1px solid var(--gp-line-soft);
+  background: var(--gp-surface);
+}
+
+.gp-demo canvas.gp-band-cv {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gp-readout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem 0.7rem;
+}
+
+.gp-ro-lab {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gp-ink-faint);
+  margin-bottom: 0.2rem;
+}
+
+.gp-ro-val {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.gp-ro-val small {
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-left: 0.08rem;
+}
+
+/* --- the two shared charts ------------------------------------------------ */
+
+.gp-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--gp-line);
+  background: var(--gp-surface-2);
+}
+
+.gp-chart + .gp-chart {
+  border-left: 1px solid var(--gp-line);
+}
+
+.gp-chart {
+  padding: 0.6rem 0.75rem 0.7rem;
+}
+
+.gp-chart h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gp-ink-faint);
+}
+
+.gp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 0.7rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.66rem;
+  color: var(--gp-ink-dim);
+}
+
+.gp-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  white-space: nowrap;
+}
+
+.gp-legend i {
+  width: 13px;
+  height: 0;
+  border-top: 2px solid currentColor;
+  flex: none;
+}
+
+.gp-legend .gp-k-plan { color: var(--gp-plan); }
+.gp-legend .gp-k-sac { color: var(--gp-sac); }
+.gp-legend .gp-k-ref { color: var(--gp-ink-faint); border-top-style: dashed; }
+
+.gp-demo canvas.gp-chart-cv {
+  display: block;
+  width: 100%;
+  height: 104px;
+  cursor: crosshair;
+}
+
+.gp-foot {
+  padding: 0.55rem 0.75rem 0.6rem;
+  border-top: 1px solid var(--gp-line);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--gp-ink-dim);
+}
+
+.gp-status {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--gp-ink-dim);
+}
+
+.gp-demo:not(.is-ready) .gp-transport,
+.gp-demo:not(.is-ready) .gp-lanes,
+.gp-demo:not(.is-ready) .gp-charts,
+.gp-demo:not(.is-ready) .gp-foot,
+.gp-demo.is-ready .gp-status {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .gp-lanes,
+  .gp-charts {
+    grid-template-columns: 1fr;
+  }
+  .gp-lane + .gp-lane,
+  .gp-chart + .gp-chart {
+    border-left: none;
+    border-top: 1px solid var(--gp-line);
+  }
+  .gp-scene {
+    aspect-ratio: 16 / 11;
+  }
+}
