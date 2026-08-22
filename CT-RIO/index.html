@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>CT-RIO | Zhehan Li</title>
-  <meta name="description" content="A continuous-time factor graph on augmented clamped non-uniform B-splines that fuses asynchronous bearing, distance and inertial measurements at their raw timestamps, solved by a parallel asynchronous block coordinate descent.">
+  <meta name="description" content="CT-RIO fuses asynchronous bearing, range and inertial measurements at their native timestamps in a parallel continuous-time relative-localization framework.">
   <meta name="keywords" content="continuous-time estimation, B-spline, relative localization, multi-robot, asynchronous measurements, clock offset, parallel optimization">
   <meta name="author" content="Zhehan Li">
   <meta name="robots" content="index, follow">
@@ -14,12 +14,12 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Zhehan Li">
   <meta property="og:title" content="Parallel Continuous-Time Relative Localization with Augmented Clamped Non-Uniform B-Splines">
-  <meta property="og:description" content="A continuous-time factor graph on augmented clamped non-uniform B-splines that fuses asynchronous bearing, distance and inertial measurements at their raw timestamps, solved by a parallel asynchronous block coordinate descent.">
+  <meta property="og:description" content="CT-RIO fuses asynchronous bearing, range and inertial measurements at their native timestamps in a parallel continuous-time relative-localization framework.">
   <meta property="og:url" content="https://zhehanli66.github.io/CT-RIO/">
   <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/ct-rio.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Parallel Continuous-Time Relative Localization with Augmented Clamped Non-Uniform B-Splines">
-  <meta name="twitter:description" content="A continuous-time factor graph on augmented clamped non-uniform B-splines that fuses asynchronous bearing, distance and inertial measurements at their raw timestamps, solved by a parallel asynchronous block coordinate descent.">
+  <meta name="twitter:description" content="CT-RIO fuses asynchronous bearing, range and inertial measurements at their native timestamps in a parallel continuous-time relative-localization framework.">
   <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/ct-rio.png">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
@@ -122,43 +122,18 @@
       <div class="container is-max-desktop">
         <div class="hero-body">
 
-          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
-               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
-
-          A) a local file  (put the mp4 in /assets/project-page/videos/ct-rio.mp4)
-          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
-                 poster="/assets/img/projects/ct-rio.png">
-            <source src="/assets/project-page/videos/ct-rio.mp4" type="video/mp4">
-          </video>
-
-          B) Bilibili
           <div class="publication-video">
-            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
-                    frameborder="0" allowfullscreen></iframe>
-          </div>
-
-          C) YouTube
-          <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
-                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          -->
-
-          <div class="video-placeholder">
-            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
-            <div class="placeholder-title">
-              <span class="lang-en">Video coming soon</span>
-              <span class="lang-zh">视频即将上线</span>
-            </div>
-            <div class="placeholder-hint">
-              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
-              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
-            </div>
+            <video id="teaser" controls playsinline preload="metadata"
+                   poster="/assets/img/projects/ct-rio.png">
+              <source src="/assets/project-page/videos/ct-rio.mp4" type="video/mp4">
+              <span class="lang-en">Your browser does not support HTML5 video.</span>
+              <span class="lang-zh">你的浏览器不支持 HTML5 视频播放。</span>
+            </video>
           </div>
 
           <h2 class="subtitle has-text-centered">
-            <span class="lang-en">Asynchronous bearing, distance and inertial measurements, fused at their raw timestamps on a continuous-time spline.</span>
-            <span class="lang-zh">在连续时间样条上，按原始时间戳融合异步的方位、距离与惯性测量。</span>
+            <span class="lang-en">Fuse every asynchronous measurement where it occurs in time, without forcing it onto a keyframe.</span>
+            <span class="lang-zh">让每条异步观测在其真实发生时刻参与估计，而不必对齐到关键帧。</span>
           </h2>
         </div>
       </div>
@@ -170,12 +145,12 @@
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3">
-              <span class="lang-en">Abstract</span>
-              <span class="lang-zh">摘要</span>
+              <span class="lang-en">Overview</span>
+              <span class="lang-zh">项目概述</span>
             </h2>
             <div class="content has-text-justified">
-              <p class="lang-en">Relative localization data arrives asynchronously and at very different rates: bearing, distance and inertial measurements never share a common clock, and forcing them onto discretized states throws away accuracy and adds latency. This work builds a continuous-time factor graph on clamped non-uniform B-splines, so every measurement is fused at its own raw timestamp, the knot distribution adapts to how aggressive the motion is, and the inter-robot clock offset is estimated online &mdash; an initial offset of hundreds of milliseconds converges to the sub-millisecond level within 3&nbsp;s. Closed-form extension and deletion rules for clamped B-splines let the trajectory grow and shrink without deforming the curve, and an incremental asynchronous block coordinate descent, for which convergence is proven, solves the problem in parallel and fast enough to sit inside a UAV control loop. Real-world experiments reach 0.046&nbsp;m / 1.8&deg; RMSE, up to 60% better than discrete-time optimization on high-speed sequences.</p>
-              <p class="lang-zh">相对定位的观测天然是异步、异频的：方位、距离与惯性测量并不共享同一时钟，强行离散化会牺牲精度并引入延迟。本工作基于钳制非均匀 B 样条构建连续时间因子图，使各类测量都能按原始时间戳融合，节点分布自适应运动剧烈程度，并在线估计机间时钟偏移——数百毫秒的初始时偏可在 3 s 内收敛至亚毫秒级。同时提出钳制 B 样条的闭式扩展与删除算法，使控制点增删不改变已有曲线形状；并提出可证明收敛的增量异步块坐标下降并行求解策略，实时性足以直接用于无人机控制回路。真机实验达到 0.046 m / 1.8&deg; RMSE，在高速序列上较离散时间优化最高降低 60% 误差。</p>
+              <p class="lang-en">Bearing, range and inertial measurements arrive at different rates and often on unsynchronized robot clocks. CT-RIO represents relative motion with augmented clamped non-uniform B-splines, allowing each observation to constrain the trajectory at its native timestamp rather than being interpolated or discarded at discrete keyframes. Knot density adapts to the motion, and inter-robot clock offsets are estimated jointly with the trajectory; an initial offset of 263&nbsp;ms converges to sub-millisecond accuracy within 3&nbsp;s. Closed-form spline extension and shrinkage preserve the existing curve while supporting online updates. To keep the tightly coupled problem tractable as the team grows, CT-RIO decomposes it into robot-wise subproblems and solves them with incremental asynchronous block coordinate descent, for which convergence is established. Real-world experiments report 0.046&nbsp;m / 1.8&deg; RMSE and up to 60% lower error than discrete-time optimization under high-speed motion.</p>
+              <p class="lang-zh">方位、测距与惯性观测具有不同频率，而且不同机器人的系统时钟往往并不同步。CT-RIO 使用增广钳制非均匀 B 样条表示相对运动，使每条观测都能在原始时间戳处约束轨迹，无需将其插值到离散关键帧或直接丢弃。样条节点密度随运动状态自适应变化，机间时钟偏移则与轨迹联合估计；263 ms 的初始时偏可在 3 s 内收敛至亚毫秒级。闭式样条扩展与收缩在在线更新控制点时保持已有曲线形状不变。为控制多机器人紧耦合优化的计算开销，CT-RIO 将问题拆分为逐机器人子问题，并采用具有收敛性保证的增量异步块坐标下降并行求解。真机实验报告 0.046 m / 1.8&deg; RMSE，高速运动下的误差较离散时间优化最高降低 60%。</p>
             </div>
           </div>
         </div>
@@ -188,23 +163,23 @@
         <div class="columns is-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3 has-text-centered">
-              <span class="lang-en">Highlights</span>
-              <span class="lang-zh">技术亮点</span>
+              <span class="lang-en">Key Contributions</span>
+              <span class="lang-zh">主要贡献</span>
             </h2>
             <div class="content">
               <ul class="highlights lang-en">
-                <li><strong>Continuous-time factor graph.</strong> Clamped non-uniform B-splines fuse asynchronous, multi-rate bearing / distance / IMU measurements at their raw timestamps, adapt to the aggressiveness of the motion and remove the latency inherent to discrete-time formulations.</li>
-                <li><strong>Online clock alignment.</strong> The inter-robot clock offset is estimated jointly; an initial offset of hundreds of milliseconds converges to sub-millisecond accuracy within 3 seconds.</li>
-                <li><strong>Shape-preserving spline surgery.</strong> Closed-form extension and deletion of clamped B-splines lets control points be added or removed without deforming the curve, which improves both efficiency and consistency.</li>
-                <li><strong>Parallel solver with a convergence proof.</strong> An incremental asynchronous block coordinate descent scheme keeps the estimator real-time enough to be used directly for UAV control.</li>
-                <li><strong>Real-robot accuracy.</strong> 0.046&nbsp;m / 1.8&deg; RMSE, and up to 60% lower error than discrete-time optimization on high-speed sequences.</li>
+                <li><strong>Native-timestamp fusion.</strong> A continuous-time spline lets asynchronous, multi-rate measurements constrain the trajectory where they occur, without keyframe interpolation or sample dropping.</li>
+                <li><strong>Adaptive trajectory and clock modeling.</strong> Non-uniform knots follow motion complexity, while inter-robot time offsets are estimated directly from the same factor graph.</li>
+                <li><strong>Shape-preserving online updates.</strong> Closed-form extension and shrinkage add or remove spline support without deforming the represented trajectory.</li>
+                <li><strong>Parallel optimization with convergence guarantees.</strong> Robot-wise decomposition and incremental asynchronous block coordinate descent provide scalable online inference.</li>
+                <li><strong>High-speed accuracy.</strong> Real-world experiments report 0.046&nbsp;m / 1.8&deg; RMSE and improvements of up to 60% over discrete-time optimization.</li>
               </ul>
               <ul class="highlights lang-zh">
-                <li><strong>连续时间因子图。</strong>基于钳制非均匀 B 样条，使异步、异频的方位/距离/IMU 测量按原始时间戳融合，自适应运动剧烈程度并消除离散时间建模固有的延迟。</li>
-                <li><strong>在线时钟对齐。</strong>联合在线估计机间时钟偏移，数百毫秒初始时偏可在 3 s 内收敛至亚毫秒级。</li>
-                <li><strong>保形的样条增删。</strong>提出钳制 B 样条的闭式扩展与删除算法，控制点增删不改变曲线形状，同时提升优化效率与一致性。</li>
-                <li><strong>可证明收敛的并行求解。</strong>增量异步块坐标下降策略提升实时性，可直接用于无人机控制等场景。</li>
-                <li><strong>真机精度。</strong>真机实验 0.046 m / 1.8&deg; RMSE，高速序列较离散时间优化最高降低 60%。</li>
+                <li><strong>原始时间戳融合。</strong>连续时间样条使异步、异频观测在真实发生时刻约束轨迹，无需关键帧插值或丢弃数据。</li>
+                <li><strong>自适应轨迹与时钟建模。</strong>非均匀节点随运动复杂度调整，同时在同一因子图中直接估计机间时偏。</li>
+                <li><strong>保形在线更新。</strong>闭式扩展与收缩能够增删样条支撑，同时保持所表示的已有轨迹不变。</li>
+                <li><strong>具有收敛保证的并行优化。</strong>逐机器人分解与增量异步块坐标下降支持可扩展的在线求解。</li>
+                <li><strong>高速运动精度。</strong>真机实验报告 0.046 m / 1.8&deg; RMSE，较离散时间优化最多降低 60% 误差。</li>
               </ul>
             </div>
           </div>

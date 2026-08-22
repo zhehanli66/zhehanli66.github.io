@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>NeuRIO | Zhehan Li</title>
-  <meta name="description" content="NeuRIO learns a physics-guided graph estimator that streams the 6-DoF relative poses of every neighbouring robot from bearing, distance and inertial measurements, trained in simulation and deployed zero-shot.">
+  <meta name="description" content="NeuRIO is a simulation-trained causal graph estimator for streaming 6-DoF multi-robot relative localization from bearing, UWB range and inertial measurements.">
   <meta name="keywords" content="multi-robot relative localization, relative inertial odometry, graph neural network, transformer, zero-shot sim-to-real, LoRA, robot swarm">
   <meta name="author" content="Zhehan Li">
   <meta name="robots" content="index, follow">
@@ -14,12 +14,12 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Zhehan Li">
   <meta property="og:title" content="NeuRIO: Physics-Guided Edge-State Graph Learning for Zero-Shot Multi-Robot Relative Inertial Odometry">
-  <meta property="og:description" content="NeuRIO learns a physics-guided graph estimator that streams the 6-DoF relative poses of every neighbouring robot from bearing, distance and inertial measurements, trained in simulation and deployed zero-shot.">
+  <meta property="og:description" content="NeuRIO is a simulation-trained causal graph estimator for streaming 6-DoF multi-robot relative localization from bearing, UWB range and inertial measurements.">
   <meta property="og:url" content="https://zhehanli66.github.io/NeuRIO/">
   <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/neurio.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NeuRIO: Physics-Guided Edge-State Graph Learning for Zero-Shot Multi-Robot Relative Inertial Odometry">
-  <meta name="twitter:description" content="NeuRIO learns a physics-guided graph estimator that streams the 6-DoF relative poses of every neighbouring robot from bearing, distance and inertial measurements, trained in simulation and deployed zero-shot.">
+  <meta name="twitter:description" content="NeuRIO is a simulation-trained causal graph estimator for streaming 6-DoF multi-robot relative localization from bearing, UWB range and inertial measurements.">
   <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/neurio.png">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
@@ -146,8 +146,8 @@
           </div>
 
           <h2 class="subtitle has-text-centered">
-            <span class="lang-en">Streaming 6-DoF relative poses for every neighbour, learned in simulation and deployed zero-shot.</span>
-            <span class="lang-zh">端到端流式输出全部邻居的 6-DoF 相对位姿，仿真训练、零样本部署。</span>
+            <span class="lang-en">One simulation-trained estimator, deployed zero-shot across real robot teams.</span>
+            <span class="lang-zh">一个仅用仿真训练的估计器，零样本部署到不同真机集群。</span>
           </h2>
         </div>
       </div>
@@ -159,12 +159,12 @@
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3">
-              <span class="lang-en">Abstract</span>
-              <span class="lang-zh">摘要</span>
+              <span class="lang-en">Overview</span>
+              <span class="lang-zh">项目概述</span>
             </h2>
             <div class="content has-text-justified">
-              <p class="lang-en">A robot team can only cooperate if every robot knows where its teammates are. Classical relative state estimators solve that problem with a hand-crafted optimization problem that has to be re-derived and re-tuned whenever the sensor suite changes. NeuRIO learns the estimator instead. Every robot state becomes a token of a graph and every mutual bearing / distance observation becomes an edge; a gravity alignment step removes most of the sensitivity to how the sensors are mounted, the edge information modulates the attention, and token states and edge states are refreshed alternately so that the network streams the 6-DoF relative poses of all neighbours end to end. The model is trained on roughly 2,000 minutes of simulated trajectories and is deployed on real robots zero-shot with frozen weights, with an optional label-free LoRA adaptation that keeps improving it online. On real swarm sequences it reaches 0.12&nbsp;m / 2.5&deg; on average, gains another 5% after adaptation, and keeps up real-time streaming inference at the scale of 200 robots.</p>
-              <p class="lang-zh">多机器人系统只有知道队友在哪里才能真正协同。传统相对状态估计把这一问题建模为手工设计的优化问题，每当传感器配置变化就需要重新推导和调参。NeuRIO 选择直接学习这个估计器：把每个机器人的状态作为图中的 token、把机间的方位/距离观测作为边，先通过重力对齐降低对传感器安装差异的敏感性，再将边信息加入 Attention 进行调制，并交替更新 token 与边状态，端到端流式输出全部邻居的 6-DoF 相对位姿。模型使用约 2,000 分钟仿真轨迹训练，冻结权重即可零样本部署，并支持无标签 LoRA 在线自适应微调。真机集群序列平均达到 0.12 m / 2.5&deg;，微调后平均误差进一步降低 5%，并实现了 200 台机器人规模下的实时流式推理。</p>
+              <p class="lang-en">Multi-robot relative localization must combine asynchronous bearing, UWB range and inertial streams despite changing visibility and persistent sensor failures. NeuRIO represents each robot with a gravity-aligned node state and each directed robot pair with its own persistent edge state. These edge states condition attention and carry pair-specific visibility and corruption history across keyframes, allowing a single causal network to stream the full 6-DoF relative pose of every neighbor. The model is trained on 400 simulated trajectories with coupled camera, ranging and inertial failure modes; its parameters are then frozen and transferred directly to real robots. Across 24 real sequences, the zero-shot model achieves a mean position error of 0.121&nbsp;m and a mean rotation error of 2.53&deg;. An optional label-free stage adapts a low-rank input module using geometric measurement residuals rather than pose labels.</p>
+              <p class="lang-zh">多机器人相对定位需要在可见关系不断变化、传感器故障具有持续性的条件下，融合异步的方位、UWB 测距与惯性数据。NeuRIO 为每个机器人维护重力对齐的节点状态，并为每个有向机器人对维护独立、可跨关键帧传递的边状态；边状态既调制注意力，也记录该机器人对的可见性与观测异常历史，使一个因果图网络能够流式输出全部邻居的 6-DoF 相对位姿。模型在包含相机、测距与惯性耦合故障的 400 条仿真轨迹上训练，随后冻结参数并直接部署到真机。零样本模型在 24 段真机序列上的平均位置误差为 0.121 m、平均旋转误差为 2.53&deg;。此外，可选的无标签阶段利用几何测量残差适配低秩输入模块，无需位姿真值。</p>
             </div>
           </div>
         </div>
@@ -177,21 +177,21 @@
         <div class="columns is-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3 has-text-centered">
-              <span class="lang-en">Highlights</span>
-              <span class="lang-zh">技术亮点</span>
+              <span class="lang-en">Key Contributions</span>
+              <span class="lang-zh">主要贡献</span>
             </h2>
             <div class="content">
               <ul class="highlights lang-en">
-                <li><strong>Physics-guided graph representation.</strong> Robot states are tokens, mutual bearing and distance observations are edges, and a gravity alignment step makes the estimator far less sensitive to how the sensors are mounted on each platform.</li>
-                <li><strong>Edge-state attention.</strong> Edge information modulates the attention while token and edge states are updated alternately, which lets the network output the 6-DoF relative poses of every neighbour end to end and in a streaming fashion.</li>
-                <li><strong>Zero-shot sim-to-real.</strong> About 2,000 minutes of simulated trajectories are enough to deploy with frozen weights; a label-free LoRA adaptation refines the model online without any ground truth.</li>
-                <li><strong>Accuracy and scale on real robots.</strong> 0.12&nbsp;m / 2.5&deg; on average over real swarm sequences, a further 5% error reduction after adaptation, and real-time streaming inference with 200 robots.</li>
+                <li><strong>Persistent node–edge state.</strong> Separate causal states for robots and ordered robot pairs preserve pair identity and measurement history as visibility changes.</li>
+                <li><strong>Physics-guided sim-to-real transfer.</strong> Gravity-aligned coordinates and a failure-mode simulator encode known structure while exposing the model to occlusion, non-line-of-sight ranging and persistent device faults.</li>
+                <li><strong>Optional label-free adaptation.</strong> A low-rank input adapter is updated from bearing, range and inertial-preintegration residuals, while the source network remains frozen.</li>
+                <li><strong>Real-world accuracy and throughput.</strong> The frozen model averages 0.121&nbsp;m / 2.53&deg; over 24 real sequences; on the reported RTX 4070 Ti SUPER benchmark, median latency is 1.9&nbsp;ms at 10 robots and the 99th percentile remains below 20&nbsp;ms up to 300 robots.</li>
               </ul>
               <ul class="highlights lang-zh">
-                <li><strong>物理引导的图表示。</strong>以每个机器人状态为 token、机间方位/距离观测为边，并通过重力对齐降低估计器对传感器安装差异的敏感性。</li>
-                <li><strong>边状态调制的注意力。</strong>把边信息加入 Attention 进行调制，交替更新 token 与边状态，端到端流式输出全部邻居的 6-DoF 相对位姿。</li>
-                <li><strong>零样本 Sim-to-Real。</strong>约 2,000 分钟仿真轨迹训练后，冻结权重即可直接部署；并支持无需真值的无标签 LoRA 在线自适应微调。</li>
-                <li><strong>真机精度与规模。</strong>真机集群序列平均 0.12 m / 2.5&deg;，微调后误差再降低 5%，可在 200 台机器人规模下实时流式推理。</li>
+                <li><strong>持续更新的节点—边状态。</strong>分别为机器人和有向机器人对维护因果状态，在可见关系变化时保留机器人对身份与观测历史。</li>
+                <li><strong>物理引导的 Sim-to-Real。</strong>重力对齐坐标系注入几何结构，故障模式仿真器则覆盖遮挡、非视距测距和持续性器件故障。</li>
+                <li><strong>可选的无标签适配。</strong>保持源网络冻结，仅依据方位、测距与惯性预积分残差更新低秩输入适配器。</li>
+                <li><strong>真机精度与吞吐。</strong>冻结模型在 24 段真机序列上平均达到 0.121 m / 2.53&deg;；在论文所用 RTX 4070 Ti SUPER 上，10 台机器人时中位延迟为 1.9 ms，扩展至 300 台时第 99 百分位延迟仍低于 20 ms。</li>
               </ul>
             </div>
           </div>

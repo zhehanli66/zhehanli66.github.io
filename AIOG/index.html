@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>AIOG | Zhehan Li</title>
-  <meta name="description" content="An active reconstruction system that keeps camera and LiDAR calibrated online, plans gimbal motion as a budgeted orienteering problem, and learns a reinforcement-learning colorization policy.">
-  <meta name="keywords" content="active reconstruction, online extrinsic calibration, camera-LiDAR calibration, gimbal planning, orienteering problem, MINCO, reinforcement learning, 3D Gaussian splatting">
+  <meta name="description" content="A LiDAR-guided active reconstruction framework that combines online camera-LiDAR residual calibration with motion-budgeted gimbal view planning.">
+  <meta name="keywords" content="active reconstruction, online extrinsic calibration, camera-LiDAR calibration, gimbal planning, orienteering problem, MINCO, 3D Gaussian splatting">
   <meta name="author" content="Zhehan Li">
   <meta name="robots" content="index, follow">
 
@@ -14,12 +14,12 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Zhehan Li">
   <meta property="og:title" content="To See All: LiDAR-Guided Active Reconstruction via Online Calibration and Gimbal Planning">
-  <meta property="og:description" content="An active reconstruction system that keeps camera and LiDAR calibrated online, plans gimbal motion as a budgeted orienteering problem, and learns a reinforcement-learning colorization policy.">
+  <meta property="og:description" content="A LiDAR-guided active reconstruction framework that combines online camera-LiDAR residual calibration with motion-budgeted gimbal view planning.">
   <meta property="og:url" content="https://zhehanli66.github.io/AIOG/">
   <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/aiog.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="To See All: LiDAR-Guided Active Reconstruction via Online Calibration and Gimbal Planning">
-  <meta name="twitter:description" content="An active reconstruction system that keeps camera and LiDAR calibrated online, plans gimbal motion as a budgeted orienteering problem, and learns a reinforcement-learning colorization policy.">
+  <meta name="twitter:description" content="A LiDAR-guided active reconstruction framework that combines online camera-LiDAR residual calibration with motion-budgeted gimbal view planning.">
   <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/aiog.png">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
@@ -147,8 +147,8 @@
           </div>
 
           <h2 class="subtitle has-text-centered">
-            <span class="lang-en">Keep the camera calibrated online, then actively look where the map is still uncoloured.</span>
-            <span class="lang-zh">先让相机在线保持标定，再主动看向地图上尚未着色的地方。</span>
+            <span class="lang-en">Use LiDAR geometry to find appearance gaps, then direct the camera to fill them.</span>
+            <span class="lang-zh">利用激光几何发现外观覆盖空缺，再主动引导相机补全观测。</span>
           </h2>
         </div>
       </div>
@@ -160,12 +160,12 @@
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3">
-              <span class="lang-en">Abstract</span>
-              <span class="lang-zh">摘要</span>
+              <span class="lang-en">Overview</span>
+              <span class="lang-zh">项目概述</span>
             </h2>
             <div class="content has-text-justified">
-              <p class="lang-en">Colouring a LiDAR map with a gimbal camera fails in two ways: the extrinsics drift, and the camera simply never looks at large parts of the scene. This project attacks both. An online self-calibration network extracts pitch, yaw and roll misalignment patterns separately, fuses RGB features with projected depth features through cross-modal self- and cross-attention, and jointly regresses the 6-DoF extrinsic residual; a multi-stage cascade of extrinsic update, depth re-projection and residual re-estimation drives it to convergence. The work also releases COOKIE, a calibration dataset of 32 scenes and more than 50,000 hardware-synchronized image&ndash;point-cloud pairs. On top of a visibility and colouring state map, active gimbal colouring is formulated as a budgeted orienteering problem with reward decay and solved together with MINCO trajectory optimization for smooth gimbal motion, and evaluated with a multi-level protocol that measures both point-domain colour and downstream 3DGS rendering quality. Finally, the same viewpoint control problem is cast as continuous control &mdash; visibility gain map as observation, dual-axis angular acceleration as action, coloured-voxel increment as reward &mdash; and solved end to end with SAC, which improves colouring coverage by 6.0% while using only 51% of the gimbal travel of the planning baseline.</p>
-              <p class="lang-zh">用云台相机为激光地图着色会在两个环节失败：外参会漂移，相机也根本看不到场景中的大片区域。本工作同时解决这两点。在线外参自标定网络分别提取俯仰、偏航与横滚的错位模式，经跨模态自注意力与交叉注意力融合 RGB 与投影深度特征，联合回归 6-DoF 外参残差，并通过多阶段“外参更新—深度重投影—残差再估计”级联逐步收敛；同时构建并开源外参标定数据集 COOKIE（32 个场景、5 万余对硬件同步图像—点云）。在可见性与着色状态地图之上，将云台主动着色建模为带奖励衰减的预算 Orienteering 问题，结合 MINCO 轨迹优化生成平滑云台运动，并提出覆盖点域颜色与下游 3DGS 渲染质量的多层级评估协议。进一步将云台视角控制建模为连续控制问题：以可见性增益图为观测、双轴角加速度为动作、着色体素增量为奖励，使用 SAC 训练端到端策略，相较规划方法仅用 51% 的云台行程即提升 6.0% 的着色覆盖率。</p>
+              <p class="lang-en">A wide-field-of-view LiDAR observes scene geometry beyond the camera frustum, leaving many measured surfaces without color or texture. This project records those appearance gaps in the LiDAR map and actively points a gimbal camera toward them. The gimbal encoder supplies an immediate camera pose for planning; the Tri-Axis Principal-Alignment Network then corrects its residual 6-DoF error from the RGB image and projected LiDAR depth for accurate reconstruction. SECP maintains a voxelized appearance-coverage frontier, orders useful yaw–pitch targets as a motion-budgeted Orienteering Problem with arrival-time reward decay, and refines the result into a smooth trajectory with MINCO. The accompanying COOKIE dataset provides 50,006 hardware-synchronized image–scan pairs from 20 sequences and 32 scenes. Evaluation separates calibration, observation coverage, colored-point-cloud quality and downstream 3D Gaussian Splatting quality.</p>
+              <p class="lang-zh">大视场激光雷达能够观测相机视锥以外的场景几何，因此许多已测表面仍缺少颜色或纹理信息。本项目在激光地图中显式记录这些外观覆盖空缺，并主动控制云台相机补充图像观测。规划阶段直接采用云台编码器给出的即时相机位姿；重建阶段则由 Tri-Axis Principal-Alignment Network 融合 RGB 与投影深度，校正编码器外参中的 6-DoF 残差。SECP 维护体素化外观覆盖前沿，将有效的偏航—俯仰视角排序建模为带运动预算和到达时间奖励衰减的 Orienteering Problem，再利用 MINCO 优化为平滑轨迹。配套 COOKIE 数据集包含 20 条序列、32 个场景和 50,006 对硬件同步图像—扫描数据；评估分别考察标定精度、观测覆盖、彩色点云质量和下游 3D Gaussian Splatting 质量。</p>
             </div>
           </div>
         </div>
@@ -178,23 +178,21 @@
         <div class="columns is-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3 has-text-centered">
-              <span class="lang-en">Highlights</span>
-              <span class="lang-zh">技术亮点</span>
+              <span class="lang-en">Key Contributions</span>
+              <span class="lang-zh">主要贡献</span>
             </h2>
             <div class="content">
               <ul class="highlights lang-en">
-                <li><strong>Online extrinsic self-calibration.</strong> Pitch, yaw and roll misalignment patterns are extracted separately and fused with cross-modal self- and cross-attention over RGB and projected depth features, then refined by a multi-stage update / re-projection / re-estimation cascade.</li>
-                <li><strong>The COOKIE dataset.</strong> 32 scenes and more than 50,000 hardware-synchronized image&ndash;point-cloud pairs, released for camera&ndash;LiDAR extrinsic calibration.</li>
-                <li><strong>Gimbal planning as budgeted orienteering.</strong> A visibility and colouring state map turns active colouring into an orienteering problem with reward decay, solved together with MINCO trajectory optimization for smooth gimbal motion.</li>
-                <li><strong>A learned colourization policy.</strong> Visibility gain map as observation, dual-axis angular acceleration as action and coloured-voxel increment as reward: a SAC policy improves coverage by 6.0% while using 51% of the gimbal travel.</li>
-                <li><strong>Multi-level evaluation.</strong> Both point-domain colour quality and downstream 3D Gaussian splatting rendering quality are measured.</li>
+                <li><strong>Online residual calibration.</strong> Principal-point-anchored horizontal, vertical and polar sampling exposes axis-specific misalignment cues; cross-modal attention and cascaded re-projection jointly refine the 6-DoF camera–LiDAR residual.</li>
+                <li><strong>Coverage-aware gimbal planning.</strong> SECP turns camera-unobserved LiDAR surfaces into a utility field, orders views under a motion budget and uses receding-horizon replanning as the carrier moves.</li>
+                <li><strong>Smooth, executable trajectories.</strong> MINCO-based refinement converts discrete yaw–pitch targets into continuous gimbal commands.</li>
+                <li><strong>Dataset and end-to-end evaluation.</strong> COOKIE contains 50,006 synchronized pairs across 32 scenes, and the evaluation traces improvements from calibration and image coverage through colored point clouds and 3DGS reconstruction.</li>
               </ul>
               <ul class="highlights lang-zh">
-                <li><strong>在线外参自标定。</strong>分别提取俯仰、偏航与横滚错位模式，经跨模态自/交叉注意力融合 RGB 与投影深度特征，并通过多阶段“外参更新—深度重投影—残差再估计”级联逐步收敛。</li>
-                <li><strong>COOKIE 数据集。</strong>构建并开源相机—激光外参标定数据集，包含 32 个场景、5 万余对硬件同步图像—点云。</li>
-                <li><strong>云台规划建模为预算 Orienteering。</strong>基于可见性与着色状态地图，把主动着色建模为带奖励衰减的 Orienteering 问题，并结合 MINCO 轨迹优化生成平滑云台运动。</li>
-                <li><strong>强化学习着色策略。</strong>以可见性增益图为观测、双轴角加速度为动作、着色体素增量为奖励，SAC 训练的端到端策略仅用 51% 云台行程提升 6.0% 着色覆盖率。</li>
-                <li><strong>多层级评估协议。</strong>同时评估点域颜色质量与下游 3DGS 渲染质量。</li>
+                <li><strong>在线残差标定。</strong>围绕图像主点进行水平、竖直和极坐标采样以提取轴向错位线索，再通过跨模态注意力与级联重投影联合细化 6-DoF 相机—激光外参残差。</li>
+                <li><strong>覆盖感知的云台规划。</strong>SECP 将尚未被相机观测的激光表面转化为效用场，在运动预算内排序视角，并随载体运动进行滚动重规划。</li>
+                <li><strong>平滑可执行的轨迹。</strong>基于 MINCO 的连续优化将离散偏航—俯仰目标转化为可执行的云台指令。</li>
+                <li><strong>数据集与端到端评估。</strong>COOKIE 覆盖 32 个场景、包含 50,006 对同步数据；评估从标定与图像覆盖一直延伸到彩色点云和 3DGS 重建质量。</li>
               </ul>
             </div>
           </div>
