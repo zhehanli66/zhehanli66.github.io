@@ -2,7 +2,7 @@
 title: 'ColAG'
 paper_en: 'ColAG: A Collaborative Air-Ground Framework for Perception-Limited UGVs&rsquo; Navigation'
 paper_zh: 'ColAG：面向感知受限无人车的空地协同导航框架'
-authors: '<strong>Zhehan Li</strong><sup>*</sup>, Rui Mao<sup>*</sup>, Nanhe Chen, Chao Xu, Fei Gao, <span class="lang-en">Yanjun Cao</span><span class="lang-zh">Yanjun Cao 曹燕军</span>'
+authors: '<strong>Zhehan Li</strong><sup>*</sup>, Rui Mao<sup>*</sup>, Nanhe Chen, Chao Xu, Fei Gao, Yanjun Cao'
 authors_note_en: '<sup>*</sup>Equal contribution.'
 authors_note_zh: '<sup>*</sup>共同第一作者。'
 venue_en: 'IEEE ICRA 2024 (oral)'

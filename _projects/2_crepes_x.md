@@ -2,7 +2,7 @@
 title: 'CREPES-X'
 paper_en: 'CREPES-X: Hierarchical Bearing-Distance-Inertial Direct Cooperative Relative Pose Estimation System'
 paper_zh: 'CREPES-X：多层次方位—测距—惯性融合的多机器人直接相对位姿估计系统'
-authors: '<strong>Zhehan Li</strong>, Zheng Wang, Jiadong Lu, Qi Liu, Zhiren Xun, Yue Wang, Fei Gao, Chao Xu, <span class="lang-en">Yanjun Cao</span><span class="lang-zh">Yanjun Cao 曹燕军</span>'
+authors: '<strong>Zhehan Li</strong>, Zheng Wang, Jiadong Lu, Qi Liu, Zhiren Xun, Yue Wang, Fei Gao, Chao Xu, Yanjun Cao'
 venue_en: 'IEEE Transactions on Robotics (major revision)'
 venue_zh: 'IEEE Transactions on Robotics（二审）'
 role_en: 'First author'

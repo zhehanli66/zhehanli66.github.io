@@ -91,7 +91,7 @@ For research discussions or potential collaborations, please feel free to contac
 
 <div class="lang-zh" markdown="1">
 
-我是浙江大学控制科学与工程学院博士研究生，在 [FASTLAB](https://zju-fast-lab.github.io/)（Fire Group）跟随 [Yanjun Cao 曹燕军](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/) 老师从事研究。2022 年本科毕业于浙江大学竺可桢学院机械电子工程专业，预计于 2027 年 6 月完成博士学业。
+我是浙江大学控制科学与工程学院博士研究生，在 [FASTLAB](https://zju-fast-lab.github.io/)（Fire Group）跟随 [曹燕军](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/) 老师从事研究。2022 年本科毕业于浙江大学竺可桢学院机械电子工程专业，预计于 2027 年 6 月完成博士学业。
 
 我的研究聚焦于**多机器人相对定位与状态估计**：让机器人准确获知彼此的相对位姿，并将其用于协同感知、规划与控制。我结合多模态感知、几何估计与学习方法，重点研究异步测量、观测外点、通信受限和 GPS 拒止条件下的可靠估计；同时搭建配套感知硬件与机器人系统，在真机上验证算法。
 

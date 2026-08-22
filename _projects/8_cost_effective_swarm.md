@@ -2,7 +2,7 @@
 title: 'Cost-Effective Swarm Navigation'
 paper_en: 'Cost-Effective Swarm Navigation System via Close Cooperation'
 paper_zh: '紧密协同的低成本集群导航系统'
-authors: 'Nanhe Chen, <strong>Zhehan Li</strong>, Lun Quan, Xinwei Chen, Chao Xu, Fei Gao, <span class="lang-en">Yanjun Cao</span><span class="lang-zh">Yanjun Cao 曹燕军</span>'
+authors: 'Nanhe Chen, <strong>Zhehan Li</strong>, Lun Quan, Xinwei Chen, Chao Xu, Fei Gao, Yanjun Cao'
 venue_en: 'IEEE Robotics and Automation Letters 2024'
 venue_zh: 'IEEE Robotics and Automation Letters 2024'
 role_en: 'Second author'

@@ -2,7 +2,7 @@
 title: 'CT-RIO'
 paper_en: 'Parallel Continuous-Time Relative Localization with Augmented Clamped Non-Uniform B-Splines'
 paper_zh: '基于增广钳制非均匀 B 样条的并行连续时间相对定位'
-authors: 'Jiadong Lu<sup>*</sup>, <strong>Zhehan Li</strong><sup>*</sup>, Tao Han, Miao Xu, Chao Xu, <span class="lang-en">Yanjun Cao</span><span class="lang-zh">Yanjun Cao 曹燕军</span>'
+authors: 'Jiadong Lu<sup>*</sup>, <strong>Zhehan Li</strong><sup>*</sup>, Tao Han, Miao Xu, Chao Xu, Yanjun Cao'
 authors_note_en: '<sup>*</sup>Equal contribution.'
 authors_note_zh: '<sup>*</sup>共同第一作者。'
 venue_en: 'IEEE Transactions on Robotics (major revision)'
