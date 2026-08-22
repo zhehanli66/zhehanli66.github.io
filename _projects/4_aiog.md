@@ -2,7 +2,7 @@
 title: 'AIOG'
 paper_en: 'To See All: LiDAR-Guided Active Reconstruction via Online Calibration and Gimbal Planning'
 paper_zh: 'To See All：基于在线标定与云台规划的激光引导主动三维重建'
-authors: 'Anonymous Author<sup>*</sup>, <strong>Zhehan Li</strong><sup>*</sup>, &hellip;'
+authors: 'Kanyu Xu<sup>*</sup>, <strong>Zhehan Li</strong><sup>*</sup>, &hellip;'
 authors_note_en: '<sup>*</sup>Co-first author. Full author list will be released with the preprint.'
 authors_note_zh: '<sup>*</sup>共同第一作者，完整作者列表将随预印本一同公开。'
 venue_en: 'Under review'

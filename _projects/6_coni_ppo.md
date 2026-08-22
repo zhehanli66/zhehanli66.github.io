@@ -2,7 +2,7 @@
 title: 'CoNi-PPO'
 paper_en: 'Observation-Based Reinforcement Learning for Preview-Guided UAV Tracking in Non-Inertial Relative Frames'
 paper_zh: '基于观测的强化学习：非惯性相对坐标系下的预观测引导无人机跟踪'
-authors: 'Anonymous Author, <strong>Zhehan Li</strong>, &hellip;'
+authors: 'Ge Wan, <strong>Zhehan Li</strong>, &hellip;'
 authors_note_en: 'Full author list will be released with the preprint.'
 authors_note_zh: '完整作者列表将随预印本一同公开。'
 venue_en: 'Under review'
