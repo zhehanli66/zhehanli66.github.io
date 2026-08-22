@@ -21,16 +21,17 @@ assets/img/prof_pic.png  头像
 assets/img/projects/     项目配图（现在是自动生成的占位图）
 
 NeuRIO/index.html            ┐
-CREPES-X/index.html          │
-CT-RIO/index.html            │  7 个独立项目页，纯静态 HTML，
-AIOG/index.html              ├─ Jekyll 原样拷贝，不走模板系统，
-ColAG/index.html             │  想怎么改就怎么改
-IROS-2025-EXPO/index.html    │
-Xunjian/index.html           ┘
+CREPES-X/index.html          │  5 个独立项目页，纯静态 HTML，
+CT-RIO/index.html            ├─ Jekyll 原样拷贝，不走模板系统，
+AIOG/index.html              │  想怎么改就怎么改
+ColAG/index.html             ┘
 assets/project-page/     项目页共用的 CSS / JS（bulma + 模板样式 + 双语切换）
 ```
 
 项目页链接与简历里的 URL 一一对应，注意 **大小写敏感**：`/ColAG/` 不等于 `/colag/`。
+
+项目页只给「研究」分区（一作 / 共一）的工作做；「参与研究」和「工程实践」的卡片一律点不进去，
+外部链接走卡片下方的按钮。
 
 ---
 
@@ -88,7 +89,7 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
 | `role_en` / `_zh` | 灰色框：作者身份 / 项目角色 |
 | `description` | 一段研究简介，双语写在 `lang-en` / `lang-zh` 两个 span 里 |
 | `img` | 左边的配图，`assets/img/projects/*.png` |
-| `redirect` | 独立项目页地址，有的话标题和图片会链过去 |
+| `redirect` | 独立项目页地址，有的话标题和图片会链过去；只给自己维护项目页的工作写，其余的留空、只用 `links` 按钮 |
 | `links` | 链接按钮列表，每项 `label_en` / `label_zh`（可选）/ `url` |
 | `category` | `research`（一作 / 共一）、`contributed`（非一作）、`engineering`（工程项目） |
 | `importance` | 分区内的排序，小的在前 |
@@ -158,7 +159,7 @@ python3 -m http.server 8787      # 然后访问 http://127.0.0.1:8787/NeuRIO/
   页脚的 “Powered by Jekyll with al-folio theme” 也是上游要求保留的署名。
 - **项目页**：[Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template)
   （源自 [Nerfies](https://nerfies.github.io)），CC BY-SA 4.0，要求在页脚链接回模板 ——
-  7 个项目页的页脚都保留了这段署名和许可声明，改版式可以，别把这段删掉。
+  5 个项目页的页脚都保留了这段署名和许可声明，改版式可以，别把这段删掉。
   `assets/project-page/css/index.css` 就是模板自带的样式表。
 - **Bulma**：`assets/project-page/css/bulma.min.css`，MIT License，文件头自带声明。
 - 模板原本还打包了 FontAwesome（1.2 MB 的 JS）和 bulma-carousel / bulma-slider，

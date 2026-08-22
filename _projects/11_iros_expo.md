@@ -10,11 +10,10 @@ role_en: 'Project lead'
 role_zh: '项目负责人'
 description: '<span class="lang-en">A live air-ground collaboration demo with no GPS and no global map: I integrated the heterogeneous platforms and ran the on-site deployment on top of our own CREPES localization hardware and CoNi-MPC control. Visitors teleoperated the tracked vehicle while the UAV followed it fully autonomously from inter-robot observations alone.</span><span class="lang-zh">无 GPS、无全局地图条件下的空地协同现场演示：我负责异构空地平台集成、真机联调与现场部署，底层基于自研 CREPES 相对定位硬件与 CoNi-MPC 控制算法。观众实时遥控履带车，无人机仅凭机间相对观测全程自主跟随。</span>'
 img: assets/img/projects/iros-2025-expo.png
-redirect: /IROS-2025-EXPO/
 importance: 1
 category: engineering
 links:
-  - label_en: 'Video'
-    label_zh: '视频'
-    url: '/IROS-2025-EXPO/#video'
+  - label_en: 'Project page'
+    label_zh: '项目页'
+    url: 'https://zju-fast-lab.github.io/post/25-10-25-fastfire-iros2025/'
 ---

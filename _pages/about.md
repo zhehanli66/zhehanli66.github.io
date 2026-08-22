@@ -121,12 +121,14 @@ If you would like to discuss my work or a potential collaboration, feel free to 
     </p>
 
     {% for p in items %}
+      {%- comment -%}
+        Only work with a project page of my own is clickable (`redirect`);
+        everything else is reached through the link buttons below the card.
+        只有我自己维护项目页的工作（`redirect`）才能点进去，其余一律走卡片下方的链接按钮。
+      {%- endcomment -%}
       {%- assign href = "" -%}
       {%- if p.redirect -%}
         {%- assign href = p.redirect | relative_url -%}
-      {%- elsif p.links -%}
-        {%- assign first_link = p.links | first -%}
-        {%- assign href = first_link.url -%}
       {%- endif -%}
       {%- assign img_base = p.img | split: "." | first -%}
     <article class="proj-row">
