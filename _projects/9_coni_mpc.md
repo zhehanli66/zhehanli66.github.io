@@ -1,13 +1,13 @@
 ---
 title: 'CoNi-MPC'
 paper_en: 'CoNi-MPC: Cooperative Non-Inertial Frame Based Model Predictive Control'
-paper_zh: 'CoNi-MPC：基于协同非惯性坐标系的模型预测控制'
+paper_zh: 'CoNi-MPC：基于非惯性坐标系的协同模型预测控制'
 authors: 'Baozhe Zhang, Xinwei Chen, <strong>Zhehan Li</strong>, Giovanni Beltrame, Chao Xu, Fei Gao, Yanjun Cao'
 venue_en: 'IEEE Robotics and Automation Letters 2023'
 venue_zh: 'IEEE Robotics and Automation Letters 2023'
 role_en: 'Third author'
 role_zh: '第三作者'
-description: '<span class="lang-en">Nonlinear model predictive control that flies a quadrotor directly in a moving target&rsquo;s non-inertial frame — no global positioning and no motion assumption about the target — covering leader following, landing on a moving base and prescribed relative motion. It is the control layer behind our air-ground demos.</span><span class="lang-zh">在非惯性的目标坐标系下直接对四旋翼做非线性模型预测控制，不依赖全局定位，也不对目标运动做任何假设，可完成跟随、移动平台降落与指定相对运动等任务，是我们空地协同演示的控制底座。</span>'
+description: '<span class="lang-en">A nonlinear model predictive controller formulated directly in a moving target&rsquo;s non-inertial frame, without global state estimates or assumptions about the target&rsquo;s motion. The same controller supports leader following, orbiting, moving-platform landing and prescribed relative trajectories.</span><span class="lang-zh">直接在运动目标的非惯性坐标系中建立四旋翼非线性模型预测控制，无需全局状态，也不预设目标的运动模式。同一控制器可完成领航跟随、环绕飞行、移动平台降落和指定相对轨迹跟踪。</span>'
 img: assets/img/projects/coni-mpc.png
 importance: 4
 category: contributed

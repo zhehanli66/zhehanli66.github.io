@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>ColAG | Zhehan Li</title>
-  <meta name="description" content="ColAG lets a UAV scout ahead for ground vehicles that carry no environment-perception sensors: the UGVs predict where their own uncertainty may cause a collision and the UAV schedules flights to support them.">
+  <meta name="description" content="ColAG uses one perception-equipped UAV as a mobile sensor for multiple UGVs, scheduling support from predicted collision risk and localization uncertainty.">
   <meta name="keywords" content="air-ground collaboration, heterogeneous robots, UAV, UGV, navigation, perception-limited, relative localization">
   <meta name="author" content="Zhehan Li">
   <meta name="robots" content="index, follow">
@@ -14,12 +14,12 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Zhehan Li">
   <meta property="og:title" content="ColAG: A Collaborative Air-Ground Framework for Perception-Limited UGVs' Navigation">
-  <meta property="og:description" content="ColAG lets a UAV scout ahead for ground vehicles that carry no environment-perception sensors: the UGVs predict where their own uncertainty may cause a collision and the UAV schedules flights to support them.">
+  <meta property="og:description" content="ColAG uses one perception-equipped UAV as a mobile sensor for multiple UGVs, scheduling support from predicted collision risk and localization uncertainty.">
   <meta property="og:url" content="https://zhehanli66.github.io/ColAG/">
   <meta property="og:image" content="https://zhehanli66.github.io/assets/img/projects/colag.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ColAG: A Collaborative Air-Ground Framework for Perception-Limited UGVs' Navigation">
-  <meta name="twitter:description" content="ColAG lets a UAV scout ahead for ground vehicles that carry no environment-perception sensors: the UGVs predict where their own uncertainty may cause a collision and the UAV schedules flights to support them.">
+  <meta name="twitter:description" content="ColAG uses one perception-equipped UAV as a mobile sensor for multiple UGVs, scheduling support from predicted collision risk and localization uncertainty.">
   <meta name="twitter:image" content="https://zhehanli66.github.io/assets/img/projects/colag.png">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129302;</text></svg>">
@@ -138,8 +138,8 @@
           </div>
 
           <h2 class="subtitle has-text-centered">
-            <span class="lang-en">One UAV, three ground vehicles without any environment-perception sensors, zero collisions.</span>
-            <span class="lang-zh">1 架无人机、3 台没有环境感知传感器的无人车，零碰撞到达目标。</span>
+            <span class="lang-en">One perception-equipped UAV acts as a mobile eye for multiple low-cost UGVs.</span>
+            <span class="lang-zh">一架具备环境感知能力的无人机，为多台低成本无人车提供移动视角。</span>
           </h2>
         </div>
       </div>
@@ -151,12 +151,12 @@
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3">
-              <span class="lang-en">Abstract</span>
-              <span class="lang-zh">摘要</span>
+              <span class="lang-en">Overview</span>
+              <span class="lang-zh">项目概述</span>
             </h2>
             <div class="content has-text-justified">
-              <p class="lang-en">Ground vehicles are cheap, but the sensors that let them see obstacles are not. ColAG asks what happens if the ground vehicles carry no environment-perception sensors at all and borrow the eyes of a UAV instead. Each UGV predicts the potential collisions implied by its own state uncertainty, and the UAV automatically schedules and plans flights to cover the UGVs that need support most. In real-world experiments a single UAV guided three UGVs without any environment-perception sensors to their goals with zero collisions. The same line of work also produced a cost-effective swarm navigation system that raises the success rate in concave-obstacle scenes from 30% to 90% with FOV-limited cameras, the CREPES relative localization system (0.10&nbsp;m / 0.73&deg; median error between two robots), CoNi-MPC cooperative control in the non-inertial relative frame, and a PPO-based end-to-end policy that tracks a reference robot from relative observations alone, without any communication.</p>
-              <p class="lang-zh">无人车本身很便宜，但让它“看见”障碍物的传感器并不便宜。ColAG 的问题是：如果无人车完全不搭载环境感知传感器，转而借用无人机的眼睛，会发生什么。每台无人车预测自身状态不确定性可能导致的潜在碰撞，无人机则自动调度与规划航线，去支援最需要帮助的无人车。真机实验中，1 架无人机引导 3 台未搭载环境感知传感器的无人车零碰撞到达目标。同一研究线还包括：低成本集群导航系统，在使用 FOV 受限相机的条件下把凹形障碍场景的导航成功率从 30% 提升到 90%；CREPES 相对定位系统，双机定位中位误差 0.10 m / 0.73&deg;；CoNi-MPC 在非惯性相对坐标系下的协同控制；以及基于 PPO 的端到端策略，仅凭相对观测预测参考机 IMU 状态，无需通信即可自主跟踪。</p>
+              <p class="lang-en">Equipping every ground robot with a full perception and SLAM stack can be unnecessarily expensive. ColAG instead gives the team one perception-equipped UAV and lets UGVs operate with wheel odometry and relative-localization hardware only. The UAV builds and shares the map, while each UGV fuses relative observations with wheel odometry, plans in the shared map and propagates its localization uncertainty to predict collisions with obstacles or unknown space. Each predicted risk becomes a support request with a location and time window. ColAG formulates the UAV schedule as a dynamic Vehicle Routing Problem with Time Windows, so one aerial robot can update maps and relative poses for the UGVs before predicted failures while limiting their waiting time. The framework is evaluated with up to seven UGVs in simulation and with one UAV and three UGVs in real-world experiments.</p>
+              <p class="lang-zh">为每台无人车配置完整的环境感知与 SLAM 系统成本较高。ColAG 只为集群配置一架具备完整感知能力的无人机，无人车侧仅保留轮式里程计与相对定位硬件。无人机负责建图并共享地图；每台无人车融合机间相对观测与轮式里程计，在共享地图中规划轨迹，同时传播定位不确定性，预测其与障碍物或未知区域发生碰撞的风险。支援请求同时给出需要帮助的位置与时间窗口。ColAG 将无人机调度建模为动态带时间窗车辆路径问题，使一架无人机能够在预测风险发生前为多台无人车更新地图和相对位姿，并尽量减少等待时间。系统在仿真中验证至 7 台无人车，并完成 1 架无人机与 3 台无人车的真机实验。</p>
             </div>
           </div>
         </div>
@@ -169,21 +169,21 @@
         <div class="columns is-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3 has-text-centered">
-              <span class="lang-en">Highlights</span>
-              <span class="lang-zh">技术亮点</span>
+              <span class="lang-en">Key Contributions</span>
+              <span class="lang-zh">主要贡献</span>
             </h2>
             <div class="content">
               <ul class="highlights lang-en">
-                <li><strong>Uncertainty-driven cooperation.</strong> The UGVs predict the collisions their own state uncertainty may cause, and the UAV is scheduled and planned automatically to support them.</li>
-                <li><strong>Zero-collision hardware demonstration.</strong> One UAV guided three UGVs carrying no environment-perception sensors to their goals without a single collision.</li>
-                <li><strong>Cost-effective swarm navigation.</strong> A companion system raises the navigation success rate in concave-obstacle scenes from 30% to 90% while using FOV-limited cameras.</li>
-                <li><strong>The supporting stack.</strong> CREPES relative localization (0.10&nbsp;m / 0.73&deg; median error between two robots), CoNi-MPC cooperative control in the non-inertial relative frame, and a PPO policy that tracks a reference robot from relative observations only.</li>
+                <li><strong>Asymmetric sensing.</strong> One UAV supplies mapping and localization support to multiple UGVs, avoiding a full environment-perception stack on every ground platform.</li>
+                <li><strong>Uncertainty-aware UGV planning.</strong> Each UGV propagates odometry uncertainty and treats both obstacles and unknown space as potential collision risks.</li>
+                <li><strong>Event-driven aerial support.</strong> Predicted collision positions and time windows become a dynamic routing problem that determines which UGV the UAV should assist next.</li>
+                <li><strong>Multi-robot validation.</strong> The framework is tested with up to seven UGVs in simulation and three UGVs on hardware.</li>
               </ul>
               <ul class="highlights lang-zh">
-                <li><strong>不确定性驱动的协同。</strong>无人车预测自身不确定性导致的潜在碰撞，无人机自动调度与规划以支援无人车。</li>
-                <li><strong>真机零碰撞演示。</strong>1 架无人机引导 3 台未搭载环境感知传感器的无人车零碰撞到达目标。</li>
-                <li><strong>低成本集群导航。</strong>配套系统在使用 FOV 受限相机的同时，把凹形障碍场景导航成功率由 30% 提升至 90%。</li>
-                <li><strong>支撑技术栈。</strong>CREPES 相对定位（双机中位误差 0.10 m / 0.73&deg;）、CoNi-MPC 非惯性相对坐标系协同控制，以及仅凭相对观测跟踪参考机的 PPO 端到端策略。</li>
+                <li><strong>非对称感知配置。</strong>由一架无人机为多台无人车提供建图与定位支援，无需在每台地面平台上配置完整环境感知系统。</li>
+                <li><strong>不确定性感知的无人车规划。</strong>无人车显式传播里程计不确定性，并将障碍物和未知区域共同纳入碰撞风险预测。</li>
+                <li><strong>事件驱动的空中支援。</strong>将预测碰撞位置与时间窗转化为动态路径问题，决定无人机下一步支援对象。</li>
+                <li><strong>多机器人验证。</strong>框架在仿真中扩展至 7 台无人车，并完成 3 台无人车的真机实验。</li>
               </ul>
             </div>
           </div>

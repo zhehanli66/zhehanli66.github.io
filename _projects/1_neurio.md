@@ -9,7 +9,7 @@ venue_en: 'Under review'
 venue_zh: '在投'
 role_en: 'First author'
 role_zh: '第一作者'
-description: '<span class="lang-en">Every robot state becomes a token and every mutual bearing/range observation an edge; node and edge states are updated alternately so one graph network streams 6-DoF relative poses for all neighbours at once. Trained on simulated trajectories only and deployed zero-shot with frozen weights: 0.12 m / 2.5° on real swarm sequences, still real time at 200 robots.</span><span class="lang-zh">以每个机器人的状态为 token、机间方位/距离观测为边，交替更新节点与边状态，由一张图网络端到端流式输出全部邻居的 6-DoF 相对位姿。仅用仿真轨迹训练、冻结权重零样本部署，真机集群序列平均 0.12 m / 2.5°，200 台规模下仍能实时推理。</span>'
+description: '<span class="lang-en">A causal graph estimator for streaming 6-DoF multi-robot relative poses from bearing, UWB range and inertial measurements. Trained only in simulation, the frozen model transfers directly to 24 real sequences, averaging 0.121 m in position and 2.53° in rotation.</span><span class="lang-zh">面向方位、UWB 测距与惯性观测的因果图估计器，可流式输出多机器人的 6-DoF 相对位姿。模型仅在仿真中训练，冻结参数后直接迁移到 24 段真机序列，平均位置误差 0.121 m、旋转误差 2.53°。</span>'
 img: assets/img/projects/neurio.png
 redirect: /NeuRIO/
 importance: 1

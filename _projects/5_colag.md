@@ -9,7 +9,7 @@ venue_en: 'IEEE ICRA 2024 (oral)'
 venue_zh: 'IEEE ICRA 2024（口头报告）'
 role_en: 'First author'
 role_zh: '第一作者'
-description: '<span class="lang-en">A collaborative air-ground framework in which ground vehicles that carry no environment-perception sensors predict where their own uncertainty may cause a collision, and a UAV schedules flights to scout ahead for them. In real experiments a single UAV guided three sensorless UGVs to their goals with zero collisions.</span><span class="lang-zh">空地协同导航框架：未搭载环境感知传感器的无人车预测自身不确定性可能导致的碰撞，无人机据此自动调度规划、提前探路支援。真机实验中 1 架无人机引导 3 台无环境感知传感器的无人车零碰撞抵达目标。</span>'
+description: '<span class="lang-en">A single perception-equipped UAV serves as a mobile sensor for UGVs that carry only wheel odometry and relative-localization hardware. Each UGV predicts collision risks from localization uncertainty and unknown space, while the UAV schedules support through a dynamic vehicle-routing formulation; experiments scale to seven UGVs in simulation and three on hardware.</span><span class="lang-zh">由一架具备完整感知能力的无人机为仅搭载轮式里程计和相对定位硬件的无人车提供移动感知。无人车根据定位不确定性与未知区域预测碰撞风险，无人机通过动态车辆路径问题调度支援；系统在仿真中验证至 7 台无人车，并完成 3 台无人车的真机实验。</span>'
 img: assets/img/projects/colag.png
 redirect: /ColAG/
 importance: 5

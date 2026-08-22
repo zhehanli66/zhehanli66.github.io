@@ -9,7 +9,7 @@ venue_en: 'Under review'
 venue_zh: '在投'
 role_en: 'Second author'
 role_zh: '第二作者'
-description: '<span class="lang-en">An end-to-end PPO policy that predicts the reference robot&rsquo;s IMU state from relative observations alone, so a UAV can track a moving target in its non-inertial frame without any communication link. At high speed the tracking error is 50% lower than CoNi-MPC.</span><span class="lang-zh">基于 PPO 的端到端控制策略：策略网络仅凭相对观测预测参考机的 IMU 状态，无需与参考机通信即可在非惯性相对坐标系下自主跟踪。高速场景下跟踪误差较 CoNi-MPC 降低 50%。</span>'
+description: '<span class="lang-en">An end-to-end PPO controller for tracking a moving reference robot in its non-inertial frame. By inferring the reference robot&rsquo;s IMU state from relative observations, it removes the need for a communication link and reduces high-speed tracking error by 50% relative to CoNi-MPC.</span><span class="lang-zh">面向非惯性相对坐标系跟踪的端到端 PPO 控制器。策略从相对观测中推断参考机器人的 IMU 状态，无需机间通信；在高速场景下，跟踪误差较 CoNi-MPC 降低 50%。</span>'
 img: assets/img/projects/coni-ppo.png
 importance: 1
 category: contributed

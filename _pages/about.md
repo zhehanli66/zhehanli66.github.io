@@ -41,18 +41,18 @@ display_categories:
   - id: research
     label_en: Research
     label_zh: 研究
-    note_en: Work I led as first or co-first author.
-    note_zh: 以第一作者 / 共同第一作者主导的工作。
+    note_en: Projects I led as first or co-first author.
+    note_zh: 我以第一作者或共同第一作者主导的研究。
   - id: contributed
-    label_en: Contributed Research
-    label_zh: 参与研究
-    note_en: Work I contributed to as a co-author rather than led.
-    note_zh: 以合作作者身份参与、而非主导的工作。
+    label_en: Co-authored Research
+    label_zh: 合作研究
+    note_en: Projects I contributed to as a co-author.
+    note_zh: 我以合作作者身份参与的研究。
   - id: engineering
     label_en: Engineering
     label_zh: 工程实践
-    note_en: Systems I built and deployed on real robots.
-    note_zh: 由我搭建并在真机上部署的系统。
+    note_en: Systems I led or helped build and deploy on real robots.
+    note_zh: 我主导或参与搭建并完成真机部署的系统。
 ---
 
 <link rel="stylesheet" href="{{ '/assets/lang/lang.css' | relative_url }}">
@@ -73,37 +73,37 @@ display_categories:
 
 <div class="lang-en" markdown="1">
 
-I am a Ph.D. student in Control Science and Engineering at the [FAST Lab](https://zju-fast-lab.github.io/) (Fire Group), Zhejiang University, advised by [Yanjun Cao](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/). I received my B.Eng. in Mechatronics and Automation from the Chu Kochen Honors College, Zhejiang University, in 2022, and I expect to receive my Ph.D. in June 2027.
+I am a Ph.D. student in Control Science and Engineering at Zhejiang University, advised by [Yanjun Cao](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/) in the [FAST Lab](https://zju-fast-lab.github.io/) (Fire Group). I received my B.Eng. in Mechatronics and Automation from Zhejiang University's Chu Kochen Honors College in 2022 and expect to complete my Ph.D. in June 2027.
 
-I work on **making a team of robots know where they are with respect to each other**, and on turning that capability into cooperative behaviour in the real world. My work spans the full stack — custom sensing hardware, estimation, planning, control and decision making — and is consistently validated on real multi-robot systems rather than in simulation alone.
+My research focuses on **multi-robot relative localization and state estimation**: enabling robots to determine their poses with respect to one another, then using those estimates for cooperative perception, planning and control. I combine multimodal sensing, geometric estimation and learning-based methods, with an emphasis on algorithms that remain reliable under asynchronous measurements, observation outliers, limited communication and GPS denial. I also build the sensing and robotic systems needed to validate these methods beyond simulation.
 
 ## Research Interests
 
-- **Multi-robot relative localization and state estimation.** Bearing–distance–inertial fusion, continuous-time estimation, outlier-robust optimization, learning-based and zero-shot estimators.
-- **Cooperative perception and active sensing.** Air–ground collaboration, active 3D reconstruction, gimbal planning, online multi-sensor calibration.
-- **Full-stack multi-robot systems.** Custom localization hardware, VIO/LIO, trajectory planning, MPC, sim-to-real and reinforcement learning, real-robot swarm deployment.
+- **Multi-robot relative localization and state estimation.** Bearing–range–inertial fusion, continuous-time and outlier-robust estimation, and zero-shot sim-to-real learning.
+- **Cooperative perception and active sensing.** Air–ground collaboration, active 3D reconstruction, viewpoint planning and online camera–LiDAR calibration.
+- **Real-world multi-robot systems.** Custom sensing hardware, onboard estimation and control, system integration and multi-robot deployment.
 
-Below is a walk-through of what I have been building.
+Selected projects are grouped below by my role in each one.
 
-If you would like to discuss my work or a potential collaboration, feel free to reach me at <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>.
+For research discussions or potential collaborations, please feel free to contact me at <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>.
 
 </div>
 
 <div class="lang-zh" markdown="1">
 
-我是浙江大学控制科学与工程学院的博士研究生，在 [FAST 实验室](https://zju-fast-lab.github.io/)（Fire Group）跟随 [Yanjun Cao](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/) 老师做研究。2022 年本科毕业于浙江大学竺可桢学院机械电子工程专业，预计 2027 年 6 月博士毕业。
+我是浙江大学控制科学与工程学院博士研究生，在 [FAST 实验室](https://zju-fast-lab.github.io/)（Fire Group）跟随 [Yanjun Cao](https://zju-fast-lab.github.io/author/yanjun-cao-%E6%9B%B9%E7%87%95%E5%86%9B/) 老师从事研究。2022 年本科毕业于浙江大学竺可桢学院机械电子工程专业，预计于 2027 年 6 月完成博士学业。
 
-我的研究关注**如何让一群机器人知道彼此之间的相对位置**，并把这种能力变成真实世界中的协同行为。工作覆盖从传感器硬件、状态估计、规划控制到决策的完整链路，并且坚持在真实多机器人系统上验证，而不只停留在仿真里。
+我的研究聚焦于**多机器人相对定位与状态估计**：让机器人准确获知彼此的相对位姿，并将其用于协同感知、规划与控制。我结合多模态感知、几何估计与学习方法，重点研究异步测量、观测外点、通信受限和 GPS 拒止条件下的可靠估计；同时搭建配套感知硬件与机器人系统，在真机上验证算法。
 
 ## 研究方向
 
-- **多机器人相对定位与状态估计。** 方位—距离—惯性融合、连续时间估计、抗外点优化、基于学习的零样本估计器。
-- **协同感知与主动感知。** 空地协同、主动三维重建、云台规划、在线多传感器标定。
-- **全栈多机器人系统。** 自研定位硬件、VIO/LIO、轨迹规划、MPC、Sim-to-Real 与强化学习、集群真机部署。
+- **多机器人相对定位与状态估计。** 方位—测距—惯性融合、连续时间与抗外点估计、零样本 Sim-to-Real 学习。
+- **协同感知与主动感知。** 空地协同、主动三维重建、视角规划与在线相机—激光标定。
+- **多机器人真机系统。** 自研感知硬件、机载估计与控制、系统集成及多机器人真机部署。
 
-下面是我具体做过的一些工作。
+以下项目按照我在其中承担的角色分类展示。
 
-如果你想聊聊我的工作或者潜在的合作，欢迎邮件联系 <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>。
+如希望交流研究问题或探讨合作，欢迎邮件联系 <a href="mailto:zhehanli66@gmail.com">zhehanli66@gmail.com</a>。
 
 </div>
 
