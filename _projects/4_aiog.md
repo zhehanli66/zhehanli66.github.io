@@ -12,7 +12,7 @@ role_zh: '共同第一作者'
 description: '<span class="lang-en">A LiDAR-guided active reconstruction framework that treats appearance coverage as an explicit map state. It combines online residual camera–LiDAR calibration with motion-budgeted gimbal view planning and smooth trajectory refinement; the accompanying COOKIE dataset contains 50,006 hardware-synchronized image–scan pairs from 32 scenes.</span><span class="lang-zh">以激光几何为先验、将外观覆盖显式建模为地图状态的主动三维重建框架。系统结合在线相机—激光残差标定、受运动预算约束的云台视角规划和平滑轨迹优化；配套 COOKIE 数据集包含 32 个场景、50,006 对硬件同步图像—扫描数据。</span>'
 img: assets/img/projects/aiog.png
 redirect: /AIOG/
-importance: 4
+importance: 2
 category: research
 links:
   - label_en: 'Video'

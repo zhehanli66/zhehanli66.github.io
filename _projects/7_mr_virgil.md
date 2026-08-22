@@ -2,7 +2,7 @@
 title: 'Mr. Virgil'
 paper_en: 'Mr. Virgil: Learning Multi-robot Visual-range Relative Localization'
 paper_zh: 'Mr. Virgil：学习式多机器人视觉—测距相对定位'
-authors: 'Si Wang, <strong>Zhehan Li</strong>, Jiadong Lu, Rong Xiong, Yanjun Cao, Yue Wang'
+authors: 'Si Wang, <strong>Zhehan Li</strong>, Jiadong Lu, Rong Xiong, <span class="lang-en">Yanjun Cao</span><span class="lang-zh">Yanjun Cao 曹燕军</span>, Yue Wang'
 venue_en: 'IEEE/RSJ IROS 2025'
 venue_zh: 'IEEE/RSJ IROS 2025'
 role_en: 'Second author'

@@ -2,7 +2,7 @@
 title: 'CoNi-MPC'
 paper_en: 'CoNi-MPC: Cooperative Non-Inertial Frame Based Model Predictive Control'
 paper_zh: 'CoNi-MPC：基于非惯性坐标系的协同模型预测控制'
-authors: 'Baozhe Zhang, Xinwei Chen, <strong>Zhehan Li</strong>, Giovanni Beltrame, Chao Xu, Fei Gao, Yanjun Cao'
+authors: 'Baozhe Zhang, Xinwei Chen, <strong>Zhehan Li</strong>, Giovanni Beltrame, Chao Xu, Fei Gao, <span class="lang-en">Yanjun Cao</span><span class="lang-zh">Yanjun Cao 曹燕军</span>'
 venue_en: 'IEEE Robotics and Automation Letters 2023'
 venue_zh: 'IEEE Robotics and Automation Letters 2023'
 role_en: 'Third author'

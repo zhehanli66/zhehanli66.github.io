@@ -2,7 +2,7 @@
 title: 'CREPES'
 paper_en: 'CREPES: Cooperative RElative Pose Estimation System'
 paper_zh: 'CREPES：协作式相对位姿估计系统'
-authors: 'Zhiren Xun, Jian Huang, <strong>Zhehan Li</strong>, Zhenjun Ying, Yingjian Wang, Chao Xu, Fei Gao, Yanjun Cao'
+authors: 'Zhiren Xun, Jian Huang, <strong>Zhehan Li</strong>, Zhenjun Ying, Yingjian Wang, Chao Xu, Fei Gao, <span class="lang-en">Yanjun Cao</span><span class="lang-zh">Yanjun Cao 曹燕军</span>'
 venue_en: 'IEEE/RSJ IROS 2023'
 venue_zh: 'IEEE/RSJ IROS 2023'
 role_en: 'Third author'
