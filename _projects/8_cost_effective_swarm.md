@@ -16,5 +16,5 @@ links:
     url: 'https://ieeexplore.ieee.org/abstract/document/10545578'
   - label_en: 'Video'
     label_zh: '视频'
-    url: 'https://www.youtube.com/watch?v=1Hn2U4-WZ7Q'
+    url: 'https://www.bilibili.com/video/BV1X7421Z7Gv'
 ---

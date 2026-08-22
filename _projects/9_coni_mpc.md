@@ -22,4 +22,7 @@ links:
     url: 'https://github.com/FAST-FIRE/CoNi-MPC'
   - label_en: 'IEEE Xplore'
     url: 'https://ieeexplore.ieee.org/abstract/document/10287548'
+  - label_en: 'Video'
+    label_zh: '视频'
+    url: 'https://www.bilibili.com/video/BV1iX4y1s7e6'
 ---

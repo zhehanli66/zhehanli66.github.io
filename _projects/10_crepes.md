@@ -22,4 +22,7 @@ links:
     url: 'https://github.com/FAST-FIRE/CREPES'
   - label_en: 'IEEE Xplore'
     url: 'https://ieeexplore.ieee.org/abstract/document/10342523'
+  - label_en: 'Video'
+    label_zh: '视频'
+    url: 'https://www.bilibili.com/video/BV1CW4y1Y79q'
 ---

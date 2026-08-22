@@ -24,5 +24,5 @@ links:
     url: 'https://ieeexplore.ieee.org/abstract/document/10611264'
   - label_en: 'Video'
     label_zh: '视频'
-    url: '/ColAG/#video'
+    url: 'https://www.bilibili.com/video/BV1by421a73g'
 ---
