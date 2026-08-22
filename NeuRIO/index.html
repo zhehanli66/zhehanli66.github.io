@@ -42,7 +42,10 @@
     })();
   </script>
 
+  <link rel="stylesheet" href="/assets/project-page/demo/neurio/demo.css">
+
   <script defer src="/assets/project-page/js/page.js"></script>
+  <script defer src="/assets/project-page/demo/neurio/demo.js"></script>
 </head>
 
 <body>
@@ -111,39 +114,101 @@
       <div class="container is-max-desktop">
         <div class="hero-body">
 
-          <!-- To publish the real video, delete the placeholder below and uncomment ONE of these.
-               把真实视频放上来时，删掉下面的占位块，并取消其中一段的注释。
+          <!-- Interactive replay instead of a teaser video: models/export_demo.py
+               writes data/index.json + data/<bag>.bin, the viewer lives in
+               /assets/project-page/demo/neurio/.
+               这里放的是可交互回放，不是视频；数据与播放器见 assets/project-page/demo/neurio/。 -->
+          <div class="nd-demo" id="neurio-demo" data-src="/assets/project-page/demo/neurio/data/" data-version="1">
 
-          A) a local file  (put the mp4 in /assets/project-page/videos/neurio.mp4)
-          <video id="teaser" autoplay controls muted loop playsinline preload="metadata"
-                 poster="/assets/img/projects/neurio.png">
-            <source src="/assets/project-page/videos/neurio.mp4" type="video/mp4">
-          </video>
-
-          B) Bilibili
-          <div class="publication-video">
-            <iframe src="https://player.bilibili.com/player.html?bvid=BV_YOUR_ID&high_quality=1&danmaku=0"
-                    frameborder="0" allowfullscreen></iframe>
-          </div>
-
-          C) YouTube
-          <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
-                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          -->
-
-          <div class="video-placeholder">
-            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m16 10 6-3.5v11L16 14"/></svg>
-            <div class="placeholder-title">
-              <span class="lang-en">Video coming soon</span>
-              <span class="lang-zh">视频即将上线</span>
+            <div class="nd-status" id="nd-status">
+              <span class="lang-en">Loading the replay&hellip;</span>
+              <span class="lang-zh">正在加载回放&hellip;</span>
             </div>
-            <div class="placeholder-hint">
-              <span class="lang-en">The demonstration video for this project is being edited and will be embedded here.</span>
-              <span class="lang-zh">本项目的演示视频正在剪辑，稍后会嵌入到这里。</span>
+
+            <div class="nd-tabs" id="nd-tabs"></div>
+
+            <div class="nd-body">
+              <div class="nd-stage">
+                <div class="nd-canvas-wrap">
+                  <canvas id="nd-scene"></canvas>
+                  <div class="nd-viewswitch">
+                    <button type="button" class="nd-seg on" data-view="ego">
+                      <span class="lang-en">Observer frame</span><span class="lang-zh">自身坐标系</span>
+                    </button>
+                    <button type="button" class="nd-seg" data-view="world">
+                      <span class="lang-en">World top-down</span><span class="lang-zh">世界系俯视</span>
+                    </button>
+                  </div>
+                  <div class="nd-hint">
+                    <span class="lang-en">drag to orbit &middot; scroll to zoom &middot; double-click to reset</span>
+                    <span class="lang-zh">拖动旋转 &middot; 滚轮缩放 &middot; 双击复位</span>
+                  </div>
+                </div>
+                <div class="nd-note" id="nd-note"></div>
+              </div>
+
+              <aside class="nd-side">
+                <div class="nd-block">
+                  <h3><span class="lang-en">This sequence</span><span class="lang-zh">本段序列</span></h3>
+                  <div class="nd-seqstat" id="nd-seqstat"></div>
+                </div>
+                <div class="nd-block">
+                  <h3><span class="lang-en">Current frame</span><span class="lang-zh">当前帧误差</span></h3>
+                  <table class="nd-live" id="nd-live"></table>
+                </div>
+                <div class="nd-block">
+                  <h3><span class="lang-en">Position error</span><span class="lang-zh">位置误差</span>
+                      <span class="nd-unit">m</span></h3>
+                  <canvas class="nd-chart" id="nd-chart-pos"></canvas>
+                </div>
+                <div class="nd-block">
+                  <h3><span class="lang-en">Rotation error</span><span class="lang-zh">旋转误差</span>
+                      <span class="nd-unit">deg</span></h3>
+                  <canvas class="nd-chart" id="nd-chart-rot"></canvas>
+                </div>
+              </aside>
+            </div>
+
+            <div class="nd-transport">
+              <button type="button" class="nd-play" id="nd-play" aria-label="Pause">&#10074;&#10074;</button>
+              <input type="range" class="nd-seek" id="nd-seek" min="0" max="1000" value="0" step="1"
+                     aria-label="Seek">
+              <span class="nd-time" id="nd-time">0.00 s</span>
+              <select id="nd-speed" aria-label="Playback speed">
+                <option value="0.25">0.25&times;</option>
+                <option value="0.5">0.5&times;</option>
+                <option value="1" selected>1&times;</option>
+                <option value="2">2&times;</option>
+                <option value="4">4&times;</option>
+              </select>
+              <div class="nd-toggles">
+                <label><input type="checkbox" id="nd-opt-trail" checked>
+                  <span class="lang-en">trails</span><span class="lang-zh">轨迹</span></label>
+                <label><input type="checkbox" id="nd-opt-triad" checked>
+                  <span class="lang-en">attitude</span><span class="lang-zh">姿态三轴</span></label>
+                <label><input type="checkbox" id="nd-opt-sigma" checked>
+                  <span class="lang-en">predicted &sigma;</span><span class="lang-zh">预测 &sigma;</span></label>
+                <label><input type="checkbox" id="nd-opt-links" checked>
+                  <span class="lang-en">measurements</span><span class="lang-zh">观测链路</span></label>
+              </div>
             </div>
           </div>
+
+          <p class="nd-caption">
+            <span class="lang-en"><b>What you are looking at.</b> Frame-by-frame replay of the frozen,
+              simulation-trained model on real robot sequences. The observer is one robot; for every other
+              robot the hollow circle is the motion-capture ground truth, the filled dot is the estimate,
+              and the line between them <em>is</em> that frame&rsquo;s position error. Estimates are produced
+              in the observer&rsquo;s gravity-aligned frame and drawn unmodified &mdash; the world view
+              additionally uses the observer&rsquo;s ground-truth pose to place the formation back in the
+              room, so it is for reading the geometry, not for judging accuracy.
+              The line to each robot shows what arrived that frame: <span class="nd-key">solid</span> =
+              bearing + range, <span class="nd-key">dashed</span> = bearing only,
+              <span class="nd-key">dotted</span> = range only, and no line at all means the pose is carried
+              by inertial propagation and the model&rsquo;s own memory. The dashed circle is the
+              uncertainty &sigma; the model reports for itself; it never enters the error numbers.</span>
+            <span class="lang-zh"><b>这里展示的是什么。</b>冻结参数、仅用仿真训练的模型在真机序列上的逐帧回放。观测者是其中一台机器人；对其余每台机器人，空心圆是动捕真值，实心点是估计，两点之间的连线长度就是该帧的位置误差。估计输出在观测者的重力对齐坐标系下，图中原样绘制；「世界系俯视」额外用观测者的真值位姿把编队拼回房间，因此它用来看几何关系，而不用来判断精度。指向每台机器人的连线表示这一帧收到了什么观测：<span class="nd-key">实线</span> = 方位 + 测距，<span class="nd-key">虚线</span> = 只有方位，<span class="nd-key">点线</span> = 只有测距，没有连线则说明该帧完全靠惯性递推与模型自身的记忆维持。虚线圆是模型自报的不确定度 &sigma;，不参与任何误差计算。</span>
+          </p>
 
           <h2 class="subtitle has-text-centered">
             <span class="lang-en">One simulation-trained estimator, deployed zero-shot across real robot teams.</span>
