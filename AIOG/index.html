@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="/assets/project-page/css/bulma.min.css">
   <link rel="stylesheet" href="/assets/project-page/css/index.css">
   <link rel="stylesheet" href="/assets/project-page/css/page.css">
+  <link rel="stylesheet" href="/assets/project-page/demo/aiog/demo.css">
 
   <script>
     // language: ?lang=zh / ?lang=en wins, otherwise the last choice is remembered
@@ -43,6 +44,7 @@
   </script>
 
   <script defer src="/assets/project-page/js/page.js"></script>
+  <script defer src="/assets/project-page/demo/aiog/demo.js"></script>
 </head>
 
 <body>
@@ -154,8 +156,8 @@
               <span class="lang-zh">项目概述</span>
             </h2>
             <div class="content has-text-justified">
-              <p class="lang-en">A wide-field-of-view LiDAR observes scene geometry beyond the camera frustum, leaving many measured surfaces without color or texture. This project records those appearance gaps in the LiDAR map and actively points a gimbal camera toward them. The gimbal encoder supplies an immediate camera pose for planning; the Tri-Axis Principal-Alignment Network then corrects its residual 6-DoF error from the RGB image and projected LiDAR depth for accurate reconstruction. SECP maintains a voxelized appearance-coverage frontier, orders useful yaw–pitch targets as a motion-budgeted Orienteering Problem with arrival-time reward decay, and refines the result into a smooth trajectory with MINCO. The accompanying COOKIE dataset provides 50,006 hardware-synchronized image–scan pairs from 20 sequences and 32 scenes. Evaluation separates calibration, observation coverage, colored-point-cloud quality and downstream 3D Gaussian Splatting quality.</p>
-              <p class="lang-zh">大视场激光雷达能够观测相机视锥以外的场景几何，因此许多已测表面仍缺少颜色或纹理信息。本项目在激光地图中显式记录这些外观覆盖空缺，并主动控制云台相机补充图像观测。规划阶段直接采用云台编码器给出的即时相机位姿；重建阶段则由 Tri-Axis Principal-Alignment Network 融合 RGB 与投影深度，校正编码器外参中的 6-DoF 残差。SECP 维护体素化外观覆盖前沿，将有效的偏航—俯仰视角排序建模为带运动预算和到达时间奖励衰减的 Orienteering Problem，再利用 MINCO 优化为平滑轨迹。配套 COOKIE 数据集包含 20 条序列、32 个场景和 50,006 对硬件同步图像—扫描数据；评估分别考察标定精度、观测覆盖、彩色点云质量和下游 3D Gaussian Splatting 质量。</p>
+              <p class="lang-en">A wide-field-of-view LiDAR observes scene geometry beyond the camera frustum, leaving many measured surfaces without color or texture. This project records those appearance gaps in the LiDAR map and actively points a gimbal camera toward them. The gimbal encoder supplies an immediate camera pose for planning; the Tri-Axis Principal-Alignment Network then corrects its residual 6-DoF error from the RGB image and projected LiDAR depth for accurate reconstruction. The MINCO planner maintains a voxelized appearance-coverage frontier, orders useful yaw–pitch targets as a motion-budgeted Orienteering Problem with arrival-time reward decay, and refines the result into a smooth trajectory. The accompanying COOKIE dataset provides 50,006 hardware-synchronized image–scan pairs from 20 sequences and 32 scenes. Evaluation separates calibration, observation coverage, colored-point-cloud quality and downstream 3D Gaussian Splatting quality.</p>
+              <p class="lang-zh">大视场激光雷达能够观测相机视锥以外的场景几何，因此许多已测表面仍缺少颜色或纹理信息。本项目在激光地图中显式记录这些外观覆盖空缺，并主动控制云台相机补充图像观测。规划阶段直接采用云台编码器给出的即时相机位姿；重建阶段则由 Tri-Axis Principal-Alignment Network 融合 RGB 与投影深度，校正编码器外参中的 6-DoF 残差。MINCO 规划模块维护体素化外观覆盖前沿，将有效的偏航—俯仰视角排序建模为带运动预算和到达时间奖励衰减的 Orienteering Problem，并进一步优化为平滑轨迹。配套 COOKIE 数据集包含 20 条序列、32 个场景和 50,006 对硬件同步图像—扫描数据；评估分别考察标定精度、观测覆盖、彩色点云质量和下游 3D Gaussian Splatting 质量。</p>
             </div>
           </div>
         </div>
@@ -174,16 +176,164 @@
             <div class="content">
               <ul class="highlights lang-en">
                 <li><strong>Online residual calibration.</strong> Principal-point-anchored horizontal, vertical and polar sampling exposes axis-specific misalignment cues; cross-modal attention and cascaded re-projection jointly refine the 6-DoF camera–LiDAR residual.</li>
-                <li><strong>Coverage-aware gimbal planning.</strong> SECP turns camera-unobserved LiDAR surfaces into a utility field, orders views under a motion budget and uses receding-horizon replanning as the carrier moves.</li>
+                <li><strong>Coverage-aware gimbal planning.</strong> The MINCO planner turns camera-unobserved LiDAR surfaces into a utility field, orders views under a motion budget and uses receding-horizon replanning as the carrier moves.</li>
                 <li><strong>Smooth, executable trajectories.</strong> MINCO-based refinement converts discrete yaw–pitch targets into continuous gimbal commands.</li>
                 <li><strong>Dataset and end-to-end evaluation.</strong> COOKIE contains 50,006 synchronized pairs across 32 scenes, and the evaluation traces improvements from calibration and image coverage through colored point clouds and 3DGS reconstruction.</li>
               </ul>
               <ul class="highlights lang-zh">
                 <li><strong>在线残差标定。</strong>围绕图像主点进行水平、竖直和极坐标采样以提取轴向错位线索，再通过跨模态注意力与级联重投影联合细化 6-DoF 相机—激光外参残差。</li>
-                <li><strong>覆盖感知的云台规划。</strong>SECP 将尚未被相机观测的激光表面转化为效用场，在运动预算内排序视角，并随载体运动进行滚动重规划。</li>
+                <li><strong>覆盖感知的云台规划。</strong>MINCO 规划模块将尚未被相机观测的激光表面转化为效用场，在运动预算内排序视角，并随载体运动进行滚动重规划。</li>
                 <li><strong>平滑可执行的轨迹。</strong>基于 MINCO 的连续优化将离散偏航—俯仰目标转化为可执行的云台指令。</li>
                 <li><strong>数据集与端到端评估。</strong>COOKIE 覆盖 32 个场景、包含 50,006 对同步数据；评估从标定与图像覆盖一直延伸到彩色点云和 3DGS 重建质量。</li>
               </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== future work ==================== -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3 has-text-centered">
+              <span class="lang-en">Future Work</span>
+              <span class="lang-zh">后续工作</span>
+            </h2>
+
+            <div class="content">
+              <p class="lang-en">MINCO planning selects viewpoints with an explicit utility function and then optimizes a smooth gimbal trajectory. In ongoing work, we are studying a learned alternative: we formulate gimbal control as a continuous-control problem and train a <strong>Soft Actor-Critic (SAC) policy</strong>. At each 0.1&nbsp;s decision step, the policy outputs yaw and pitch angular accelerations and receives the number of newly colored surface voxels as its reward.</p>
+              <p class="lang-zh">MINCO 规划先根据显式设计的效用函数选择视角，再优化平滑的云台轨迹。在后续工作中，我们尝试另一条思路：将云台控制建模为连续控制问题，并训练一个 <strong>Soft Actor-Critic（SAC）策略</strong>。策略每 0.1 秒输出偏航和俯仰两轴的角加速度，以该时间步内新增的着色体素数作为奖励。</p>
+              <p class="lang-en">To account for vehicle motion and gimbal response, the policy observes visibility-gain maps for the present and 1, 2 and 4&nbsp;s into the future. For each candidate yaw&ndash;pitch direction, a map records how many currently known, uncolored voxels could be observed if that direction were maintained over the corresponding horizon. The state also includes the carrier&rsquo;s predicted displacement and the remaining flight time. The replay below compares the SAC policy with MINCO planning on the same recorded 60&nbsp;s flight. In this example, the SAC policy reaches 64.2% coverage with 2,468&deg; of cumulative gimbal rotation; MINCO planning reaches 58.1% with 4,821&deg;.</p>
+              <p class="lang-zh">为使策略能够考虑载体运动和云台响应，观测中加入当前及未来 1、2、4 秒的可见性增益图。对每个偏航&ndash;俯仰候选方向，图中记录的是：若在相应时间范围内保持该方向，当前地图中有多少尚未着色的已知体素可被相机观测。状态还包含载体的预测位移和剩余航程。下面的可视化在同一段 60 秒录制航迹上回放 SAC 策略与 MINCO 规划。在这个案例中，SAC 策略以 2,468&deg; 的累计云台转角达到 64.2% 的着色覆盖率；MINCO 规划则以 4,821&deg; 达到 58.1%。</p>
+            </div>
+
+            <div class="future-stats">
+              <div class="future-stat">
+                <span class="fs-label"><span class="lang-en">Color coverage</span><span class="lang-zh">着色覆盖率</span></span>
+                <span class="fs-value">64.2<small>%</small></span>
+                <span class="fs-vs">MINCO 58.1% &rarr; <strong>+6.1 pp</strong></span>
+              </div>
+              <div class="future-stat">
+                <span class="fs-label"><span class="lang-en">Gimbal rotation</span><span class="lang-zh">累计云台转角</span></span>
+                <span class="fs-value">2468&deg;</span>
+                <span class="fs-vs">MINCO 4821&deg; &rarr; <strong>&minus;49%</strong></span>
+              </div>
+              <div class="future-stat">
+                <span class="fs-label"><span class="lang-en">Colored voxels / degree</span><span class="lang-zh">每度着色体素</span></span>
+                <span class="fs-value">12.0</span>
+                <span class="fs-vs">MINCO 5.6 &rarr; <strong>2.2&times;</strong></span>
+              </div>
+              <div class="future-stat">
+                <span class="fs-label"><span class="lang-en">Samples at rate limit</span><span class="lang-zh">限速采样占比</span></span>
+                <span class="fs-value">0<small>%</small></span>
+                <span class="fs-vs"><span class="lang-en">MINCO 13.8% at 100&nbsp;&deg;/s</span><span class="lang-zh">MINCO 13.8%（上限 100&nbsp;&deg;/s）</span></span>
+              </div>
+            </div>
+
+            <div class="gp-demo" id="gimbal-demo"
+                 data-src="/assets/project-page/demo/aiog/" data-version="2">
+
+              <div class="gp-status" id="gp-status">
+                <span class="lang-en">Loading the replay&hellip;</span>
+                <span class="lang-zh">正在加载回放&hellip;</span>
+              </div>
+
+              <div class="gp-transport">
+                <button type="button" class="gp-play" id="gp-play" aria-label="Pause">&#10074;&#10074;</button>
+                <input type="range" class="gp-seek" id="gp-seek" min="0" max="1000" value="0" step="1"
+                       aria-label="Seek">
+                <span class="gp-time" id="gp-time">t = 0.0 s</span>
+                <select id="gp-speed" aria-label="Playback speed">
+                  <option value="1">1&times;</option>
+                  <option value="2">2&times;</option>
+                  <option value="4">4&times;</option>
+                </select>
+              </div>
+
+              <div class="gp-lanes">
+                <div class="gp-lane">
+                  <div class="gp-lane-head">
+                    <span class="gp-swatch" style="background:#94a3b8"></span>
+                    <span class="gp-lane-name"><span class="lang-en">MINCO planning</span><span class="lang-zh">MINCO 规划</span></span>
+                    <span class="gp-lane-sub"><span class="lang-en">uses the current visibility map</span><span class="lang-zh">使用当前可见性图</span></span>
+                  </div>
+                  <div class="gp-scene"><canvas class="gp-scene-cv" id="gp-scene-plan"></canvas></div>
+                  <div class="gp-band"><canvas class="gp-band-cv" id="gp-band-plan"></canvas></div>
+                  <div class="gp-readout">
+                    <div>
+                      <span class="gp-ro-lab"><span class="lang-en">Coverage</span><span class="lang-zh">着色率</span></span>
+                      <span class="gp-ro-val" id="gp-cov-plan" style="color:#64748b">&mdash;</span>
+                    </div>
+                    <div>
+                      <span class="gp-ro-lab"><span class="lang-en">Gimbal travel</span><span class="lang-zh">云台行程</span></span>
+                      <span class="gp-ro-val" id="gp-tra-plan" style="color:#64748b">&mdash;</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gp-lane">
+                  <div class="gp-lane-head">
+                    <span class="gp-swatch" style="background:#2563eb"></span>
+                    <span class="gp-lane-name"><span class="lang-en">SAC policy</span><span class="lang-zh">SAC 策略</span></span>
+                    <span class="gp-lane-sub"><span class="lang-en">uses visibility at 0 / 1 / 2 / 4 s</span><span class="lang-zh">使用 0 / 1 / 2 / 4 秒可见性图</span></span>
+                  </div>
+                  <div class="gp-scene"><canvas class="gp-scene-cv" id="gp-scene-sac"></canvas></div>
+                  <div class="gp-band"><canvas class="gp-band-cv" id="gp-band-sac"></canvas></div>
+                  <div class="gp-readout">
+                    <div>
+                      <span class="gp-ro-lab"><span class="lang-en">Coverage</span><span class="lang-zh">着色率</span></span>
+                      <span class="gp-ro-val" id="gp-cov-sac" style="color:#2563eb">&mdash;</span>
+                    </div>
+                    <div>
+                      <span class="gp-ro-lab"><span class="lang-en">Gimbal travel</span><span class="lang-zh">云台行程</span></span>
+                      <span class="gp-ro-val" id="gp-tra-sac" style="color:#2563eb">&mdash;</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gp-charts">
+                <div class="gp-chart">
+                  <h4><span class="lang-en">Coverage over time</span><span class="lang-zh">着色率随时间</span></h4>
+                  <div class="gp-legend">
+                    <span><i class="gp-k-plan"></i><span class="lang-en">MINCO planning</span><span class="lang-zh">MINCO 规划</span></span>
+                    <span><i class="gp-k-sac"></i><span class="lang-en">SAC policy</span><span class="lang-zh">SAC 策略</span></span>
+                    <span><i class="gp-k-ref"></i><span class="lang-en">omnidirectional ceiling</span><span class="lang-zh">全向相机上限</span></span>
+                  </div>
+                  <canvas class="gp-chart-cv" id="gp-chart-cov"></canvas>
+                </div>
+                <div class="gp-chart">
+                  <h4><span class="lang-en">Cumulative gimbal travel</span><span class="lang-zh">累计云台行程</span></h4>
+                  <div class="gp-legend">
+                    <span><i class="gp-k-plan"></i><span class="lang-en">MINCO planning</span><span class="lang-zh">MINCO 规划</span></span>
+                    <span><i class="gp-k-sac"></i><span class="lang-en">SAC policy</span><span class="lang-zh">SAC 策略</span></span>
+                  </div>
+                  <canvas class="gp-chart-cv" id="gp-chart-travel"></canvas>
+                </div>
+              </div>
+
+              <p class="gp-foot">
+                <span class="lang-en"><b>Grey voxels have been mapped by LiDAR; blue voxels have also been observed by the camera.</b> The time at which each voxel turns blue is read directly from the recorded pipeline output. The amber line is the flight path, the black arrow shows the vehicle heading, and the violet frustum shows the camera&rsquo;s 81&deg;&times;63&deg; field of view up to the 15&nbsp;m coloring range. The strip below records the gimbal direction relative to the vehicle heading. Both methods replay the same flight and the same 46,637 mapped voxels; only the gimbal commands differ.</span>
+                <span class="lang-zh"><b>灰色体素表示激光雷达已完成建图，蓝色体素表示该区域也被相机观测到。</b>每个体素变蓝的时刻直接读取自系统回放结果。琥珀色曲线为飞行轨迹，黑色箭头表示机头朝向，紫色视锥表示相机 81&deg;&times;63&deg; 的视场及 15 米着色距离。下方条带记录云台相对机头的朝向。两种方法回放同一段飞行，使用相同的 46,637 个地图体素，区别仅在于云台控制指令。</span>
+              </p>
+            </div>
+
+            <div class="content">
+              <ul class="highlights lang-en">
+                <li><strong>Observation design.</strong> Four visibility maps summarize the currently known, uncolored surfaces that can be observed over horizons of 0, 1, 2 and 4&nbsp;s.</li>
+                <li><strong>Control and reward.</strong> The SAC policy maps the observation directly to two-axis angular acceleration, with newly colored voxels as the training reward.</li>
+                <li><strong>Gimbal motion in this replay.</strong> The SAC policy covers a 134&deg; yaw range at an average of 22.8&nbsp;&deg;/s, compared with 248&deg; and 58.8&nbsp;&deg;/s for MINCO planning; none of its samples reaches the rate limit.</li>
+                <li><strong>Coloring delay.</strong> The SAC policy colors 36.4% of its voxels within 1&nbsp;s after they are mapped, compared with 22.4% for MINCO planning. The shares colored after 4&nbsp;s are 15.4% and 33.3%, respectively.</li>
+              </ul>
+              <ul class="highlights lang-zh">
+                <li><strong>观测设计。</strong>四张可见性图分别汇总当前及未来 1、2、4 秒内可被观测的已知未着色表面。</li>
+                <li><strong>控制与奖励。</strong>SAC 策略根据观测直接输出两轴角加速度，并以新增着色体素数作为训练奖励。</li>
+                <li><strong>该段回放中的云台运动。</strong>SAC 策略的偏航范围为 134&deg;，平均偏航角速度为 22.8&nbsp;&deg;/s；MINCO 规划分别为 248&deg; 和 58.8&nbsp;&deg;/s。SAC 策略没有出现达到角速度上限的采样。</li>
+                <li><strong>着色延迟。</strong>SAC 策略有 36.4% 的体素在建图后 1 秒内完成着色，MINCO 规划为 22.4%；超过 4 秒才着色的比例则分别为 15.4% 和 33.3%。</li>
+              </ul>
+
             </div>
           </div>
         </div>
